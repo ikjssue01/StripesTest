@@ -6,33 +6,30 @@
     http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-2.5.xsd">
-    <context:annotation-config/>
-    <context:component-scan base-package="wcpackage"/>
-    <tx:annotation-driven transaction-manager="transactionManager"/>
- 
-    <bean
-        class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
- 
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-          p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"/>
- 
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
-          p:entityManagerFactory-ref="entityManagerFactory"/>
- 
-    <bean id="entityManagerFactory"
-          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-          p:dataSource-ref="dataSource"
-          p:jpaVendorAdapter-ref="jpaAdapter">
-        <property name="loadTimeWeaver">
-            <bean
-                class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
-        </property>
-        <property name="persistenceUnitName" value="wctemplatePU"></property>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          p:driverClassName="com.mysql.jdbc.Driver" p:url="jdbc:mysql://localhost/test"
+          p:username="root" p:password="" p:initialSize="5" p:maxActive="10">
     </bean>
  
-    <bean id="jpaAdapter"
-          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
-          p:database="${jpa.database}"
-          p:showSql="${jpa.showSql}"/>
+    <bean
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        id="entityManagerFactory">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+ 
+    <context:component-scan base-package="com.hopcroft.examples.dao">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Repository" />
+    </context:component-scan>
+ 
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager"
+          id="transactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+ 
+    <tx:annotation-driven mode="aspectj"
+                          transaction-manager="transactionManager" />
+ 
+    <context:spring-configured />
+    <context:annotation-config />
 </beans>
