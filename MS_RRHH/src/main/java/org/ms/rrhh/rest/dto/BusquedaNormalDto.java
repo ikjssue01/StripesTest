@@ -3,20 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ms.rrhh.action.rest;
+package org.ms.rrhh.rest.dto;
 
 import java.util.Date;
-import net.sourceforge.stripes.action.RestActionBean;
-import net.sourceforge.stripes.action.UrlBinding;
 import org.ms.rrhh.domain.model.utils.Pueblo;
 
 /**
  *
- * @author edcracken
+ * @author eliud
  */
-@RestActionBean
-@UrlBinding("/busqueda")
-public class Busqueda {
+public class BusquedaNormalDto {
 
     private String primerNombre;
     private String segundoNombre;
@@ -117,5 +113,6 @@ public class Busqueda {
     public void setPueblo(Pueblo pueblo) {
         this.pueblo = pueblo;
     }
-
+    
+    
 }

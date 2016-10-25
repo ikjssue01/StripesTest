@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(catalog = "rrhh", schema = "public")
+@Table(name="persona",catalog = "rrhh", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p")})
 public class Persona implements Serializable {
@@ -44,7 +44,7 @@ public class Persona implements Serializable {
     private String segundoNombre;
     @Column(name = "tercer_nombre", length = 100)
     private String tercerNombre;
-    @Column(name = "otros_nombres", length = 2147483647)
+    @Column(name = "otros_nombres", length = 5000)
     private String otrosNombres;
     @Basic(optional = false)
     @Column(name = "primer_apellido", nullable = false, length = 100)
@@ -53,7 +53,7 @@ public class Persona implements Serializable {
     private String segundoApellido;
     @Column(name = "tercer_apellido", length = 100)
     private String tercerApellido;
-    @Column(name = "otros_apellidos", length = 2147483647)
+    @Column(name = "otros_apellidos", length = 5000)
     private String otrosApellidos;
     @Column(name = "apellido_casada", length = 100)
     private String apellidoCasada;
@@ -65,7 +65,7 @@ public class Persona implements Serializable {
     private String nacionalidad;
     @Column(length = 50)
     private String profesion;
-    @Column(name = "limitaciones_fisicas", length = 2147483647)
+    @Column(name = "limitaciones_fisicas", length = 5000)
     private String limitacionesFisicas;
     @Column(name = "sabe_leer")
     private Boolean sabeLeer;
@@ -85,9 +85,9 @@ public class Persona implements Serializable {
     private Integer fkPueblo;
     @Column(name = "fk_comunidad_linguistica")
     private Integer fkComunidadLinguistica;
-    @Column(length = 2147483647)
+    @Column(length = 5000)
     private String idiomas;
-    @Column(length = 2147483647)
+    @Column(length = 5000)
     private String mrz;
     @Column(name = "no_cedula", length = 50)
     private String noCedula;
