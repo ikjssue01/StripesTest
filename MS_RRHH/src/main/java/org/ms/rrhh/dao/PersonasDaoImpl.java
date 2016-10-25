@@ -35,7 +35,7 @@ public class PersonasDaoImpl implements PersonasDao {
     @Transactional
     @Override
     public List<Persona> getAll() throws DataAccessException {
-        Query query = getEntityManager().createQuery("select c from Car c");
+        Query query = getEntityManager().createQuery("select c from Persona c");
         List<Persona> resultList = query.getResultList();
         return resultList;
     }
