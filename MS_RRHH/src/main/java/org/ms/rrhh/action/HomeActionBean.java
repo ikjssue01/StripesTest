@@ -13,19 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. * 
  */
-
 package org.ms.rrhh.action;
 
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
+import net.sourceforge.stripes.integration.spring.SpringBean;
+import org.ms.rrhh.services.IPersonaService;
 
 @UrlBinding("/Home.htm")
 public class HomeActionBean extends BaseActionBean {
 
+    @SpringBean
+    private IPersonaService personasService;
+
     @DefaultHandler
     public Resolution view() {
+        System.out.println(">>" + personasService.getPersonas().size());
         return new ForwardResolution("/WEB-INF/jsp/home.jsp");
     }
 
