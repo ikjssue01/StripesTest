@@ -5,6 +5,7 @@
  */
 package org.ms.rrhh.rest.home.controllers;
 
+import java.util.Arrays;
 import java.util.List;
 import org.ms.rrhh.rest.dto.BusquedaAvanzadaDto;
 import org.ms.rrhh.rest.dto.PersonaDto;
@@ -25,7 +26,7 @@ public class BusquedaAvanzada {
     @RequestMapping(value = "/avanzada", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public @ResponseBody
     List<PersonaDto> getPersonas(@RequestBody BusquedaAvanzadaDto busqueda) {
-        return null;
+        return Arrays.asList(new PersonaDto("edcracken"));
     }
 
 }

@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("personas")
 public class Buscar {
 
-    @RequestMapping("/{cui}")
+    @RequestMapping(value = "/{cui}", headers = "Content-Type=application/json")
     public @ResponseBody
     PersonaDto getPersona(@PathVariable("cui") String cui) {
-        return null;
+        return new PersonaDto("edcracken");
     }
 }

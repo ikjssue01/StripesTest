@@ -5,8 +5,6 @@
  */
 package org.ms.rrhh.rest.roles.controllers;
 
-import org.ms.rrhh.rest.usuarios.controllers.*;
-import org.ms.rrhh.rest.personas.controllers.*;
 import org.ms.rrhh.rest.dto.PersonaDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,13 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author edcracken
  */
-@Controller
-@RequestMapping("personas")
-public class Buscar {
+@Controller("getRole")
+@RequestMapping("roles")
+public class BuscarRole {
 
-    @RequestMapping("/{cui}")
+    @RequestMapping("/{id}")
     public @ResponseBody
-    PersonaDto getPersona(@PathVariable("cui") String cui) {
+    PersonaDto getRole(@PathVariable("id") Integer id) {
         return null;
     }
 }

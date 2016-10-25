@@ -7,21 +7,20 @@ package org.ms.rrhh.rest.usuarios.controllers;
 
 import org.ms.rrhh.rest.dto.PersonaDto;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author edcracken
+ * @author eliud
  */
-@Controller("rolesuBuscar")
-@RequestMapping("roles")
-public class Buscar {
+@Controller("usuariosCrear")
+@RequestMapping("usuarios")
+public class CrearUsuario {
 
-    @RequestMapping("/{id}")
-    public @ResponseBody
-    PersonaDto getPersona(@PathVariable("cui") String cui) {
-        return null;
+    @RequestMapping(value = "/", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    public void crear(@RequestBody PersonaDto persona) {
+
     }
 }

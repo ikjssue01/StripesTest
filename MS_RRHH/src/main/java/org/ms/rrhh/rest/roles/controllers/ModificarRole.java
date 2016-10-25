@@ -3,23 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ms.rrhh.rest.usuarios.controllers;
+package org.ms.rrhh.rest.roles.controllers;
 
 import org.ms.rrhh.rest.dto.PersonaDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
  * @author eliud
  */
-@Controller
-@RequestMapping("personas")
-public class Modificar {
+@Controller("modificarRole")
+@RequestMapping("roles")
+public class ModificarRole {
 
-    @RequestMapping("/")
-    public void crear(@RequestBody PersonaDto persona) {
+    @RequestMapping(value = "/", method = RequestMethod.PUT, headers = "Content-Type=application/json")
+    public void modificar(@RequestBody PersonaDto persona) {
 
     }
 }

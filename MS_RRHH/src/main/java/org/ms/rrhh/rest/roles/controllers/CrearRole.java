@@ -5,23 +5,22 @@
  */
 package org.ms.rrhh.rest.roles.controllers;
 
-import org.ms.rrhh.rest.usuarios.controllers.*;
-import org.ms.rrhh.rest.personas.controllers.*;
 import org.ms.rrhh.rest.dto.PersonaDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
  * @author eliud
  */
-@Controller
-@RequestMapping("personas")
-public class Crear {
+@Controller("crearRole")
+@RequestMapping("roles")
+public class CrearRole {
 
-    @RequestMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public void crear(@RequestBody PersonaDto persona) {
-        
+
     }
 }
