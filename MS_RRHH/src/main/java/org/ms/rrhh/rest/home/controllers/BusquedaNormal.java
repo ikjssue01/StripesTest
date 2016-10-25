@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ms.rrhh.rest.home;
+package org.ms.rrhh.rest.home.controllers;
 
 import java.util.List;
 import org.ms.rrhh.domain.model.Persona;

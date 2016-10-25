@@ -3,27 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ms.rrhh.rest.catalogs;
+package org.ms.rrhh.rest.roles.controllers;
 
-import java.util.List;
+import org.ms.rrhh.rest.usuarios.controllers.*;
+import org.ms.rrhh.rest.personas.controllers.*;
+import org.ms.rrhh.rest.dto.PersonaDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
- * @author eliud
+ * @author edcracken
  */
-@Controller("catalogos")
-public class Catalogos {
+@Controller
+@RequestMapping("personas")
+public class Buscar {
 
-    @RequestMapping(value = "/{tipo}", headers = "Content-Type=application/json")
+    @RequestMapping("/{cui}")
     public @ResponseBody
-    List getCatalogo(@PathVariable("tipo") Integer tipo,
-            @RequestParam(value = "padre", required = false) Integer idPadre) {
+    PersonaDto getPersona(@PathVariable("cui") String cui) {
         return null;
     }
-
 }

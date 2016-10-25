@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ms.rrhh.rest.home;
+package org.ms.rrhh.rest.personas.controllers;
 
-import java.util.List;
-import org.ms.rrhh.rest.dto.BusquedaAvanzadaDto;
 import org.ms.rrhh.rest.dto.PersonaDto;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -19,13 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author edcracken
  */
 @Controller
-@RequestMapping("/busqueda")
-public class BusquedaAvanzada {
+@RequestMapping("personas")
+public class Buscar {
 
-    @RequestMapping(value = "/avanzada", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    @RequestMapping("/{cui}")
     public @ResponseBody
-    List<PersonaDto> getPersonas(@RequestBody BusquedaAvanzadaDto busqueda) {
+    PersonaDto getPersona(@PathVariable("cui") String cui) {
         return null;
     }
-
 }

@@ -3,21 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ms.rrhh.rest.catalogs;
+package org.ms.rrhh.rest.usuarios.controllers;
 
-import java.util.List;
+import org.ms.rrhh.rest.dto.PersonaDto;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
  * @author eliud
  */
-@Controller
-public class CatUnidadesEjecutoras {
+@Controller("rolesCrear")
+@RequestMapping("roles")
+public class Crear {
 
-    @RequestMapping(value = "/unidades-ejecutoras")
-    public List getUnidadesEjecutoras() {
-        return null;
+    @RequestMapping("/")
+    public void crear(@RequestBody PersonaDto persona) {
+        
     }
 }
