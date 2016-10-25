@@ -10,8 +10,8 @@
     <!--  tell spring to use annotation based congfigurations -->
     <context:annotation-config />
     <!--  tell spring where to find the beans -->
-    <context:component-scan base-package="org.ms.rrhh" />
-    
+    <context:component-scan base-package="org.ms" />
+    <!--<context:component-scan />-->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="ms_rrhh" />
     </bean>

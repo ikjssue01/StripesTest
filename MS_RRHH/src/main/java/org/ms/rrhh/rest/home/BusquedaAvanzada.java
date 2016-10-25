@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author edcracken
  */
 @Controller
-@RequestMapping("busqueda")
+@RequestMapping("/busqueda")
 public class BusquedaAvanzada {
 
     @RequestMapping(value = "/avanzada", method = RequestMethod.POST, headers = "Content-Type=application/json")
