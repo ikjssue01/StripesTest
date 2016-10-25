@@ -14,18 +14,26 @@
  * limitations under the License. * 
  */
 
-package org.ms.rrhh;
+package org.ms.rrhh.action;
 
-import net.sourceforge.stripes.action.ActionBean;
-import net.sourceforge.stripes.action.ActionBeanContext;
+import net.sourceforge.stripes.action.DefaultHandler;
+import net.sourceforge.stripes.action.ForwardResolution;
+import net.sourceforge.stripes.action.Resolution;
+import net.sourceforge.stripes.action.UrlBinding;
 
-public class BaseActionBean implements ActionBean {
-    private ActionBeanContext context;
+@UrlBinding("/Home.htm")
+public class HomeActionBean extends BaseActionBean {
 
-    public ActionBeanContext getContext() {
-        return context;
+    @DefaultHandler
+    public Resolution view() {
+        return new ForwardResolution("/WEB-INF/jsp/home.jsp");
     }
-    public void setContext(ActionBeanContext context) {
-        this.context = context;
+
+    public String getJavaVersion() {
+        return System.getProperty("java.version");
+    }
+
+    public String getOsName() {
+        return System.getProperty("os.name");
     }
 }
