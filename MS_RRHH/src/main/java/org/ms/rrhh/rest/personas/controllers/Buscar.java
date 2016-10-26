@@ -7,8 +7,9 @@ package org.ms.rrhh.rest.personas.controllers;
 
 import org.ms.rrhh.rest.dto.PersonaDto;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -19,9 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("personas")
 public class Buscar {
 
-    @RequestMapping(value = "/{cui}", headers = "Content-Type=application/json")
+    @RequestMapping(value = "/", method = RequestMethod.GET, headers = "Content-Type=application/json")
     public @ResponseBody
-    PersonaDto getPersona(@PathVariable("cui") String cui) {
+    PersonaDto getPersona(@RequestParam("cui") String cui) {
         return new PersonaDto("edcracken");
     }
 }

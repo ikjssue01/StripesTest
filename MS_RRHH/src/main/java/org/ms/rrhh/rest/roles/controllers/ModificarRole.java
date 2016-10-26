@@ -7,6 +7,7 @@ package org.ms.rrhh.rest.roles.controllers;
 
 import org.ms.rrhh.rest.dto.PersonaDto;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("roles")
 public class ModificarRole {
 
-    @RequestMapping(value = "/", method = RequestMethod.PUT, headers = "Content-Type=application/json")
-    public void modificar(@RequestBody PersonaDto persona) {
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
+    public void modificar(@PathVariable("id") Integer id, @RequestBody PersonaDto persona) {
 
     }
 }
