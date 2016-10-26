@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("roles")
 public class CrearRole {
 
-    @RequestMapping(value = "/", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/crea", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public void crear(@RequestBody PersonaDto persona) {
 
     }

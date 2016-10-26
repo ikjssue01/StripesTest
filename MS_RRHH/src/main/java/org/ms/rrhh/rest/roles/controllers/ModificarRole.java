@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("roles")
 public class ModificarRole {
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/mod/{id}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
     public void modificar(@PathVariable("id") Integer id, @RequestBody PersonaDto persona) {
 
     }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("roles")
 public class BuscarRole {
 
-    @RequestMapping("/{id}")
+    @RequestMapping("/get/{id}")
     public @ResponseBody
     PersonaDto getRole(@PathVariable("id") Integer id) {
         return null;

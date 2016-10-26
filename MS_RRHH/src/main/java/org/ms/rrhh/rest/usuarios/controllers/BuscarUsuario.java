@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("usuarios")
 public class BuscarUsuario {
 
-    @RequestMapping("/{id}")
+    @RequestMapping("/get/{id}")
     public @ResponseBody
     PersonaDto getUsuario(@PathVariable("id") String cui) {
         return null;

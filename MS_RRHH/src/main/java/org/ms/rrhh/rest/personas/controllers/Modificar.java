@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("personas")
 public class Modificar {
 
-    @RequestMapping(value = "/{cui}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/mod/{cui}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
     public void modificar(@PathVariable("cui") String cui, @RequestBody PersonaDto persona) {
 
     }
