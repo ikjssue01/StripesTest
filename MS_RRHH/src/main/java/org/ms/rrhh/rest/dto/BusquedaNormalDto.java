@@ -7,6 +7,7 @@ package org.ms.rrhh.rest.dto;
 
 import java.util.Date;
 import org.ms.rrhh.domain.utils.Pueblo;
+import org.ms.rrhh.domain.utils.Sexo;
 
 /**
  *
@@ -17,7 +18,8 @@ public class BusquedaNormalDto {
     private String primerNombre;
     private String segundoNombre;
     private String primerApellido;
-    private String sexo;
+    private String segundoApellido;
+    private Sexo sexo;
     private Date fechaNacInicio;
     private Date fechaNacFin;
     private Integer edad;
@@ -25,6 +27,14 @@ public class BusquedaNormalDto {
     private Integer municipio;
     private String direccion;
     private Pueblo pueblo;
+
+    public String getSegundoApellido() {
+        return segundoApellido;
+    }
+
+    public void setSegundoApellido(String segundoApellido) {
+        this.segundoApellido = segundoApellido;
+    }
 
     public String getPrimerNombre() {
         return primerNombre;
@@ -50,11 +60,11 @@ public class BusquedaNormalDto {
         this.primerApellido = primerApellido;
     }
 
-    public String getSexo() {
+    public Sexo getSexo() {
         return sexo;
     }
 
-    public void setSexo(String sexo) {
+    public void setSexo(Sexo sexo) {
         this.sexo = sexo;
     }
 
@@ -113,6 +123,5 @@ public class BusquedaNormalDto {
     public void setPueblo(Pueblo pueblo) {
         this.pueblo = pueblo;
     }
-    
-    
+
 }
