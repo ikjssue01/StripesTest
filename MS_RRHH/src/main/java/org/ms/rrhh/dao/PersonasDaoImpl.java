@@ -140,6 +140,11 @@ public class PersonasDaoImpl implements PersonasDao {
         return getEntityManager().find(Persona.class, carId);
     }
 
+    /**
+     *
+     * @param tipo
+     * @return
+     */
     private Class getClassTipo(TipoCampoBusqueda tipo) {
         if (tipo.equals(TipoCampoBusqueda.CARACTER)) {
             return String.class;
@@ -153,6 +158,12 @@ public class PersonasDaoImpl implements PersonasDao {
         return Object.class;
     }
 
+    /**
+     *
+     * @param clazz
+     * @param value
+     * @return
+     */
     public Object getValueByClass(Class clazz, String value) {
 
         SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
@@ -170,6 +181,14 @@ public class PersonasDaoImpl implements PersonasDao {
         return value;
     }
 
+    /**
+     *
+     * @param ex
+     * @param clazz
+     * @param value1
+     * @param value2
+     * @return
+     */
     public Predicate getPredicateBetweenByClass(Expression<?> ex, Class clazz, String value1, String value2) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
@@ -185,6 +204,12 @@ public class PersonasDaoImpl implements PersonasDao {
 
     }
 
+    /**
+     *
+     * @param normal
+     * @return
+     * @throws DataAccessException
+     */
     @Override
     public List<Persona> busquedaAvanzada(BusquedaAvanzadaDto normal) throws DataAccessException {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();

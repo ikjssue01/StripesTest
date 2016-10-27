@@ -11,10 +11,9 @@ package org.ms.rrhh.domain.enums;
  */
 public enum TipoCampoBusqueda {
 
-    IGUAL("igual"),
-    DIFERENTE("diferente"),
-    TODOS("todos"),
-    ENTRE("entre");
+    FECHA("fecha"),
+    NUMERO("numero"),
+    CARACTER("caracter");
 
     private String value;
 
