@@ -7,6 +7,7 @@ package org.ms.rrhh.rest.home.controllers;
 
 import java.util.Arrays;
 import java.util.List;
+import org.ms.rrhh.api.AbstractRequestHandler;
 import org.ms.rrhh.rest.dto.BusquedaAvanzadaDto;
 import org.ms.rrhh.rest.dto.PersonaDto;
 import org.springframework.stereotype.Controller;
@@ -21,11 +22,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/busqueda")
-public class BusquedaAvanzada {
+public class BusquedaAvanzada extends AbstractRequestHandler<BusquedaAvanzadaDto, List<PersonaDto>> {
 
     @RequestMapping(value = "/avanzada", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public @ResponseBody
     List<PersonaDto> getPersonas(@RequestBody BusquedaAvanzadaDto busqueda) {
+        return this.handle(busqueda);
+    }
+
+    @Override
+    public List<PersonaDto> execute(BusquedaAvanzadaDto request) {
         return Arrays.asList(new PersonaDto("edcracken"));
     }
 
