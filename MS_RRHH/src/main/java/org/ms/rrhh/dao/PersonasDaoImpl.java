@@ -5,6 +5,7 @@
  */
 package org.ms.rrhh.dao;
 
+import org.ms.rrhh.api.BaseDaoImpl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author edcracken
  */
 @Repository
-public class PersonasDaoImpl extends BaseDao<Persona> implements PersonasDao {
+public class PersonasDaoImpl extends BaseDaoImpl<Persona> implements PersonasDao {
 
     @Transactional
     @Override

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ms.rrhh.dao;
+package org.ms.rrhh.api;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author eliud
  * @param <T>
  */
-public class BaseDao<T> {
+public class BaseDaoImpl<T> {
 
     protected EntityManager entityManager;
 
@@ -32,17 +32,17 @@ public class BaseDao<T> {
     }
 
     @Transactional
-    public void save(T entity) {
+    public void save(T entity) throws DataAccessException {
         entityManager.persist(entity);
     }
 
     @Transactional
-    public void update(T entity) {
+    public void update(T entity) throws DataAccessException {
         entityManager.merge(entity);
     }
 
     @Transactional
-    public void delete(T entity) {
+    public void delete(T entity) throws DataAccessException {
         entityManager.remove(entity);
     }
 
