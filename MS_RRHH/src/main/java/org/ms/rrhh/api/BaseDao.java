@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 /**
  *
  * @author eliud
+ * @param <T>
  */
 public interface BaseDao<T> {
 

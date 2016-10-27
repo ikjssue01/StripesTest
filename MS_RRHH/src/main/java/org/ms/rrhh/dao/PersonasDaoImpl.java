@@ -21,6 +21,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.EntityType;
+import org.ms.rrhh.api.dao.impl.CrudRepositoryImpl;
 import org.ms.rrhh.domain.enums.ComparadorBusqueda;
 import org.ms.rrhh.domain.enums.TipoCampoBusqueda;
 import org.ms.rrhh.domain.model.LugarResidencia;
@@ -37,7 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author edcracken
  */
 @Repository
-public class PersonasDaoImpl extends BaseDaoImpl<Persona> implements PersonasDao {
+public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements PersonasDao {
 
     @Transactional
     @Override
