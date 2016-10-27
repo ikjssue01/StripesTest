@@ -136,8 +136,8 @@ public class PersonasDaoImpl implements PersonasDao {
 
     @Transactional
     @Override
-    public Persona getOne(Long carId) throws DataAccessException {
-        return getEntityManager().find(Persona.class, carId);
+    public Persona getOne(String cui) throws DataAccessException {
+        return getEntityManager().find(Persona.class, cui);
     }
 
     /**

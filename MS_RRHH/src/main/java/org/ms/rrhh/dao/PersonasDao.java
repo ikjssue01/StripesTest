@@ -19,7 +19,7 @@ public interface PersonasDao {
 
     public List<Persona> getAll() throws DataAccessException;
 
-    public Persona getOne(Long carId) throws DataAccessException;
+    public Persona getOne(String carId) throws DataAccessException;
 
     public List<Persona> busquedaNormal(BusquedaNormalDto normal) throws DataAccessException;
 
