@@ -23,10 +23,8 @@ import javax.persistence.TemporalType;
  *
  * @author edcracken
  */
-@Entity
-@Table( schema = "public", name = "persona")
-@NamedQueries({
-    @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p")})
+@Entity(name = "persona")
+@Table(schema = "public", name = "persona")
 public class Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,14 +37,14 @@ public class Persona implements Serializable {
     private String primerNombre;
     @Column(name = "segundo_nombre", length = 100)
     private String segundoNombre;
-    @Column(name = "otros_nombres", length = 2147483647)
+    @Column(name = "otros_nombres")
     private String otrosNombres;
     @Basic(optional = false)
     @Column(name = "primer_apellido", nullable = false, length = 100)
     private String primerApellido;
     @Column(name = "segundo_apellido", length = 100)
     private String segundoApellido;
-    @Column(name = "otros_apellidos", length = 2147483647)
+    @Column(name = "otros_apellidos")
     private String otrosApellidos;
     @Column(name = "apellido_casada", length = 100)
     private String apellidoCasada;
@@ -60,7 +58,7 @@ public class Persona implements Serializable {
     @Basic(optional = false)
     @Column(name = "fk_profesion", nullable = false)
     private int fkProfesion;
-    @Column(name = "limitaciones_fisicas", length = 2147483647)
+    @Column(name = "limitaciones_fisicas")
     private String limitacionesFisicas;
     @Column(name = "sabe_leer")
     private Boolean sabeLeer;
