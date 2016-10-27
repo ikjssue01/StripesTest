@@ -5,9 +5,11 @@
  */
 package org.ms.rrhh.rest.home.controllers;
 
+import java.util.Arrays;
 import java.util.List;
-import org.ms.rrhh.domain.model.Persona;
+import org.ms.rrhh.api.AbstractRequestHandler;
 import org.ms.rrhh.rest.dto.BusquedaNormalDto;
+import org.ms.rrhh.rest.dto.PersonaDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +22,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("busqueda")
-public class BusquedaNormal {
+public class BusquedaNormal extends AbstractRequestHandler<BusquedaNormalDto, List<PersonaDto>> {
 
     @RequestMapping(value = "/normal", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public @ResponseBody
-    List<Persona> getPersonas(@RequestBody BusquedaNormalDto busqueda) {
+    List<PersonaDto> getPersonas(@RequestBody BusquedaNormalDto busqueda) {
         return null;
+    }
+
+    @Override
+    public List<PersonaDto> execute(BusquedaNormalDto request) {
+        return Arrays.asList(new PersonaDto("edcracken"));
     }
 
 }

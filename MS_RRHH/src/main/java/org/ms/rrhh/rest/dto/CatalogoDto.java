@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ms.rrhh.api;
+package org.ms.rrhh.rest.dto;
 
 /**
  *
  * @author edcracken
  */
-public interface IRequest {
+public class CatalogoDto {
     
 }
