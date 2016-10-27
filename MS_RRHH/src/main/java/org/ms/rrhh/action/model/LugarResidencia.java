@@ -26,72 +26,75 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name = "estudio_salud", catalog = "rrhh", schema = "public")
+@Table(name = "lugar_residencia",   schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "EstudioSalud.findAll", query = "SELECT e FROM EstudioSalud e")})
-public class EstudioSalud implements Serializable {
+    @NamedQuery(name = "LugarResidencia.findAll", query = "SELECT l FROM LugarResidencia l")})
+public class LugarResidencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer codigo;
-    @Column(name = "anio_estudio")
-    private Integer anioEstudio;
-    @Column(name = "grado_actual", length = 50)
-    private String gradoActual;
+    private Integer id;
+    @Column(name = "fk_municipio")
+    private Integer fkMunicipio;
+    @Column(length = 50)
+    private String estado;
+    @Column(length = 2147483647)
+    private String direccion;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
     @Column(name = "creado_por", length = 50)
     private String creadoPor;
-    @Basic(optional = false)
-    @Column(name = "fecha_ultimo_cambio", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaUltimoCambio;
-    @Column(name = "ultimo_cambio_por", length = 50)
-    private String ultimoCambioPor;
     @JoinColumn(name = "fk_persona", referencedColumnName = "cui")
     @ManyToOne
     private Persona fkPersona;
 
-    public EstudioSalud() {
+    public LugarResidencia() {
     }
 
-    public EstudioSalud(Integer codigo) {
-        this.codigo = codigo;
+    public LugarResidencia(Integer id) {
+        this.id = id;
     }
 
-    public EstudioSalud(Integer codigo, Date fechaCreacion, Date fechaUltimoCambio) {
-        this.codigo = codigo;
+    public LugarResidencia(Integer id, Date fechaCreacion) {
+        this.id = id;
         this.fechaCreacion = fechaCreacion;
-        this.fechaUltimoCambio = fechaUltimoCambio;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getAnioEstudio() {
-        return anioEstudio;
+    public Integer getFkMunicipio() {
+        return fkMunicipio;
     }
 
-    public void setAnioEstudio(Integer anioEstudio) {
-        this.anioEstudio = anioEstudio;
+    public void setFkMunicipio(Integer fkMunicipio) {
+        this.fkMunicipio = fkMunicipio;
     }
 
-    public String getGradoActual() {
-        return gradoActual;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setGradoActual(String gradoActual) {
-        this.gradoActual = gradoActual;
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     public Date getFechaCreacion() {
@@ -110,22 +113,6 @@ public class EstudioSalud implements Serializable {
         this.creadoPor = creadoPor;
     }
 
-    public Date getFechaUltimoCambio() {
-        return fechaUltimoCambio;
-    }
-
-    public void setFechaUltimoCambio(Date fechaUltimoCambio) {
-        this.fechaUltimoCambio = fechaUltimoCambio;
-    }
-
-    public String getUltimoCambioPor() {
-        return ultimoCambioPor;
-    }
-
-    public void setUltimoCambioPor(String ultimoCambioPor) {
-        this.ultimoCambioPor = ultimoCambioPor;
-    }
-
     public Persona getFkPersona() {
         return fkPersona;
     }
@@ -137,18 +124,18 @@ public class EstudioSalud implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EstudioSalud)) {
+        if (!(object instanceof LugarResidencia)) {
             return false;
         }
-        EstudioSalud other = (EstudioSalud) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        LugarResidencia other = (LugarResidencia) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -156,7 +143,7 @@ public class EstudioSalud implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.EstudioSalud[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.LugarResidencia[ id=" + id + " ]";
     }
     
 }

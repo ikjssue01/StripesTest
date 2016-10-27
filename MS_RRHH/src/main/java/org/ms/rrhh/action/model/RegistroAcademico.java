@@ -26,52 +26,81 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name = "lugar_residencia", catalog = "rrhh", schema = "public")
+@Table(name = "registro_academico",  schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "LugarResidencia.findAll", query = "SELECT l FROM LugarResidencia l")})
-public class LugarResidencia implements Serializable {
+    @NamedQuery(name = "RegistroAcademico.findAll", query = "SELECT r FROM RegistroAcademico r")})
+public class RegistroAcademico implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer codigo;
+    private Integer id;
+    @Basic(optional = false)
+    @Column(name = "ultimo_grado", nullable = false)
+    private int ultimoGrado;
+    @Column(name = "estudia_actualmente")
+    private Boolean estudiaActualmente;
+    @Basic(optional = false)
+    @Column(name = "grado_actual", nullable = false)
+    private int gradoActual;
     @Column(length = 50)
     private String estado;
-    @Column(length = 2147483647)
-    private String direccion;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
     @Column(name = "creado_por", length = 50)
     private String creadoPor;
-    @JoinColumn(name = "fk_municipio", referencedColumnName = "codigo")
-    @ManyToOne
-    private Municipio fkMunicipio;
     @JoinColumn(name = "fk_persona", referencedColumnName = "cui")
     @ManyToOne
     private Persona fkPersona;
 
-    public LugarResidencia() {
+    public RegistroAcademico() {
     }
 
-    public LugarResidencia(Integer codigo) {
-        this.codigo = codigo;
+    public RegistroAcademico(Integer id) {
+        this.id = id;
     }
 
-    public LugarResidencia(Integer codigo, Date fechaCreacion) {
-        this.codigo = codigo;
+    public RegistroAcademico(Integer id, int ultimoGrado, int gradoActual, Date fechaCreacion) {
+        this.id = id;
+        this.ultimoGrado = ultimoGrado;
+        this.gradoActual = gradoActual;
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public int getUltimoGrado() {
+        return ultimoGrado;
+    }
+
+    public void setUltimoGrado(int ultimoGrado) {
+        this.ultimoGrado = ultimoGrado;
+    }
+
+    public Boolean getEstudiaActualmente() {
+        return estudiaActualmente;
+    }
+
+    public void setEstudiaActualmente(Boolean estudiaActualmente) {
+        this.estudiaActualmente = estudiaActualmente;
+    }
+
+    public int getGradoActual() {
+        return gradoActual;
+    }
+
+    public void setGradoActual(int gradoActual) {
+        this.gradoActual = gradoActual;
     }
 
     public String getEstado() {
@@ -80,14 +109,6 @@ public class LugarResidencia implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
     }
 
     public Date getFechaCreacion() {
@@ -106,14 +127,6 @@ public class LugarResidencia implements Serializable {
         this.creadoPor = creadoPor;
     }
 
-    public Municipio getFkMunicipio() {
-        return fkMunicipio;
-    }
-
-    public void setFkMunicipio(Municipio fkMunicipio) {
-        this.fkMunicipio = fkMunicipio;
-    }
-
     public Persona getFkPersona() {
         return fkPersona;
     }
@@ -125,18 +138,18 @@ public class LugarResidencia implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LugarResidencia)) {
+        if (!(object instanceof RegistroAcademico)) {
             return false;
         }
-        LugarResidencia other = (LugarResidencia) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        RegistroAcademico other = (RegistroAcademico) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -144,7 +157,7 @@ public class LugarResidencia implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.LugarResidencia[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.RegistroAcademico[ id=" + id + " ]";
     }
     
 }

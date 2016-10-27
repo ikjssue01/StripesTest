@@ -9,12 +9,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -27,7 +24,7 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name="persona",catalog = "rrhh", schema = "public")
+@Table( schema = "public", name = "persona")
 @NamedQueries({
     @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p")})
 public class Persona implements Serializable {
@@ -42,18 +39,14 @@ public class Persona implements Serializable {
     private String primerNombre;
     @Column(name = "segundo_nombre", length = 100)
     private String segundoNombre;
-    @Column(name = "tercer_nombre", length = 100)
-    private String tercerNombre;
-    @Column(name = "otros_nombres", length = 5000)
+    @Column(name = "otros_nombres", length = 2147483647)
     private String otrosNombres;
     @Basic(optional = false)
     @Column(name = "primer_apellido", nullable = false, length = 100)
     private String primerApellido;
     @Column(name = "segundo_apellido", length = 100)
     private String segundoApellido;
-    @Column(name = "tercer_apellido", length = 100)
-    private String tercerApellido;
-    @Column(name = "otros_apellidos", length = 5000)
+    @Column(name = "otros_apellidos", length = 2147483647)
     private String otrosApellidos;
     @Column(name = "apellido_casada", length = 100)
     private String apellidoCasada;
@@ -61,11 +54,13 @@ public class Persona implements Serializable {
     private String estadoCivil;
     @Column(length = 50)
     private String sexo;
-    @Column(length = 50)
-    private String nacionalidad;
-    @Column(length = 50)
-    private String profesion;
-    @Column(name = "limitaciones_fisicas", length = 5000)
+    @Basic(optional = false)
+    @Column(name = "fk_nacionalidad", nullable = false)
+    private int fkNacionalidad;
+    @Basic(optional = false)
+    @Column(name = "fk_profesion", nullable = false)
+    private int fkProfesion;
+    @Column(name = "limitaciones_fisicas", length = 2147483647)
     private String limitacionesFisicas;
     @Column(name = "sabe_leer")
     private Boolean sabeLeer;
@@ -75,28 +70,36 @@ public class Persona implements Serializable {
     @Column(name = "fecha_nacimiento", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaNacimiento;
+    @Column(name = "fk_municipio_nacimiento")
+    private Integer fkMunicipioNacimiento;
     @Column(name = "nac_no_libro", length = 50)
     private String nacNoLibro;
     @Column(name = "nac_no_folio", length = 50)
     private String nacNoFolio;
     @Column(name = "nac_no_partida", length = 50)
     private String nacNoPartida;
-    @Column(name = "fk_pueblo")
-    private Integer fkPueblo;
-    @Column(name = "fk_comunidad_linguistica")
-    private Integer fkComunidadLinguistica;
-    @Column(length = 5000)
-    private String idiomas;
-    @Column(length = 5000)
+    @Column(name = "fk_pueblo", length = 50)
+    private String fkPueblo;
+    @Column(name = "fk_comunidad_linguistica", length = 50)
+    private String fkComunidadLinguistica;
+    @Column(length = 2147483647)
     private String mrz;
     @Column(name = "no_cedula", length = 50)
     private String noCedula;
     @Column(length = 50)
     private String estado;
-    @Column(name = "huella_mano", length = 50)
-    private String huellaMano;
-    @Column(name = "huella_dedo", length = 50)
-    private String huellaDedo;
+    @Column(name = "fk_municipio_cedula")
+    private Integer fkMunicipioCedula;
+    @Column(name = "fk_municipio_vecindad")
+    private Integer fkMunicipioVecindad;
+    @Column(name = "huella_mano_der")
+    private Boolean huellaManoDer;
+    @Column(name = "huella_mano_izq")
+    private Boolean huellaManoIzq;
+    @Column(name = "huella_dedo_der", length = 50)
+    private String huellaDedoDer;
+    @Column(name = "huella_dedo_izq", length = 50)
+    private String huellaDedoIzq;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -104,15 +107,8 @@ public class Persona implements Serializable {
     @Basic(optional = false)
     @Column(name = "creado_por", nullable = false, length = 50)
     private String creadoPor;
-    @JoinColumn(name = "fk_municipio_cedula", referencedColumnName = "codigo")
-    @ManyToOne
-    private Municipio fkMunicipioCedula;
-    @JoinColumn(name = "fk_municipio_nacimiento", referencedColumnName = "codigo")
-    @ManyToOne
-    private Municipio fkMunicipioNacimiento;
-    @JoinColumn(name = "fk_municipio_vecindad", referencedColumnName = "codigo")
-    @ManyToOne
-    private Municipio fkMunicipioVecindad;
+    @OneToMany(mappedBy = "fkPersona")
+    private Collection<Idioma> idiomaCollection;
     @OneToMany(mappedBy = "fkPersona")
     private Collection<RegistroAcademico> registroAcademicoCollection;
     @OneToMany(mappedBy = "fkPersona")
@@ -123,8 +119,6 @@ public class Persona implements Serializable {
     private Collection<RegistroLaboral> registroLaboralCollection;
     @OneToMany(mappedBy = "fkPersona")
     private Collection<LugarResidencia> lugarResidenciaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkPersona")
-    private Collection<Usuario> usuarioCollection;
     @OneToMany(mappedBy = "fkPersona")
     private Collection<Dpi> dpiCollection;
 
@@ -135,10 +129,12 @@ public class Persona implements Serializable {
         this.cui = cui;
     }
 
-    public Persona(String cui, String primerNombre, String primerApellido, Date fechaNacimiento, Date fechaCreacion, String creadoPor) {
+    public Persona(String cui, String primerNombre, String primerApellido, int fkNacionalidad, int fkProfesion, Date fechaNacimiento, Date fechaCreacion, String creadoPor) {
         this.cui = cui;
         this.primerNombre = primerNombre;
         this.primerApellido = primerApellido;
+        this.fkNacionalidad = fkNacionalidad;
+        this.fkProfesion = fkProfesion;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaCreacion = fechaCreacion;
         this.creadoPor = creadoPor;
@@ -168,14 +164,6 @@ public class Persona implements Serializable {
         this.segundoNombre = segundoNombre;
     }
 
-    public String getTercerNombre() {
-        return tercerNombre;
-    }
-
-    public void setTercerNombre(String tercerNombre) {
-        this.tercerNombre = tercerNombre;
-    }
-
     public String getOtrosNombres() {
         return otrosNombres;
     }
@@ -198,14 +186,6 @@ public class Persona implements Serializable {
 
     public void setSegundoApellido(String segundoApellido) {
         this.segundoApellido = segundoApellido;
-    }
-
-    public String getTercerApellido() {
-        return tercerApellido;
-    }
-
-    public void setTercerApellido(String tercerApellido) {
-        this.tercerApellido = tercerApellido;
     }
 
     public String getOtrosApellidos() {
@@ -240,20 +220,20 @@ public class Persona implements Serializable {
         this.sexo = sexo;
     }
 
-    public String getNacionalidad() {
-        return nacionalidad;
+    public int getFkNacionalidad() {
+        return fkNacionalidad;
     }
 
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public void setFkNacionalidad(int fkNacionalidad) {
+        this.fkNacionalidad = fkNacionalidad;
     }
 
-    public String getProfesion() {
-        return profesion;
+    public int getFkProfesion() {
+        return fkProfesion;
     }
 
-    public void setProfesion(String profesion) {
-        this.profesion = profesion;
+    public void setFkProfesion(int fkProfesion) {
+        this.fkProfesion = fkProfesion;
     }
 
     public String getLimitacionesFisicas() {
@@ -288,6 +268,14 @@ public class Persona implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public Integer getFkMunicipioNacimiento() {
+        return fkMunicipioNacimiento;
+    }
+
+    public void setFkMunicipioNacimiento(Integer fkMunicipioNacimiento) {
+        this.fkMunicipioNacimiento = fkMunicipioNacimiento;
+    }
+
     public String getNacNoLibro() {
         return nacNoLibro;
     }
@@ -312,28 +300,20 @@ public class Persona implements Serializable {
         this.nacNoPartida = nacNoPartida;
     }
 
-    public Integer getFkPueblo() {
+    public String getFkPueblo() {
         return fkPueblo;
     }
 
-    public void setFkPueblo(Integer fkPueblo) {
+    public void setFkPueblo(String fkPueblo) {
         this.fkPueblo = fkPueblo;
     }
 
-    public Integer getFkComunidadLinguistica() {
+    public String getFkComunidadLinguistica() {
         return fkComunidadLinguistica;
     }
 
-    public void setFkComunidadLinguistica(Integer fkComunidadLinguistica) {
+    public void setFkComunidadLinguistica(String fkComunidadLinguistica) {
         this.fkComunidadLinguistica = fkComunidadLinguistica;
-    }
-
-    public String getIdiomas() {
-        return idiomas;
-    }
-
-    public void setIdiomas(String idiomas) {
-        this.idiomas = idiomas;
     }
 
     public String getMrz() {
@@ -360,20 +340,52 @@ public class Persona implements Serializable {
         this.estado = estado;
     }
 
-    public String getHuellaMano() {
-        return huellaMano;
+    public Integer getFkMunicipioCedula() {
+        return fkMunicipioCedula;
     }
 
-    public void setHuellaMano(String huellaMano) {
-        this.huellaMano = huellaMano;
+    public void setFkMunicipioCedula(Integer fkMunicipioCedula) {
+        this.fkMunicipioCedula = fkMunicipioCedula;
     }
 
-    public String getHuellaDedo() {
-        return huellaDedo;
+    public Integer getFkMunicipioVecindad() {
+        return fkMunicipioVecindad;
     }
 
-    public void setHuellaDedo(String huellaDedo) {
-        this.huellaDedo = huellaDedo;
+    public void setFkMunicipioVecindad(Integer fkMunicipioVecindad) {
+        this.fkMunicipioVecindad = fkMunicipioVecindad;
+    }
+
+    public Boolean getHuellaManoDer() {
+        return huellaManoDer;
+    }
+
+    public void setHuellaManoDer(Boolean huellaManoDer) {
+        this.huellaManoDer = huellaManoDer;
+    }
+
+    public Boolean getHuellaManoIzq() {
+        return huellaManoIzq;
+    }
+
+    public void setHuellaManoIzq(Boolean huellaManoIzq) {
+        this.huellaManoIzq = huellaManoIzq;
+    }
+
+    public String getHuellaDedoDer() {
+        return huellaDedoDer;
+    }
+
+    public void setHuellaDedoDer(String huellaDedoDer) {
+        this.huellaDedoDer = huellaDedoDer;
+    }
+
+    public String getHuellaDedoIzq() {
+        return huellaDedoIzq;
+    }
+
+    public void setHuellaDedoIzq(String huellaDedoIzq) {
+        this.huellaDedoIzq = huellaDedoIzq;
     }
 
     public Date getFechaCreacion() {
@@ -392,28 +404,12 @@ public class Persona implements Serializable {
         this.creadoPor = creadoPor;
     }
 
-    public Municipio getFkMunicipioCedula() {
-        return fkMunicipioCedula;
+    public Collection<Idioma> getIdiomaCollection() {
+        return idiomaCollection;
     }
 
-    public void setFkMunicipioCedula(Municipio fkMunicipioCedula) {
-        this.fkMunicipioCedula = fkMunicipioCedula;
-    }
-
-    public Municipio getFkMunicipioNacimiento() {
-        return fkMunicipioNacimiento;
-    }
-
-    public void setFkMunicipioNacimiento(Municipio fkMunicipioNacimiento) {
-        this.fkMunicipioNacimiento = fkMunicipioNacimiento;
-    }
-
-    public Municipio getFkMunicipioVecindad() {
-        return fkMunicipioVecindad;
-    }
-
-    public void setFkMunicipioVecindad(Municipio fkMunicipioVecindad) {
-        this.fkMunicipioVecindad = fkMunicipioVecindad;
+    public void setIdiomaCollection(Collection<Idioma> idiomaCollection) {
+        this.idiomaCollection = idiomaCollection;
     }
 
     public Collection<RegistroAcademico> getRegistroAcademicoCollection() {
@@ -456,14 +452,6 @@ public class Persona implements Serializable {
         this.lugarResidenciaCollection = lugarResidenciaCollection;
     }
 
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
-    }
-
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
-    }
-
     public Collection<Dpi> getDpiCollection() {
         return dpiCollection;
     }
@@ -496,5 +484,5 @@ public class Persona implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.Persona[ cui=" + cui + " ]";
     }
-    
+
 }

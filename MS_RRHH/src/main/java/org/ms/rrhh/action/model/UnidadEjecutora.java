@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -26,19 +24,19 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(catalog = "rrhh", schema = "public")
+@Table(name = "unidad_ejecutora",  schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "Acceso.findAll", query = "SELECT a FROM Acceso a")})
-public class Acceso implements Serializable {
+    @NamedQuery(name = "UnidadEjecutora.findAll", query = "SELECT u FROM UnidadEjecutora u")})
+public class UnidadEjecutora implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer codigo;
-    @Column(length = 50)
-    private String url;
+    private Integer id;
+    @Column(length = 500)
+    private String nombre;
     @Column(length = 50)
     private String estado;
     @Basic(optional = false)
@@ -53,37 +51,34 @@ public class Acceso implements Serializable {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
     private String ultimoCambioPor;
-    @JoinColumn(name = "fk_role", referencedColumnName = "codigo", nullable = false)
-    @ManyToOne(optional = false)
-    private Role fkRole;
 
-    public Acceso() {
+    public UnidadEjecutora() {
     }
 
-    public Acceso(Integer codigo) {
-        this.codigo = codigo;
+    public UnidadEjecutora(Integer id) {
+        this.id = id;
     }
 
-    public Acceso(Integer codigo, Date fechaCreacion, Date fechaUltimoCambio) {
-        this.codigo = codigo;
+    public UnidadEjecutora(Integer id, Date fechaCreacion, Date fechaUltimoCambio) {
+        this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.fechaUltimoCambio = fechaUltimoCambio;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getUrl() {
-        return url;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getEstado() {
@@ -126,29 +121,21 @@ public class Acceso implements Serializable {
         this.ultimoCambioPor = ultimoCambioPor;
     }
 
-    public Role getFkRole() {
-        return fkRole;
-    }
-
-    public void setFkRole(Role fkRole) {
-        this.fkRole = fkRole;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Acceso)) {
+        if (!(object instanceof UnidadEjecutora)) {
             return false;
         }
-        Acceso other = (Acceso) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        UnidadEjecutora other = (UnidadEjecutora) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -156,7 +143,7 @@ public class Acceso implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.Acceso[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.UnidadEjecutora[ id=" + id + " ]";
     }
     
 }

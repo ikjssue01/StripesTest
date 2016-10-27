@@ -6,7 +6,6 @@
 package org.ms.rrhh.domain.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -18,7 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,17 +26,19 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(catalog = "rrhh", schema = "public")
+@Table(name = "estudio_salud",   schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "Distrito.findAll", query = "SELECT d FROM Distrito d")})
-public class Distrito implements Serializable {
+    @NamedQuery(name = "EstudioSalud.findAll", query = "SELECT e FROM EstudioSalud e")})
+public class EstudioSalud implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer codigo;
+    private Integer id;
+    @Column(name = "anio_estudio")
+    private Integer anioEstudio;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -51,37 +51,37 @@ public class Distrito implements Serializable {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
     private String ultimoCambioPor;
-    @Column(length = 2147483647)
-    private String nombre;
-    @JoinColumn(name = "fk_unidad_ejecutora", referencedColumnName = "codigo")
+    @JoinColumn(name = "fk_persona", referencedColumnName = "cui")
     @ManyToOne
-    private UnidadEjecutora fkUnidadEjecutora;
-    @OneToMany(mappedBy = "fkDistrito")
-    private Collection<LugarEspecifico> lugarEspecificoCollection;
-    @OneToMany(mappedBy = "fkDistrito")
-    private Collection<Puesto> puestoCollection;
-    @OneToMany(mappedBy = "fkDistritoComisionado")
-    private Collection<RegistroLaboral> registroLaboralCollection;
+    private Persona fkPersona;
 
-    public Distrito() {
+    public EstudioSalud() {
     }
 
-    public Distrito(Integer codigo) {
-        this.codigo = codigo;
+    public EstudioSalud(Integer id) {
+        this.id = id;
     }
 
-    public Distrito(Integer codigo, Date fechaCreacion, Date fechaUltimoCambio) {
-        this.codigo = codigo;
+    public EstudioSalud(Integer id, Date fechaCreacion, Date fechaUltimoCambio) {
+        this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.fechaUltimoCambio = fechaUltimoCambio;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getAnioEstudio() {
+        return anioEstudio;
+    }
+
+    public void setAnioEstudio(Integer anioEstudio) {
+        this.anioEstudio = anioEstudio;
     }
 
     public Date getFechaCreacion() {
@@ -116,61 +116,29 @@ public class Distrito implements Serializable {
         this.ultimoCambioPor = ultimoCambioPor;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Persona getFkPersona() {
+        return fkPersona;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public UnidadEjecutora getFkUnidadEjecutora() {
-        return fkUnidadEjecutora;
-    }
-
-    public void setFkUnidadEjecutora(UnidadEjecutora fkUnidadEjecutora) {
-        this.fkUnidadEjecutora = fkUnidadEjecutora;
-    }
-
-    public Collection<LugarEspecifico> getLugarEspecificoCollection() {
-        return lugarEspecificoCollection;
-    }
-
-    public void setLugarEspecificoCollection(Collection<LugarEspecifico> lugarEspecificoCollection) {
-        this.lugarEspecificoCollection = lugarEspecificoCollection;
-    }
-
-    public Collection<Puesto> getPuestoCollection() {
-        return puestoCollection;
-    }
-
-    public void setPuestoCollection(Collection<Puesto> puestoCollection) {
-        this.puestoCollection = puestoCollection;
-    }
-
-    public Collection<RegistroLaboral> getRegistroLaboralCollection() {
-        return registroLaboralCollection;
-    }
-
-    public void setRegistroLaboralCollection(Collection<RegistroLaboral> registroLaboralCollection) {
-        this.registroLaboralCollection = registroLaboralCollection;
+    public void setFkPersona(Persona fkPersona) {
+        this.fkPersona = fkPersona;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Distrito)) {
+        if (!(object instanceof EstudioSalud)) {
             return false;
         }
-        Distrito other = (Distrito) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        EstudioSalud other = (EstudioSalud) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -178,7 +146,7 @@ public class Distrito implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.Distrito[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.EstudioSalud[ id=" + id + " ]";
     }
     
 }

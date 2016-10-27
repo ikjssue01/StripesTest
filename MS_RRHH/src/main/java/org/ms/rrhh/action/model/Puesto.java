@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(catalog = "rrhh", schema = "public")
+@Table( schema = "public", name = "puesto")
 @NamedQueries({
     @NamedQuery(name = "Puesto.findAll", query = "SELECT p FROM Puesto p")})
 public class Puesto implements Serializable {
@@ -36,11 +36,15 @@ public class Puesto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer codigo;
+    private Integer id;
     @Column(name = "puesto_funcional", length = 50)
     private String puestoFuncional;
     @Column(length = 50)
     private String tipo;
+    @Column(name = "fk_puesto_nominal")
+    private Integer fkPuestoNominal;
+    @Column(name = "fk_comunidad")
+    private Integer fkComunidad;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -53,44 +57,29 @@ public class Puesto implements Serializable {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
     private String ultimoCambioPor;
-    @JoinColumn(name = "fk_distrito", referencedColumnName = "codigo")
-    @ManyToOne
-    private Distrito fkDistrito;
-    @JoinColumn(name = "fk_lugar_especifico", referencedColumnName = "codigo")
-    @ManyToOne
-    private LugarEspecifico fkLugarEspecifico;
-    @JoinColumn(name = "fk_puesto_nominal", referencedColumnName = "codigo")
-    @ManyToOne
-    private PuestoNominal fkPuestoNominal;
-    @JoinColumn(name = "fk_registro_laboral", referencedColumnName = "codigo")
+    @JoinColumn(name = "fk_registro_laboral", referencedColumnName = "id")
     @ManyToOne
     private RegistroLaboral fkRegistroLaboral;
-    @JoinColumn(name = "fk_renglon", referencedColumnName = "codigo")
-    @ManyToOne
-    private RenglonPresupuesto fkRenglon;
-    @JoinColumn(name = "fk_unidad_ejecutora", referencedColumnName = "codigo")
-    @ManyToOne
-    private UnidadEjecutora fkUnidadEjecutora;
 
     public Puesto() {
     }
 
-    public Puesto(Integer codigo) {
-        this.codigo = codigo;
+    public Puesto(Integer id) {
+        this.id = id;
     }
 
-    public Puesto(Integer codigo, Date fechaCreacion, Date fechaUltimoCambio) {
-        this.codigo = codigo;
+    public Puesto(Integer id, Date fechaCreacion, Date fechaUltimoCambio) {
+        this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.fechaUltimoCambio = fechaUltimoCambio;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPuestoFuncional() {
@@ -107,6 +96,22 @@ public class Puesto implements Serializable {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public Integer getFkPuestoNominal() {
+        return fkPuestoNominal;
+    }
+
+    public void setFkPuestoNominal(Integer fkPuestoNominal) {
+        this.fkPuestoNominal = fkPuestoNominal;
+    }
+
+    public Integer getFkComunidad() {
+        return fkComunidad;
+    }
+
+    public void setFkComunidad(Integer fkComunidad) {
+        this.fkComunidad = fkComunidad;
     }
 
     public Date getFechaCreacion() {
@@ -141,30 +146,6 @@ public class Puesto implements Serializable {
         this.ultimoCambioPor = ultimoCambioPor;
     }
 
-    public Distrito getFkDistrito() {
-        return fkDistrito;
-    }
-
-    public void setFkDistrito(Distrito fkDistrito) {
-        this.fkDistrito = fkDistrito;
-    }
-
-    public LugarEspecifico getFkLugarEspecifico() {
-        return fkLugarEspecifico;
-    }
-
-    public void setFkLugarEspecifico(LugarEspecifico fkLugarEspecifico) {
-        this.fkLugarEspecifico = fkLugarEspecifico;
-    }
-
-    public PuestoNominal getFkPuestoNominal() {
-        return fkPuestoNominal;
-    }
-
-    public void setFkPuestoNominal(PuestoNominal fkPuestoNominal) {
-        this.fkPuestoNominal = fkPuestoNominal;
-    }
-
     public RegistroLaboral getFkRegistroLaboral() {
         return fkRegistroLaboral;
     }
@@ -173,26 +154,10 @@ public class Puesto implements Serializable {
         this.fkRegistroLaboral = fkRegistroLaboral;
     }
 
-    public RenglonPresupuesto getFkRenglon() {
-        return fkRenglon;
-    }
-
-    public void setFkRenglon(RenglonPresupuesto fkRenglon) {
-        this.fkRenglon = fkRenglon;
-    }
-
-    public UnidadEjecutora getFkUnidadEjecutora() {
-        return fkUnidadEjecutora;
-    }
-
-    public void setFkUnidadEjecutora(UnidadEjecutora fkUnidadEjecutora) {
-        this.fkUnidadEjecutora = fkUnidadEjecutora;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -203,7 +168,7 @@ public class Puesto implements Serializable {
             return false;
         }
         Puesto other = (Puesto) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -211,7 +176,7 @@ public class Puesto implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.Puesto[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.Puesto[ id=" + id + " ]";
     }
     
 }

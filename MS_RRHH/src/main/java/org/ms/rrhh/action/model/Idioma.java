@@ -6,7 +6,6 @@
 package org.ms.rrhh.domain.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,9 +13,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,19 +26,22 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name = "unidad_ejecutora", catalog = "rrhh", schema = "public")
+@Table(  schema = "public",name = "idioma")
 @NamedQueries({
-    @NamedQuery(name = "UnidadEjecutora.findAll", query = "SELECT u FROM UnidadEjecutora u")})
-public class UnidadEjecutora implements Serializable {
+    @NamedQuery(name = "Idioma.findAll", query = "SELECT i FROM Idioma i")})
+public class Idioma implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer codigo;
+    private Integer id;
     @Column(length = 50)
     private String estado;
+    @Basic(optional = false)
+    @Column(name = "fk_idioma", nullable = false)
+    private int fkIdioma;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -51,32 +54,30 @@ public class UnidadEjecutora implements Serializable {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
     private String ultimoCambioPor;
-    @OneToMany(mappedBy = "fkUnidadEjecutora")
-    private Collection<Distrito> distritoCollection;
-    @OneToMany(mappedBy = "fkUnidadEjecutora")
-    private Collection<Puesto> puestoCollection;
-    @OneToMany(mappedBy = "fkUnidadEjecutoraComisionado")
-    private Collection<RegistroLaboral> registroLaboralCollection;
+    @JoinColumn(name = "fk_persona", referencedColumnName = "cui")
+    @ManyToOne
+    private Persona fkPersona;
 
-    public UnidadEjecutora() {
+    public Idioma() {
     }
 
-    public UnidadEjecutora(Integer codigo) {
-        this.codigo = codigo;
+    public Idioma(Integer id) {
+        this.id = id;
     }
 
-    public UnidadEjecutora(Integer codigo, Date fechaCreacion, Date fechaUltimoCambio) {
-        this.codigo = codigo;
+    public Idioma(Integer id, int fkIdioma, Date fechaCreacion, Date fechaUltimoCambio) {
+        this.id = id;
+        this.fkIdioma = fkIdioma;
         this.fechaCreacion = fechaCreacion;
         this.fechaUltimoCambio = fechaUltimoCambio;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getEstado() {
@@ -85,6 +86,14 @@ public class UnidadEjecutora implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public int getFkIdioma() {
+        return fkIdioma;
+    }
+
+    public void setFkIdioma(int fkIdioma) {
+        this.fkIdioma = fkIdioma;
     }
 
     public Date getFechaCreacion() {
@@ -119,45 +128,29 @@ public class UnidadEjecutora implements Serializable {
         this.ultimoCambioPor = ultimoCambioPor;
     }
 
-    public Collection<Distrito> getDistritoCollection() {
-        return distritoCollection;
+    public Persona getFkPersona() {
+        return fkPersona;
     }
 
-    public void setDistritoCollection(Collection<Distrito> distritoCollection) {
-        this.distritoCollection = distritoCollection;
-    }
-
-    public Collection<Puesto> getPuestoCollection() {
-        return puestoCollection;
-    }
-
-    public void setPuestoCollection(Collection<Puesto> puestoCollection) {
-        this.puestoCollection = puestoCollection;
-    }
-
-    public Collection<RegistroLaboral> getRegistroLaboralCollection() {
-        return registroLaboralCollection;
-    }
-
-    public void setRegistroLaboralCollection(Collection<RegistroLaboral> registroLaboralCollection) {
-        this.registroLaboralCollection = registroLaboralCollection;
+    public void setFkPersona(Persona fkPersona) {
+        this.fkPersona = fkPersona;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UnidadEjecutora)) {
+        if (!(object instanceof Idioma)) {
             return false;
         }
-        UnidadEjecutora other = (UnidadEjecutora) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        Idioma other = (Idioma) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -165,7 +158,7 @@ public class UnidadEjecutora implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.UnidadEjecutora[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.Idioma[ id=" + id + " ]";
     }
     
 }

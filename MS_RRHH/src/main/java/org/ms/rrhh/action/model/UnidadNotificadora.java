@@ -6,7 +6,6 @@
 package org.ms.rrhh.domain.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,11 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,20 +24,25 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name = "lugar_especifico", catalog = "rrhh", schema = "public")
+@Table(name = "unidad_notificadora",   schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "LugarEspecifico.findAll", query = "SELECT l FROM LugarEspecifico l")})
-public class LugarEspecifico implements Serializable {
+    @NamedQuery(name = "UnidadNotificadora.findAll", query = "SELECT u FROM UnidadNotificadora u")})
+public class UnidadNotificadora implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer codigo;
+    private Integer id;
+    @Column(length = 500)
+    private String valor;
     @Column(length = 50)
-    private String descripcion;
-    private Integer comunidad;
+    private String tipo;
+    @Column(length = 50)
+    private String estado;
+    @Column(name = "codigo_padre")
+    private Integer codigoPadre;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -54,49 +55,58 @@ public class LugarEspecifico implements Serializable {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
     private String ultimoCambioPor;
-    @JoinColumn(name = "fk_distrito", referencedColumnName = "codigo")
-    @ManyToOne
-    private Distrito fkDistrito;
-    @OneToMany(mappedBy = "fkLugarEspecifico")
-    private Collection<Puesto> puestoCollection;
-    @OneToMany(mappedBy = "fkLugarEspecificoComisionado")
-    private Collection<RegistroLaboral> registroLaboralCollection;
 
-    public LugarEspecifico() {
+    public UnidadNotificadora() {
     }
 
-    public LugarEspecifico(Integer codigo) {
-        this.codigo = codigo;
+    public UnidadNotificadora(Integer id) {
+        this.id = id;
     }
 
-    public LugarEspecifico(Integer codigo, Date fechaCreacion, Date fechaUltimoCambio) {
-        this.codigo = codigo;
+    public UnidadNotificadora(Integer id, Date fechaCreacion, Date fechaUltimoCambio) {
+        this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.fechaUltimoCambio = fechaUltimoCambio;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getValor() {
+        return valor;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
-    public Integer getComunidad() {
-        return comunidad;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setComunidad(Integer comunidad) {
-        this.comunidad = comunidad;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Integer getCodigoPadre() {
+        return codigoPadre;
+    }
+
+    public void setCodigoPadre(Integer codigoPadre) {
+        this.codigoPadre = codigoPadre;
     }
 
     public Date getFechaCreacion() {
@@ -131,45 +141,21 @@ public class LugarEspecifico implements Serializable {
         this.ultimoCambioPor = ultimoCambioPor;
     }
 
-    public Distrito getFkDistrito() {
-        return fkDistrito;
-    }
-
-    public void setFkDistrito(Distrito fkDistrito) {
-        this.fkDistrito = fkDistrito;
-    }
-
-    public Collection<Puesto> getPuestoCollection() {
-        return puestoCollection;
-    }
-
-    public void setPuestoCollection(Collection<Puesto> puestoCollection) {
-        this.puestoCollection = puestoCollection;
-    }
-
-    public Collection<RegistroLaboral> getRegistroLaboralCollection() {
-        return registroLaboralCollection;
-    }
-
-    public void setRegistroLaboralCollection(Collection<RegistroLaboral> registroLaboralCollection) {
-        this.registroLaboralCollection = registroLaboralCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof LugarEspecifico)) {
+        if (!(object instanceof UnidadNotificadora)) {
             return false;
         }
-        LugarEspecifico other = (LugarEspecifico) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        UnidadNotificadora other = (UnidadNotificadora) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -177,7 +163,7 @@ public class LugarEspecifico implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.LugarEspecifico[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.UnidadNotificadora[ id=" + id + " ]";
     }
     
 }

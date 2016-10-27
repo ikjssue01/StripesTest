@@ -6,7 +6,6 @@
 package org.ms.rrhh.domain.model;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,9 +13,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,21 +26,17 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(catalog = "rrhh", schema = "public")
+@Table(name = "acceso_role", schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "Catalogo.findAll", query = "SELECT c FROM Catalogo c")})
-public class Catalogo implements Serializable {
+    @NamedQuery(name = "AccesoRole.findAll", query = "SELECT a FROM AccesoRole a")})
+public class AccesoRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer codigo;
-    @Column(length = 50)
-    private String nombre;
-    @Column(length = 50)
-    private String estado;
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -53,44 +49,32 @@ public class Catalogo implements Serializable {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
     private String ultimoCambioPor;
-    @OneToMany(mappedBy = "fkCatalogo")
-    private Collection<CatalogoValor> catalogoValorCollection;
+    @JoinColumn(name = "fk_acceso", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private Acceso fkAcceso;
+    @JoinColumn(name = "fk_role", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false)
+    private Role fkRole;
 
-    public Catalogo() {
+    public AccesoRole() {
     }
 
-    public Catalogo(Integer codigo) {
-        this.codigo = codigo;
+    public AccesoRole(Integer id) {
+        this.id = id;
     }
 
-    public Catalogo(Integer codigo, Date fechaCreacion, Date fechaUltimoCambio) {
-        this.codigo = codigo;
+    public AccesoRole(Integer id, Date fechaCreacion, Date fechaUltimoCambio) {
+        this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.fechaUltimoCambio = fechaUltimoCambio;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Date getFechaCreacion() {
@@ -125,29 +109,37 @@ public class Catalogo implements Serializable {
         this.ultimoCambioPor = ultimoCambioPor;
     }
 
-    public Collection<CatalogoValor> getCatalogoValorCollection() {
-        return catalogoValorCollection;
+    public Acceso getFkAcceso() {
+        return fkAcceso;
     }
 
-    public void setCatalogoValorCollection(Collection<CatalogoValor> catalogoValorCollection) {
-        this.catalogoValorCollection = catalogoValorCollection;
+    public void setFkAcceso(Acceso fkAcceso) {
+        this.fkAcceso = fkAcceso;
+    }
+
+    public Role getFkRole() {
+        return fkRole;
+    }
+
+    public void setFkRole(Role fkRole) {
+        this.fkRole = fkRole;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Catalogo)) {
+        if (!(object instanceof AccesoRole)) {
             return false;
         }
-        Catalogo other = (Catalogo) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        AccesoRole other = (AccesoRole) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -155,7 +147,7 @@ public class Catalogo implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.Catalogo[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.AccesoRole[ id=" + id + " ]";
     }
-    
+
 }

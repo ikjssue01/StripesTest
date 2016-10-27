@@ -6,6 +6,7 @@
 package org.ms.rrhh.domain.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,19 +28,26 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name = "catalogo_valor", catalog = "rrhh", schema = "public")
+@Table(name = "registro_laboral",   schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "CatalogoValor.findAll", query = "SELECT c FROM CatalogoValor c")})
-public class CatalogoValor implements Serializable {
+    @NamedQuery(name = "RegistroLaboral.findAll", query = "SELECT r FROM RegistroLaboral r")})
+public class RegistroLaboral implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer codigo;
-    @Column(length = 50)
-    private String nombre;
+    private Integer id;
+    @Column(name = "anio_ingreso")
+    private Integer anioIngreso;
+    @Column(name = "fk_expectativa")
+    private Integer fkExpectativa;
+    @Column(name = "fk_calificacion_servicio")
+    private Integer fkCalificacionServicio;
+    private Boolean comisionado;
+    @Column(name = "fk_comunidad_comisionado")
+    private Integer fkComunidadComisionado;
     @Column(length = 50)
     private String estado;
     @Basic(optional = false)
@@ -53,37 +62,71 @@ public class CatalogoValor implements Serializable {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
     private String ultimoCambioPor;
-    @JoinColumn(name = "fk_catalogo", referencedColumnName = "codigo")
+    @OneToMany(mappedBy = "fkRegistroLaboral")
+    private Collection<Puesto> puestoCollection;
+    @JoinColumn(name = "fk_persona", referencedColumnName = "cui")
     @ManyToOne
-    private Catalogo fkCatalogo;
+    private Persona fkPersona;
 
-    public CatalogoValor() {
+    public RegistroLaboral() {
     }
 
-    public CatalogoValor(Integer codigo) {
-        this.codigo = codigo;
+    public RegistroLaboral(Integer id) {
+        this.id = id;
     }
 
-    public CatalogoValor(Integer codigo, Date fechaCreacion, Date fechaUltimoCambio) {
-        this.codigo = codigo;
+    public RegistroLaboral(Integer id, Date fechaCreacion, Date fechaUltimoCambio) {
+        this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.fechaUltimoCambio = fechaUltimoCambio;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Integer getAnioIngreso() {
+        return anioIngreso;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setAnioIngreso(Integer anioIngreso) {
+        this.anioIngreso = anioIngreso;
+    }
+
+    public Integer getFkExpectativa() {
+        return fkExpectativa;
+    }
+
+    public void setFkExpectativa(Integer fkExpectativa) {
+        this.fkExpectativa = fkExpectativa;
+    }
+
+    public Integer getFkCalificacionServicio() {
+        return fkCalificacionServicio;
+    }
+
+    public void setFkCalificacionServicio(Integer fkCalificacionServicio) {
+        this.fkCalificacionServicio = fkCalificacionServicio;
+    }
+
+    public Boolean getComisionado() {
+        return comisionado;
+    }
+
+    public void setComisionado(Boolean comisionado) {
+        this.comisionado = comisionado;
+    }
+
+    public Integer getFkComunidadComisionado() {
+        return fkComunidadComisionado;
+    }
+
+    public void setFkComunidadComisionado(Integer fkComunidadComisionado) {
+        this.fkComunidadComisionado = fkComunidadComisionado;
     }
 
     public String getEstado() {
@@ -126,29 +169,37 @@ public class CatalogoValor implements Serializable {
         this.ultimoCambioPor = ultimoCambioPor;
     }
 
-    public Catalogo getFkCatalogo() {
-        return fkCatalogo;
+    public Collection<Puesto> getPuestoCollection() {
+        return puestoCollection;
     }
 
-    public void setFkCatalogo(Catalogo fkCatalogo) {
-        this.fkCatalogo = fkCatalogo;
+    public void setPuestoCollection(Collection<Puesto> puestoCollection) {
+        this.puestoCollection = puestoCollection;
+    }
+
+    public Persona getFkPersona() {
+        return fkPersona;
+    }
+
+    public void setFkPersona(Persona fkPersona) {
+        this.fkPersona = fkPersona;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CatalogoValor)) {
+        if (!(object instanceof RegistroLaboral)) {
             return false;
         }
-        CatalogoValor other = (CatalogoValor) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        RegistroLaboral other = (RegistroLaboral) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -156,7 +207,7 @@ public class CatalogoValor implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.CatalogoValor[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.RegistroLaboral[ id=" + id + " ]";
     }
     
 }

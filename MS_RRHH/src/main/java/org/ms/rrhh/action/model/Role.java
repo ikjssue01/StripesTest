@@ -9,13 +9,12 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -28,18 +27,18 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name = "puesto_nominal", catalog = "rrhh", schema = "public")
+@Table(name = "role", schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "PuestoNominal.findAll", query = "SELECT p FROM PuestoNominal p")})
-public class PuestoNominal implements Serializable {
+    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")})
+public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer codigo;
-    @Column(length = 100)
+    private Integer id;
+    @Column(length = 50)
     private String nombre;
     @Column(length = 50)
     private String estado;
@@ -55,31 +54,30 @@ public class PuestoNominal implements Serializable {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
     private String ultimoCambioPor;
-    @JoinColumn(name = "fk_renglon", referencedColumnName = "codigo")
-    @ManyToOne
-    private RenglonPresupuesto fkRenglon;
-    @OneToMany(mappedBy = "fkPuestoNominal")
-    private Collection<Puesto> puestoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkRole")
+    private Collection<AccesoRole> accesoRoleCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkRole")
+    private Collection<Usuario> usuarioCollection;
 
-    public PuestoNominal() {
+    public Role() {
     }
 
-    public PuestoNominal(Integer codigo) {
-        this.codigo = codigo;
+    public Role(Integer id) {
+        this.id = id;
     }
 
-    public PuestoNominal(Integer codigo, Date fechaCreacion, Date fechaUltimoCambio) {
-        this.codigo = codigo;
+    public Role(Integer id, Date fechaCreacion, Date fechaUltimoCambio) {
+        this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.fechaUltimoCambio = fechaUltimoCambio;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -130,37 +128,37 @@ public class PuestoNominal implements Serializable {
         this.ultimoCambioPor = ultimoCambioPor;
     }
 
-    public RenglonPresupuesto getFkRenglon() {
-        return fkRenglon;
+    public Collection<AccesoRole> getAccesoRoleCollection() {
+        return accesoRoleCollection;
     }
 
-    public void setFkRenglon(RenglonPresupuesto fkRenglon) {
-        this.fkRenglon = fkRenglon;
+    public void setAccesoRoleCollection(Collection<AccesoRole> accesoRoleCollection) {
+        this.accesoRoleCollection = accesoRoleCollection;
     }
 
-    public Collection<Puesto> getPuestoCollection() {
-        return puestoCollection;
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
     }
 
-    public void setPuestoCollection(Collection<Puesto> puestoCollection) {
-        this.puestoCollection = puestoCollection;
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof PuestoNominal)) {
+        if (!(object instanceof Role)) {
             return false;
         }
-        PuestoNominal other = (PuestoNominal) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        Role other = (Role) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -168,7 +166,7 @@ public class PuestoNominal implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.PuestoNominal[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.Role[ id=" + id + " ]";
     }
     
 }

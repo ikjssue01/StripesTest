@@ -10,9 +10,9 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,21 +24,25 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(catalog = "rrhh", schema = "public")
+@Table(name = "catalogos", schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
-public class Usuario implements Serializable {
+    @NamedQuery(name = "Catalogos.findAll", query = "SELECT c FROM Catalogos c")})
+public class Catalogos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false, length = 100)
-    private String codigo;
-    @Column(length = 100)
-    private String correo;
-    private Boolean root;
+    @Column(nullable = false)
+    private Integer id;
+    @Column(length = 500)
+    private String valor;
+    @Column(length = 50)
+    private String tipo;
     @Column(length = 50)
     private String estado;
+    @Column(name = "codigo_padre")
+    private Integer codigoPadre;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -51,48 +55,42 @@ public class Usuario implements Serializable {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
     private String ultimoCambioPor;
-    @JoinColumn(name = "fk_persona", referencedColumnName = "cui", nullable = false)
-    @ManyToOne(optional = false)
-    private Persona fkPersona;
-    @JoinColumn(name = "fk_role", referencedColumnName = "codigo", nullable = false)
-    @ManyToOne(optional = false)
-    private Role fkRole;
 
-    public Usuario() {
+    public Catalogos() {
     }
 
-    public Usuario(String codigo) {
-        this.codigo = codigo;
+    public Catalogos(Integer id) {
+        this.id = id;
     }
 
-    public Usuario(String codigo, Date fechaCreacion, Date fechaUltimoCambio) {
-        this.codigo = codigo;
+    public Catalogos(Integer id, Date fechaCreacion, Date fechaUltimoCambio) {
+        this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.fechaUltimoCambio = fechaUltimoCambio;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getValor() {
+        return valor;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
-    public Boolean getRoot() {
-        return root;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setRoot(Boolean root) {
-        this.root = root;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getEstado() {
@@ -101,6 +99,14 @@ public class Usuario implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Integer getCodigoPadre() {
+        return codigoPadre;
+    }
+
+    public void setCodigoPadre(Integer codigoPadre) {
+        this.codigoPadre = codigoPadre;
     }
 
     public Date getFechaCreacion() {
@@ -135,37 +141,21 @@ public class Usuario implements Serializable {
         this.ultimoCambioPor = ultimoCambioPor;
     }
 
-    public Persona getFkPersona() {
-        return fkPersona;
-    }
-
-    public void setFkPersona(Persona fkPersona) {
-        this.fkPersona = fkPersona;
-    }
-
-    public Role getFkRole() {
-        return fkRole;
-    }
-
-    public void setFkRole(Role fkRole) {
-        this.fkRole = fkRole;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
+        if (!(object instanceof Catalogos)) {
             return false;
         }
-        Usuario other = (Usuario) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        Catalogos other = (Catalogos) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -173,7 +163,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.Usuario[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.Catalogos[ id=" + id + " ]";
     }
     
 }

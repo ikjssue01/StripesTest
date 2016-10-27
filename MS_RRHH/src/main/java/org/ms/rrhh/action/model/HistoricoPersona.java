@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name = "historico_persona", catalog = "rrhh", schema = "public")
+@Table(name = "historico_persona",   schema = "public")
 @NamedQueries({
     @NamedQuery(name = "HistoricoPersona.findAll", query = "SELECT h FROM HistoricoPersona h")})
 public class HistoricoPersona implements Serializable {
@@ -36,14 +36,12 @@ public class HistoricoPersona implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer codigo;
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "primer_nombre", nullable = false, length = 100)
     private String primerNombre;
     @Column(name = "segundo_nombre", length = 100)
     private String segundoNombre;
-    @Column(name = "tercer_nombre", length = 100)
-    private String tercerNombre;
     @Column(name = "otros_nombres", length = 2147483647)
     private String otrosNombres;
     @Basic(optional = false)
@@ -51,8 +49,6 @@ public class HistoricoPersona implements Serializable {
     private String primerApellido;
     @Column(name = "segundo_apellido", length = 100)
     private String segundoApellido;
-    @Column(name = "tercer_apellido", length = 100)
-    private String tercerApellido;
     @Column(name = "otros_apellidos", length = 2147483647)
     private String otrosApellidos;
     @Column(name = "apellido_casada", length = 100)
@@ -61,10 +57,12 @@ public class HistoricoPersona implements Serializable {
     private String estadoCivil;
     @Column(length = 50)
     private String sexo;
-    @Column(length = 50)
-    private String nacionalidad;
-    @Column(length = 50)
-    private String profesion;
+    @Basic(optional = false)
+    @Column(name = "fk_nacionalidad", nullable = false)
+    private int fkNacionalidad;
+    @Basic(optional = false)
+    @Column(name = "fk_profesion", nullable = false)
+    private int fkProfesion;
     @Column(name = "limitaciones_fisicas", length = 2147483647)
     private String limitacionesFisicas;
     @Column(name = "sabe_leer")
@@ -83,12 +81,10 @@ public class HistoricoPersona implements Serializable {
     private String nacNoFolio;
     @Column(name = "nac_no_partida", length = 50)
     private String nacNoPartida;
-    @Column(name = "fk_pueblo")
-    private Integer fkPueblo;
-    @Column(name = "fk_comunidad_linguistica")
-    private Integer fkComunidadLinguistica;
-    @Column(length = 2147483647)
-    private String idiomas;
+    @Column(name = "fk_pueblo", length = 50)
+    private String fkPueblo;
+    @Column(name = "fk_comunidad_linguistica", length = 50)
+    private String fkComunidadLinguistica;
     @Column(length = 2147483647)
     private String mrz;
     @Column(name = "no_cedula", length = 50)
@@ -99,15 +95,20 @@ public class HistoricoPersona implements Serializable {
     private Integer fkMunicipioCedula;
     @Column(name = "fk_municipio_vecindad")
     private Integer fkMunicipioVecindad;
-    @Column(name = "huella_mano", length = 50)
-    private String huellaMano;
-    @Column(name = "huella_dedo", length = 50)
-    private String huellaDedo;
+    @Column(name = "huella_mano_der")
+    private Boolean huellaManoDer;
+    @Column(name = "huella_mano_izq")
+    private Boolean huellaManoIzq;
+    @Column(name = "huella_dedo_der", length = 50)
+    private String huellaDedoDer;
+    @Column(name = "huella_dedo_izq", length = 50)
+    private String huellaDedoIzq;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
-    @Column(name = "creado_por", length = 50)
+    @Basic(optional = false)
+    @Column(name = "creado_por", nullable = false, length = 50)
     private String creadoPor;
     @JoinColumn(name = "fk_persona", referencedColumnName = "cui")
     @ManyToOne
@@ -116,24 +117,27 @@ public class HistoricoPersona implements Serializable {
     public HistoricoPersona() {
     }
 
-    public HistoricoPersona(Integer codigo) {
-        this.codigo = codigo;
+    public HistoricoPersona(Integer id) {
+        this.id = id;
     }
 
-    public HistoricoPersona(Integer codigo, String primerNombre, String primerApellido, Date fechaNacimiento, Date fechaCreacion) {
-        this.codigo = codigo;
+    public HistoricoPersona(Integer id, String primerNombre, String primerApellido, int fkNacionalidad, int fkProfesion, Date fechaNacimiento, Date fechaCreacion, String creadoPor) {
+        this.id = id;
         this.primerNombre = primerNombre;
         this.primerApellido = primerApellido;
+        this.fkNacionalidad = fkNacionalidad;
+        this.fkProfesion = fkProfesion;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaCreacion = fechaCreacion;
+        this.creadoPor = creadoPor;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPrimerNombre() {
@@ -150,14 +154,6 @@ public class HistoricoPersona implements Serializable {
 
     public void setSegundoNombre(String segundoNombre) {
         this.segundoNombre = segundoNombre;
-    }
-
-    public String getTercerNombre() {
-        return tercerNombre;
-    }
-
-    public void setTercerNombre(String tercerNombre) {
-        this.tercerNombre = tercerNombre;
     }
 
     public String getOtrosNombres() {
@@ -182,14 +178,6 @@ public class HistoricoPersona implements Serializable {
 
     public void setSegundoApellido(String segundoApellido) {
         this.segundoApellido = segundoApellido;
-    }
-
-    public String getTercerApellido() {
-        return tercerApellido;
-    }
-
-    public void setTercerApellido(String tercerApellido) {
-        this.tercerApellido = tercerApellido;
     }
 
     public String getOtrosApellidos() {
@@ -224,20 +212,20 @@ public class HistoricoPersona implements Serializable {
         this.sexo = sexo;
     }
 
-    public String getNacionalidad() {
-        return nacionalidad;
+    public int getFkNacionalidad() {
+        return fkNacionalidad;
     }
 
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public void setFkNacionalidad(int fkNacionalidad) {
+        this.fkNacionalidad = fkNacionalidad;
     }
 
-    public String getProfesion() {
-        return profesion;
+    public int getFkProfesion() {
+        return fkProfesion;
     }
 
-    public void setProfesion(String profesion) {
-        this.profesion = profesion;
+    public void setFkProfesion(int fkProfesion) {
+        this.fkProfesion = fkProfesion;
     }
 
     public String getLimitacionesFisicas() {
@@ -304,28 +292,20 @@ public class HistoricoPersona implements Serializable {
         this.nacNoPartida = nacNoPartida;
     }
 
-    public Integer getFkPueblo() {
+    public String getFkPueblo() {
         return fkPueblo;
     }
 
-    public void setFkPueblo(Integer fkPueblo) {
+    public void setFkPueblo(String fkPueblo) {
         this.fkPueblo = fkPueblo;
     }
 
-    public Integer getFkComunidadLinguistica() {
+    public String getFkComunidadLinguistica() {
         return fkComunidadLinguistica;
     }
 
-    public void setFkComunidadLinguistica(Integer fkComunidadLinguistica) {
+    public void setFkComunidadLinguistica(String fkComunidadLinguistica) {
         this.fkComunidadLinguistica = fkComunidadLinguistica;
-    }
-
-    public String getIdiomas() {
-        return idiomas;
-    }
-
-    public void setIdiomas(String idiomas) {
-        this.idiomas = idiomas;
     }
 
     public String getMrz() {
@@ -368,20 +348,36 @@ public class HistoricoPersona implements Serializable {
         this.fkMunicipioVecindad = fkMunicipioVecindad;
     }
 
-    public String getHuellaMano() {
-        return huellaMano;
+    public Boolean getHuellaManoDer() {
+        return huellaManoDer;
     }
 
-    public void setHuellaMano(String huellaMano) {
-        this.huellaMano = huellaMano;
+    public void setHuellaManoDer(Boolean huellaManoDer) {
+        this.huellaManoDer = huellaManoDer;
     }
 
-    public String getHuellaDedo() {
-        return huellaDedo;
+    public Boolean getHuellaManoIzq() {
+        return huellaManoIzq;
     }
 
-    public void setHuellaDedo(String huellaDedo) {
-        this.huellaDedo = huellaDedo;
+    public void setHuellaManoIzq(Boolean huellaManoIzq) {
+        this.huellaManoIzq = huellaManoIzq;
+    }
+
+    public String getHuellaDedoDer() {
+        return huellaDedoDer;
+    }
+
+    public void setHuellaDedoDer(String huellaDedoDer) {
+        this.huellaDedoDer = huellaDedoDer;
+    }
+
+    public String getHuellaDedoIzq() {
+        return huellaDedoIzq;
+    }
+
+    public void setHuellaDedoIzq(String huellaDedoIzq) {
+        this.huellaDedoIzq = huellaDedoIzq;
     }
 
     public Date getFechaCreacion() {
@@ -411,7 +407,7 @@ public class HistoricoPersona implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -422,7 +418,7 @@ public class HistoricoPersona implements Serializable {
             return false;
         }
         HistoricoPersona other = (HistoricoPersona) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -430,7 +426,7 @@ public class HistoricoPersona implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.HistoricoPersona[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.HistoricoPersona[ id=" + id + " ]";
     }
     
 }

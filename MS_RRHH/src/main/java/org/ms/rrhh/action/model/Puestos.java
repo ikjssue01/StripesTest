@@ -13,8 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -26,77 +24,73 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name = "registro_academico", catalog = "rrhh", schema = "public")
+@Table( schema = "public", name = "puestos")
 @NamedQueries({
-    @NamedQuery(name = "RegistroAcademico.findAll", query = "SELECT r FROM RegistroAcademico r")})
-public class RegistroAcademico implements Serializable {
+    @NamedQuery(name = "Puestos.findAll", query = "SELECT p FROM Puestos p")})
+public class Puestos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Integer codigo;
-    @Column(name = "ultimo_grado", length = 50)
-    private String ultimoGrado;
-    @Column(name = "estudia_actualmente")
-    private Boolean estudiaActualmente;
-    @Column(name = "grado_actual", length = 50)
-    private String gradoActual;
+    private Integer id;
+    @Column(length = 500)
+    private String valor;
+    @Column(length = 50)
+    private String tipo;
     @Column(length = 50)
     private String estado;
+    @Column(name = "codigo_padre")
+    private Integer codigoPadre;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
     @Column(name = "creado_por", length = 50)
     private String creadoPor;
-    @JoinColumn(name = "fk_persona", referencedColumnName = "cui")
-    @ManyToOne
-    private Persona fkPersona;
+    @Basic(optional = false)
+    @Column(name = "fecha_ultimo_cambio", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaUltimoCambio;
+    @Column(name = "ultimo_cambio_por", length = 50)
+    private String ultimoCambioPor;
 
-    public RegistroAcademico() {
+    public Puestos() {
     }
 
-    public RegistroAcademico(Integer codigo) {
-        this.codigo = codigo;
+    public Puestos(Integer id) {
+        this.id = id;
     }
 
-    public RegistroAcademico(Integer codigo, Date fechaCreacion) {
-        this.codigo = codigo;
+    public Puestos(Integer id, Date fechaCreacion, Date fechaUltimoCambio) {
+        this.id = id;
         this.fechaCreacion = fechaCreacion;
+        this.fechaUltimoCambio = fechaUltimoCambio;
     }
 
-    public Integer getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getUltimoGrado() {
-        return ultimoGrado;
+    public String getValor() {
+        return valor;
     }
 
-    public void setUltimoGrado(String ultimoGrado) {
-        this.ultimoGrado = ultimoGrado;
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
-    public Boolean getEstudiaActualmente() {
-        return estudiaActualmente;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setEstudiaActualmente(Boolean estudiaActualmente) {
-        this.estudiaActualmente = estudiaActualmente;
-    }
-
-    public String getGradoActual() {
-        return gradoActual;
-    }
-
-    public void setGradoActual(String gradoActual) {
-        this.gradoActual = gradoActual;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getEstado() {
@@ -105,6 +99,14 @@ public class RegistroAcademico implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Integer getCodigoPadre() {
+        return codigoPadre;
+    }
+
+    public void setCodigoPadre(Integer codigoPadre) {
+        this.codigoPadre = codigoPadre;
     }
 
     public Date getFechaCreacion() {
@@ -123,29 +125,37 @@ public class RegistroAcademico implements Serializable {
         this.creadoPor = creadoPor;
     }
 
-    public Persona getFkPersona() {
-        return fkPersona;
+    public Date getFechaUltimoCambio() {
+        return fechaUltimoCambio;
     }
 
-    public void setFkPersona(Persona fkPersona) {
-        this.fkPersona = fkPersona;
+    public void setFechaUltimoCambio(Date fechaUltimoCambio) {
+        this.fechaUltimoCambio = fechaUltimoCambio;
+    }
+
+    public String getUltimoCambioPor() {
+        return ultimoCambioPor;
+    }
+
+    public void setUltimoCambioPor(String ultimoCambioPor) {
+        this.ultimoCambioPor = ultimoCambioPor;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codigo != null ? codigo.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof RegistroAcademico)) {
+        if (!(object instanceof Puestos)) {
             return false;
         }
-        RegistroAcademico other = (RegistroAcademico) object;
-        if ((this.codigo == null && other.codigo != null) || (this.codigo != null && !this.codigo.equals(other.codigo))) {
+        Puestos other = (Puestos) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -153,7 +163,7 @@ public class RegistroAcademico implements Serializable {
 
     @Override
     public String toString() {
-        return "org.ms.rrhh.domain.model.RegistroAcademico[ codigo=" + codigo + " ]";
+        return "org.ms.rrhh.domain.model.Puestos[ id=" + id + " ]";
     }
     
 }

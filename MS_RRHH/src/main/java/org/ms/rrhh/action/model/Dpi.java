@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(catalog = "rrhh", schema = "public")
+@Table(schema = "public", name = "dpi")
 @NamedQueries({
     @NamedQuery(name = "Dpi.findAll", query = "SELECT d FROM Dpi d")})
 public class Dpi implements Serializable {
