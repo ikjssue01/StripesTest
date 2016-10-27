@@ -5,6 +5,9 @@
  */
 package org.ms.rrhh.rest.dto;
 
+import org.ms.rrhh.domain.enums.ComparadorBusqueda;
+import org.ms.rrhh.domain.enums.TipoCampoBusqueda;
+
 /**
  *
  * @author edcracken
@@ -12,8 +15,8 @@ package org.ms.rrhh.rest.dto;
 public class FiltroAvanzadoDto {
 
     private String campo;
-    private String comparador;
-    private String tipoDato;
+    private ComparadorBusqueda comparador;
+    private TipoCampoBusqueda tipoDato;
     private String valor1;
     private String valor2;
 
@@ -41,20 +44,20 @@ public class FiltroAvanzadoDto {
         this.valor2 = valor2;
     }
 
-    public String getComparador() {
-        return comparador;
-    }
-
-    public void setComparador(String comparador) {
-        this.comparador = comparador;
-    }
-
-    public String getTipoDato() {
+    public TipoCampoBusqueda getTipoDato() {
         return tipoDato;
     }
 
-    public void setTipoDato(String tipoDato) {
+    public void setTipoDato(TipoCampoBusqueda tipoDato) {
         this.tipoDato = tipoDato;
+    }
+
+    public ComparadorBusqueda getComparador() {
+        return comparador;
+    }
+
+    public void setComparador(ComparadorBusqueda comparador) {
+        this.comparador = comparador;
     }
 
 }
