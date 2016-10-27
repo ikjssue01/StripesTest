@@ -7,6 +7,7 @@ package org.ms.rrhh.dao;
 
 import java.util.List;
 import org.ms.rrhh.domain.model.Persona;
+import org.ms.rrhh.rest.dto.BusquedaNormalDto;
 import org.springframework.dao.DataAccessException;
 
 /**
@@ -18,4 +19,6 @@ public interface PersonasDao {
     public List<Persona> getAll() throws DataAccessException;
 
     public Persona getOne(Long carId) throws DataAccessException;
+
+    public List<Persona> busquedaNormal(BusquedaNormalDto normal) throws DataAccessException;
 }

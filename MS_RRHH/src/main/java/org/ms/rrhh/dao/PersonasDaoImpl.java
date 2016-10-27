@@ -43,12 +43,7 @@ public class PersonasDaoImpl implements PersonasDao {
     }
 
     @Transactional
-    public List<Persona> busquedaNormalConDireccion(BusquedaNormalDto normal) throws DataAccessException {
-        return busquedaNormalSinDireccion(normal);
-    }
-
-    @Transactional
-    public List<Persona> busquedaNormalSinDireccion(BusquedaNormalDto normal) throws DataAccessException {
+    public List<Persona> busquedaNormal(BusquedaNormalDto normal) throws DataAccessException {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Persona> c = cb.createQuery(Persona.class);
         Root<Persona> root = c.from(Persona.class);
