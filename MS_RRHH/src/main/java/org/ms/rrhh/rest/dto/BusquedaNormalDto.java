@@ -6,7 +6,7 @@
 package org.ms.rrhh.rest.dto;
 
 import java.util.Date;
-import org.ms.rrhh.domain.model.utils.Pueblo;
+import org.ms.rrhh.domain.utils.Pueblo;
 
 /**
  *

@@ -1,4 +1,4 @@
-package org.ms.rrhh.domain.model.utils;
+package org.ms.rrhh.domain.utils;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
