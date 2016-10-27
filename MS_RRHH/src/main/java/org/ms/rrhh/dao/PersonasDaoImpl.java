@@ -12,8 +12,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -38,18 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author edcracken
  */
 @Repository
-public class PersonasDaoImpl implements PersonasDao {
-
-    protected EntityManager entityManager;
-
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
-    @PersistenceContext
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+public class PersonasDaoImpl extends BaseDao<Persona> implements PersonasDao {
 
     @Transactional
     @Override
@@ -132,12 +119,6 @@ public class PersonasDaoImpl implements PersonasDao {
         Query query = getEntityManager().createQuery("select c from Persona c");
         List<Persona> resultList = query.getResultList();
         return resultList;
-    }
-
-    @Transactional
-    @Override
-    public Persona getOne(String cui) throws DataAccessException {
-        return getEntityManager().find(Persona.class, cui);
     }
 
     /**
