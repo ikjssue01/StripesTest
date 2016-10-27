@@ -12,7 +12,8 @@ package org.ms.rrhh.rest.dto;
 public class FiltroAvanzadoDto {
 
     private String campo;
-    private String tipo;
+    private String comparador;
+    private String tipoDato;
     private String valor1;
     private String valor2;
 
@@ -22,14 +23,6 @@ public class FiltroAvanzadoDto {
 
     public void setCampo(String campo) {
         this.campo = campo;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public String getValor1() {
@@ -46,6 +39,22 @@ public class FiltroAvanzadoDto {
 
     public void setValor2(String valor2) {
         this.valor2 = valor2;
+    }
+
+    public String getComparador() {
+        return comparador;
+    }
+
+    public void setComparador(String comparador) {
+        this.comparador = comparador;
+    }
+
+    public String getTipoDato() {
+        return tipoDato;
+    }
+
+    public void setTipoDato(String tipoDato) {
+        this.tipoDato = tipoDato;
     }
 
 }

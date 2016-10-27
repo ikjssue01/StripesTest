@@ -1,4 +1,4 @@
-package org.ms.rrhh.domain.utils;
+package org.ms.rrhh.domain.enums;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

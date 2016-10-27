@@ -19,6 +19,7 @@ import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.EntityType;
 import org.ms.rrhh.domain.model.LugarResidencia;
 import org.ms.rrhh.domain.model.Persona;
+import org.ms.rrhh.rest.dto.BusquedaAvanzadaDto;
 import org.ms.rrhh.rest.dto.BusquedaNormalDto;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
@@ -43,6 +44,7 @@ public class PersonasDaoImpl implements PersonasDao {
     }
 
     @Transactional
+    @Override
     public List<Persona> busquedaNormal(BusquedaNormalDto normal) throws DataAccessException {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Persona> c = cb.createQuery(Persona.class);
@@ -128,6 +130,76 @@ public class PersonasDaoImpl implements PersonasDao {
     @Override
     public Persona getOne(Long carId) throws DataAccessException {
         return getEntityManager().find(Persona.class, carId);
+    }
+
+    @Override
+    public List<Persona> busquedaAvanzada(BusquedaAvanzadaDto normal) throws DataAccessException {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Persona> c = cb.createQuery(Persona.class);
+        Root<Persona> root = c.from(Persona.class);
+        EntityType<Persona> type = getEntityManager().getMetamodel().entity(Persona.class);
+        Subquery<LugarResidencia> sqLugar = null;
+        List<Predicate> criteria = new ArrayList<Predicate>();
+
+//        if (normal.getPrimerNombre() != null) {
+//            criteria.add(cb.like(root.get(type.getSingularAttribute("primerNombre", String.class)),
+//                    normal.getPrimerNombre()));
+//        }
+//        if (normal.getSegundoNombre() != null) {
+//            criteria.add(cb.like(root.get(type.getSingularAttribute("segundoNombre", String.class)),
+//                    normal.getSegundoNombre()));
+//        }
+//        if (normal.getPrimerApellido() != null) {
+//            criteria.add(cb.like(root.get(type.getSingularAttribute("primerApellido", String.class)),
+//                    normal.getPrimerNombre()));
+//        }
+//        if (normal.getSegundoApellido() != null) {
+//            criteria.add(cb.like(root.get(type.getSingularAttribute("segundoApellido", String.class)),
+//                    normal.getPrimerApellido()));
+//        }
+//        if (normal.getSexo() != null) {
+//            criteria.add(cb.like(root.get(type.getSingularAttribute("sexo", String.class)),
+//                    normal.getSexo().getValue()));
+//        }
+//        if (normal.getFechaNacInicio() != null) {
+//            criteria.add(cb.greaterThanOrEqualTo(root.get(type.getSingularAttribute("fechaNacimiento", Date.class)),
+//                    normal.getFechaNacInicio()));
+//        }
+//        if (normal.getFechaNacFin() != null) {
+//            criteria.add(cb.lessThanOrEqualTo(root.get(type.getSingularAttribute("fechaNacimiento", Date.class)),
+//                    normal.getFechaNacFin()));
+//        }
+//        if (normal.getEdad() != null && normal.getEdad() >= 0) {
+//            criteria.add(cb.equal(root.get(type.getSingularAttribute("edad", Integer.class)),
+//                    normal.getEdad()));
+//        }
+//        if (normal.getDireccion() != null || normal.getMunicipio() != null) {
+//            sqLugar = c.subquery(LugarResidencia.class);
+//            Root<LugarResidencia> lugarResidencia = sqLugar.from(LugarResidencia.class);
+//            List<Predicate> criteriaLugar = new ArrayList<Predicate>();
+//            EntityType<LugarResidencia> residenciaType = getEntityManager()
+//                    .getMetamodel()
+//                    .entity(LugarResidencia.class);
+//            if (normal.getDireccion() != null && !normal.getDireccion().isEmpty()) {
+//                criteriaLugar.add(cb.like(
+//                        lugarResidencia.get(residenciaType.getSingularAttribute("direccion", String.class)),
+//                        likeExpr(normal.getDireccion())
+//                ));
+//            }
+//            if (normal.getMunicipio() != null) {
+//                criteriaLugar.add(cb.equal(
+//                        lugarResidencia.get(residenciaType.getSingularAttribute("fkMunicipio", Integer.class)),
+//                        normal.getMunicipio()));
+//            }
+//            sqLugar.select(lugarResidencia)
+//                    .where(criteriaLugar.toArray(new Predicate[criteriaLugar.size()]));
+//        }
+        if (sqLugar != null) {
+            criteria.add(cb.in(sqLugar));
+        }
+        c.where(cb.or(criteria.toArray(new Predicate[criteria.size()])));
+
+        return getEntityManager().createQuery(c).getResultList();
     }
 
 }

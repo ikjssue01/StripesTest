@@ -6,8 +6,8 @@
 package org.ms.rrhh.rest.dto;
 
 import java.util.Date;
-import org.ms.rrhh.domain.utils.Pueblo;
-import org.ms.rrhh.domain.utils.Sexo;
+import org.ms.rrhh.domain.enums.Pueblo;
+import org.ms.rrhh.domain.enums.Sexo;
 
 /**
  *
