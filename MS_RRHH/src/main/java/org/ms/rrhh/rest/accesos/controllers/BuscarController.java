@@ -5,8 +5,8 @@
  */
 package org.ms.rrhh.rest.accesos.controllers;
 
-import org.ms.rrhh.rest.dto.RoleDto;
-import org.ms.rrhh.rest.roles.controllers.handlers.BuscarHandler;
+import org.ms.rrhh.rest.accesos.controllers.handlers.BuscarAcHandler;
+import org.ms.rrhh.rest.dto.AccesoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author edcracken
  */
-@Controller("getRole")
-@RequestMapping("roles")
+@Controller("getAcceso")
+@RequestMapping("accesos")
 public class BuscarController {
 
     @Autowired
-    BuscarHandler handler;
+    BuscarAcHandler handler;
 
     @RequestMapping("/get/{id}")
     public @ResponseBody
-    RoleDto getRole(@PathVariable("id") Integer id) {
-        return handler.handle(new RoleDto(id));
+    AccesoDto getRole(@PathVariable("id") Integer id) {
+        return handler.handle(new AccesoDto(id));
     }
 }

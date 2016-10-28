@@ -6,6 +6,7 @@
 package org.ms.rrhh.rest.dto;
 
 import java.util.Date;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -14,11 +15,20 @@ import java.util.Date;
 public class AccesoDto {
 
     private Integer id;
+    @NotNull
     private String valor;
+    @NotNull
     private String tipo;
     private String estado;
     private Date fechaCreacion;
     private String creadoPor;
+
+    public AccesoDto() {
+    }
+
+    public AccesoDto(Integer id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;

@@ -5,11 +5,11 @@
  */
 package org.ms.rrhh.rest.accesos.controllers;
 
-import org.ms.rrhh.rest.roles.controllers.*;
-import org.ms.rrhh.domain.model.Role;
+import javax.validation.Valid;
+import org.ms.rrhh.domain.model.Acceso;
 import org.ms.rrhh.domain.utils.BeansConverter;
-import org.ms.rrhh.rest.dto.RoleDto;
-import org.ms.rrhh.rest.roles.controllers.handlers.CrearHandler;
+import org.ms.rrhh.rest.accesos.controllers.handlers.CrearAcHandler;
+import org.ms.rrhh.rest.dto.AccesoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,15 +20,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author eliud
  */
-@Controller("crearRole")
-@RequestMapping("roles")
+@Controller("crearAcceso")
+@RequestMapping("accesos")
 public class CrearController {
 
     @Autowired
-    CrearHandler crear;
+    CrearAcHandler crear;
 
     @RequestMapping(value = "/crea", method = RequestMethod.POST, headers = "Content-Type=application/json")
-    public RoleDto crear(@RequestBody RoleDto persona) {
-        return new BeansConverter<Role, RoleDto>().toDTO(crear.handle(persona));
+    public AccesoDto crear(@RequestBody @Valid AccesoDto acceso) {
+        return new BeansConverter<Acceso, AccesoDto>().toDTO(crear.handle(acceso));
     }
 }
