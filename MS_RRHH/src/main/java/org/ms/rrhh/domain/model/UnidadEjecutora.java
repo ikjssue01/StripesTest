@@ -18,13 +18,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.ms.rrhh.domain.enums.Estado;
 
 /**
  *
  * @author edcracken
  */
 @Entity
-@Table(name = "unidad_ejecutora",  schema = "public")
+@Table(name = "unidad_ejecutora", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "UnidadEjecutora.findAll", query = "SELECT u FROM UnidadEjecutora u")})
 public class UnidadEjecutora implements Serializable {
@@ -38,7 +39,7 @@ public class UnidadEjecutora implements Serializable {
     @Column(length = 500)
     private String nombre;
     @Column(length = 50)
-    private String estado;
+    private Estado estado;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -81,11 +82,11 @@ public class UnidadEjecutora implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
@@ -145,5 +146,5 @@ public class UnidadEjecutora implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.UnidadEjecutora[ id=" + id + " ]";
     }
-    
+
 }

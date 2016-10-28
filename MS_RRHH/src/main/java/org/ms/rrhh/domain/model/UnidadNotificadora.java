@@ -18,13 +18,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.ms.rrhh.domain.enums.Estado;
 
 /**
  *
  * @author edcracken
  */
 @Entity
-@Table(name = "unidad_notificadora",   schema = "public")
+@Table(name = "unidad_notificadora", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "UnidadNotificadora.findAll", query = "SELECT u FROM UnidadNotificadora u")})
 public class UnidadNotificadora implements Serializable {
@@ -40,7 +41,7 @@ public class UnidadNotificadora implements Serializable {
     @Column(length = 50)
     private String tipo;
     @Column(length = 50)
-    private String estado;
+    private Estado estado;
     @Column(name = "codigo_padre")
     private Integer codigoPadre;
     @Basic(optional = false)
@@ -93,11 +94,11 @@ public class UnidadNotificadora implements Serializable {
         this.tipo = tipo;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
@@ -165,5 +166,5 @@ public class UnidadNotificadora implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.UnidadNotificadora[ id=" + id + " ]";
     }
-    
+
 }

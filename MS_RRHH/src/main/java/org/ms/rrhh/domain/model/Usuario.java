@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.ms.rrhh.domain.enums.Estado;
 
 /**
  *
@@ -39,7 +40,7 @@ public class Usuario implements Serializable {
     @Column(name = "super_usuario")
     private Boolean superUsuario;
     @Column
-    private String estado;
+    private Estado estado;
     @Column
     private String nombres;
     @Column
@@ -102,11 +103,11 @@ public class Usuario implements Serializable {
         this.superUsuario = superUsuario;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 

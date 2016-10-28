@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,13 +22,15 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.ms.rrhh.domain.enums.Estado;
+import org.ms.rrhh.domain.enums.EstadoVariable;
 
 /**
  *
  * @author edcracken
  */
 @Entity
-@Table(name = "registro_academico",  schema = "public")
+@Table(name = "registro_academico", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "RegistroAcademico.findAll", query = "SELECT r FROM RegistroAcademico r")})
 public class RegistroAcademico implements Serializable {
@@ -46,7 +50,8 @@ public class RegistroAcademico implements Serializable {
     @Column(name = "grado_actual", nullable = false)
     private int gradoActual;
     @Column(length = 50)
-    private String estado;
+    @Enumerated(EnumType.STRING)
+    private EstadoVariable estado;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -103,11 +108,11 @@ public class RegistroAcademico implements Serializable {
         this.gradoActual = gradoActual;
     }
 
-    public String getEstado() {
+    public EstadoVariable getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoVariable estado) {
         this.estado = estado;
     }
 
@@ -159,5 +164,5 @@ public class RegistroAcademico implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.RegistroAcademico[ id=" + id + " ]";
     }
-    
+
 }
