@@ -6,7 +6,7 @@
 package org.ms.rrhh.rest.accesos.controllers.handlers;
 
 import org.ms.rrhh.api.AbstractRequestHandler;
-import org.ms.rrhh.dao.AccesoDao;
+import org.ms.rrhh.dao.AccesosDao;
 import org.ms.rrhh.domain.model.Acceso;
 import org.ms.rrhh.domain.utils.BeansConverter;
 import org.ms.rrhh.rest.dto.AccesoDto;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 public class BuscarAcHandler extends AbstractRequestHandler<AccesoDto, AccesoDto> {
 
     @Autowired
-    AccesoDao accesos;
+    AccesosDao accesos;
 
     @Override
     public AccesoDto execute(final AccesoDto request) {

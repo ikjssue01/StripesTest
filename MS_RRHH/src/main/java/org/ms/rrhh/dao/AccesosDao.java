@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author eliud
  */
-@Repository("accesosDao")
+@Repository
 public class AccesosDao extends CrudRepositoryImpl<Acceso> {
 
 }

@@ -9,8 +9,8 @@ import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import java.util.List;
 import org.ms.rrhh.api.AbstractRequestHandler;
-import org.ms.rrhh.dao.AccesoDao;
 import org.ms.rrhh.dao.AccesoRoleDao;
+import org.ms.rrhh.dao.AccesosDao;
 import org.ms.rrhh.dao.RolesDao;
 import org.ms.rrhh.domain.model.Acceso;
 import org.ms.rrhh.domain.model.AccesoRole;
@@ -31,7 +31,7 @@ public class BuscarHandler extends AbstractRequestHandler<RoleDto, RoleDto> {
     @Autowired
     RolesDao roles;
     @Autowired
-    AccesoDao accesos;
+    AccesosDao accesos;
     @Autowired
     AccesoRoleDao accesosRole;
 

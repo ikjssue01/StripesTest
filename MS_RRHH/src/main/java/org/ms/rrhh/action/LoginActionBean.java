@@ -24,15 +24,15 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
 import net.sourceforge.stripes.validation.ValidationError;
-import org.ms.rrhh.api.dao.impl.CrudRepository;
+import org.ms.rrhh.dao.UsuariosDao;
 import org.ms.rrhh.domain.model.Usuario;
 import org.springframework.util.DigestUtils;
 
 @UrlBinding("/Login.htm")
 public class LoginActionBean extends BaseActionBean {
 
-    @SpringBean(value = "usuariosDao")
-    private CrudRepository<Usuario> usuariosRepo;
+    @SpringBean
+    private UsuariosDao usuariosRepo;
 
     @Validate(required = true)
     private String username;

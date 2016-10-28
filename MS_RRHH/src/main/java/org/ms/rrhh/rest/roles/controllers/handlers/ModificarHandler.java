@@ -8,8 +8,8 @@ package org.ms.rrhh.rest.roles.controllers.handlers;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import org.ms.rrhh.api.AbstractRequestHandler;
-import org.ms.rrhh.dao.AccesoDao;
 import org.ms.rrhh.dao.AccesoRoleDao;
+import org.ms.rrhh.dao.AccesosDao;
 import org.ms.rrhh.dao.RolesDao;
 import org.ms.rrhh.domain.model.AccesoRole;
 import org.ms.rrhh.domain.model.Role;
@@ -29,7 +29,7 @@ public class ModificarHandler extends AbstractRequestHandler<RoleDto, RoleDto> {
     @Autowired
     RolesDao roles;
     @Autowired
-    AccesoDao accesos;
+    AccesosDao accesos;
     @Autowired
     AccesoRoleDao accesosRole;
 
