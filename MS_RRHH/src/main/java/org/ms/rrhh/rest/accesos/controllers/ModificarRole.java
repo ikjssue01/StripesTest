@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ms.rrhh.rest.roles.controllers;
+package org.ms.rrhh.rest.accesos.controllers;
 
+import org.ms.rrhh.rest.roles.controllers.*;
 import org.ms.rrhh.rest.dto.RoleDto;
 import org.ms.rrhh.rest.roles.controllers.handlers.ModificarHandler;
 import org.springframework.beans.factory.annotation.Autowired;

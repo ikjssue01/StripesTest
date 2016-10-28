@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.ms.rrhh.rest.roles.controllers;
+package org.ms.rrhh.rest.accesos.controllers;
 
+import org.ms.rrhh.rest.roles.controllers.*;
 import org.ms.rrhh.domain.model.Role;
 import org.ms.rrhh.domain.utils.BeansConverter;
 import org.ms.rrhh.rest.dto.RoleDto;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author eliud
  */
-@Controller("crearAccesos")
-@RequestMapping("accesos")
+@Controller("crearRole")
+@RequestMapping("roles")
 public class CrearController {
 
     @Autowired

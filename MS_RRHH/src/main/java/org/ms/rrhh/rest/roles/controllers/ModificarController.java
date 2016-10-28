@@ -5,12 +5,11 @@
  */
 package org.ms.rrhh.rest.roles.controllers;
 
-import org.ms.rrhh.domain.model.Role;
-import org.ms.rrhh.domain.utils.BeansConverter;
 import org.ms.rrhh.rest.dto.RoleDto;
-import org.ms.rrhh.rest.roles.controllers.handlers.CrearHandler;
+import org.ms.rrhh.rest.roles.controllers.handlers.ModificarHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,15 +18,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author eliud
  */
-@Controller("crearAccesos")
+@Controller("modificarAcceso")
 @RequestMapping("accesos")
-public class CrearController {
+public class ModificarController {
 
     @Autowired
-    CrearHandler crear;
+    ModificarHandler handler;
 
-    @RequestMapping(value = "/crea", method = RequestMethod.POST, headers = "Content-Type=application/json")
-    public RoleDto crear(@RequestBody RoleDto persona) {
-        return new BeansConverter<Role, RoleDto>().toDTO(crear.handle(persona));
+    @RequestMapping(value = "/mod/{id}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
+    public void modificar(@PathVariable("id") Integer id, @RequestBody RoleDto persona) {
+        handler.handle(persona);
     }
 }

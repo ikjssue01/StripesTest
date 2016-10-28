@@ -487,4 +487,9 @@ public class Persona implements Serializable, CustomEntity {
         return "org.ms.rrhh.domain.model.Persona[ cui=" + cui + " ]";
     }
 
+    @Override
+    public void setFechaUltimoCambio(Date fechaUltimoCambio) {
+        System.out.println("nothing...");
+    }
+
 }
