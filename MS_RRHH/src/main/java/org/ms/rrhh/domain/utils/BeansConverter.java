@@ -5,16 +5,17 @@
  */
 package org.ms.rrhh.domain.utils;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import org.springframework.beans.BeanUtils;
 
 /**
  *
- * @author abisai
+ * @author edcracken
  * @param <A>
  * @param <B>
  */
@@ -72,12 +73,12 @@ public class BeansConverter<A, B> {
      * @return
      */
     public List<A> toEntity(List<B> origin) {
-        List<A> b = new ArrayList<A>();
-        for (B a : origin) {
-            b.add(this.toEntity(a));
-        }
-        return b;
-//        return (List<A>) origin.stream().map(this::toEntity).collect(toList());
+        return (List<A>) Collections2.transform(origin, new Function<B, A>() {
+            @Override
+            public A apply(B a) {
+                return BeansConverter.this.toEntity(a);
+            }
+        });
     }
 
     /**
