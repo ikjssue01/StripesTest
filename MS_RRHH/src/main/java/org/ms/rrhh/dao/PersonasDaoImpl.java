@@ -5,7 +5,6 @@
  */
 package org.ms.rrhh.dao;
 
-import org.ms.rrhh.api.BaseDaoImpl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

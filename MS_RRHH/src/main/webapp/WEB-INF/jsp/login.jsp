@@ -1,12 +1,12 @@
 <%--
  Copyright (C) 2008-2012 Freddy Daoud
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
    http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,29 +18,23 @@
 
 <s:layout-render name="/WEB-INF/jsp/layout.jsp" title="Welcome">
     <s:layout-component name="body">
-        <stripes:errors action="/examples/bugzooky/Login.action"/>
-        <stripes:form action="/examples/bugzooky/Login.action" focus="username">
-            <table>
-                <tr>
-                    <td style="font-weight: bold;"><stripes:label for="username" />:</td>
-                </tr>
-                <tr>
-                    <td><stripes:text name="username" value="${user.username}" /></td>
-                </tr>
-                <tr>
-                    <td style="font-weight: bold;"><stripes:label for="password" />:</td>
-                </tr>
-                <tr>
-                    <td><stripes:password name="password" /></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center;">
-                        <%-- If the security interceptor attached a targetUrl, carry that along. --%>
-                <stripes:hidden name="targetUrl" />
-                <stripes:submit name="login" value="Login" />
-                </td>
-                </tr>
-            </table>
-        </stripes:form>
+        <link rel="stylesheet" type="text/css" href="${contextPath}/css/style.css">
+        <header class="headerNew">
+        </header>
+        <div class="login-page">
+            <div class="form">
+                <s:errors action="/Login.htm"/>
+                <s:form class="login-form"  action="/Login.htm" focus="username">
+                    <!--<input type="text" placeholder="CUI"/>-->
+                    <sdyn:text name="username" value="${user.username}" placeholder="CUI"/>
+                    <!--<input type="password" placeholder="password"/>-->
+                    <sdyn:password name="password" placeholder="password" />
+                    <p class="message"><a href="#">Recuperar Contraseña</a></p>
+                    <s:hidden name="targetUrl" />
+                    <!--<button type="submit" value="login">Ingresar</button>-->
+                    <s:submit  name="login" value="Login" />
+                </s:form>
+            </div>
+        </div>
     </s:layout-component>
 </s:layout-render>
