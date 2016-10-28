@@ -1,5 +1,7 @@
 package org.ms.rrhh.domain.enums;
 
+import org.codehaus.jackson.annotate.JsonCreator;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,6 +29,11 @@ public enum TipoCampoBusqueda {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @JsonCreator
+    public static TipoCampoBusqueda forValue(String value) {
+        return TipoCampoBusqueda.valueOf(value);
     }
 
 }
