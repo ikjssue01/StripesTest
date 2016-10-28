@@ -6,14 +6,14 @@
 package org.ms.rrhh.dao;
 
 import org.ms.rrhh.api.dao.impl.CrudRepositoryImpl;
-import org.ms.rrhh.domain.model.Role;
+import org.ms.rrhh.domain.model.Acceso;
 import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author eliud
  */
-@Repository("rolesDao")
-public class RolesDaoImpl extends CrudRepositoryImpl<Role> {
+@Repository("accesosDao")
+public class AccesosDaoImpl extends CrudRepositoryImpl<Acceso> {
 
 }

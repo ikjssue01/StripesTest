@@ -5,7 +5,9 @@
  */
 package org.ms.rrhh.rest.roles.controllers;
 
-import org.ms.rrhh.rest.dto.PersonaDto;
+import org.ms.rrhh.rest.dto.RoleDto;
+import org.ms.rrhh.rest.roles.controllers.handlers.BuscarHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller("getRole")
 @RequestMapping("roles")
-public class BuscarRole {
+public class BuscarController {
+
+    @Autowired
+    BuscarHandler handler;
 
     @RequestMapping("/get/{id}")
     public @ResponseBody
-    PersonaDto getRole(@PathVariable("id") Integer id) {
-        return null;
+    RoleDto getRole(@PathVariable("id") Integer id) {
+        return handler.handle(new RoleDto(id));
     }
 }

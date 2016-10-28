@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.ms.rrhh.domain.enums.Estado;
 
 /**
  *
@@ -30,7 +31,7 @@ import javax.persistence.TemporalType;
 @Table(name = "role", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r")})
-public class Role implements Serializable {
+public class Role implements Serializable, CustomEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,7 +42,7 @@ public class Role implements Serializable {
     @Column(length = 50)
     private String nombre;
     @Column(length = 50)
-    private String estado;
+    private Estado estado;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -86,14 +87,6 @@ public class Role implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public Date getFechaCreacion() {
@@ -144,6 +137,14 @@ public class Role implements Serializable {
         this.usuarioCollection = usuarioCollection;
     }
 
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -168,5 +169,5 @@ public class Role implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.Role[ id=" + id + " ]";
     }
-    
+
 }

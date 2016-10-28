@@ -29,7 +29,7 @@ import javax.persistence.TemporalType;
 @Table(name = "acceso_role", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "AccesoRole.findAll", query = "SELECT a FROM AccesoRole a")})
-public class AccesoRole implements Serializable {
+public class AccesoRole implements Serializable, CustomEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
