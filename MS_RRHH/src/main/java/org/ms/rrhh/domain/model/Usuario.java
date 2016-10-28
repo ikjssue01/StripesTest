@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(schema = "public",name = "usuario")
+@Table(schema = "public", name = "usuario")
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
 public class Usuario implements Serializable {
@@ -34,29 +34,29 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false, length = 100)
     private String id;
-    @Column(length = 100)
+    @Column
     private String correo;
     @Column(name = "super_usuario")
     private Boolean superUsuario;
-    @Column(length = 50)
+    @Column
     private String estado;
-    @Column(length = 50)
+    @Column
     private String nombres;
-    @Column(length = 50)
+    @Column
     private String apellidos;
-    @Column(length = 50)
+    @Column
     private String clave;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
-    @Column(name = "creado_por", length = 50)
+    @Column(name = "creado_por")
     private String creadoPor;
     @Basic(optional = false)
     @Column(name = "fecha_ultimo_cambio", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaUltimoCambio;
-    @Column(name = "ultimo_cambio_por", length = 50)
+    @Column(name = "ultimo_cambio_por")
     private String ultimoCambioPor;
     @JoinColumn(name = "fk_persona", referencedColumnName = "cui", nullable = false)
     @ManyToOne(optional = false)
@@ -206,5 +206,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.Usuario[ id=" + id + " ]";
     }
-    
+
 }

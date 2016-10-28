@@ -21,16 +21,17 @@ import net.sourceforge.stripes.action.ForwardResolution;
 import net.sourceforge.stripes.action.Resolution;
 import net.sourceforge.stripes.action.UrlBinding;
 import net.sourceforge.stripes.integration.spring.SpringBean;
+import net.sourceforge.stripes.validation.LocalizableError;
+import net.sourceforge.stripes.validation.SimpleError;
 import net.sourceforge.stripes.validation.Validate;
+import net.sourceforge.stripes.validation.ValidationError;
 import org.ms.rrhh.api.dao.impl.CrudRepository;
 import org.ms.rrhh.domain.model.Usuario;
-import org.ms.rrhh.services.IPersonaService;
+import org.springframework.util.DigestUtils;
 
 @UrlBinding("/Login.htm")
 public class LoginActionBean extends BaseActionBean {
 
-    @SpringBean
-    private IPersonaService personasService;
     @SpringBean(value = "usuariosDao")
     private CrudRepository<Usuario> usuariosRepo;
 
@@ -45,12 +46,21 @@ public class LoginActionBean extends BaseActionBean {
     @DefaultHandler
     @DontValidate
     public Resolution view() {
-        System.out.println("Personas >>" + personasService.getPersonas().size());
-        System.out.println("Usuarios >>" + usuariosRepo.getAll().size());
         return new ForwardResolution("/WEB-INF/jsp/login.jsp");
     }
 
     public Resolution login() {
+        Usuario usuario = usuariosRepo.getOne(username);
+        ValidationError error = new SimpleError("Error usuario invalido", new Object[]{});//new LocalizableError("usernameDoesNotExist");
+        if (usuario == null) {
+            getContext().getValidationErrors().add("username", error);
+            return getContext().getSourcePageResolution();
+        } else {
+            if (!usuario.getClave().equals(new String(DigestUtils.md5Digest(password.getBytes())))) {
+                getContext().getValidationErrors().add("username", error);
+                return getContext().getSourcePageResolution();
+            }
+        }
         System.out.println("reading >>  " + username + " >> " + password);
         return new ForwardResolution(HomeActionBean.class);
     }
