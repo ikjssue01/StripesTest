@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author edcracken
  */
 @Controller("getAccesos")
-@RequestMapping("accesos")
+@RequestMapping("roles")
 public class BuscarController {
 
     @Autowired
