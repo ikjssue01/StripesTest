@@ -22,12 +22,14 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
 import org.ms.rrhh.api.dao.impl.CrudRepositoryImpl;
+import org.ms.rrhh.domain.enums.CampoBusquedaAvanzada;
 import org.ms.rrhh.domain.enums.ComparadorBusqueda;
 import org.ms.rrhh.domain.enums.EstadoVariable;
 import org.ms.rrhh.domain.enums.Sexo;
 import org.ms.rrhh.domain.enums.TipoCampoBusqueda;
 import org.ms.rrhh.domain.model.LugarResidencia;
 import org.ms.rrhh.domain.model.Persona;
+import org.ms.rrhh.domain.model.Puesto;
 import org.ms.rrhh.rest.dto.BusquedaAvanzadaDto;
 import org.ms.rrhh.rest.dto.BusquedaNormalDto;
 import org.ms.rrhh.rest.dto.FiltroAvanzadoDto;
@@ -131,7 +133,7 @@ public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements Pers
      * @return
      */
     private Class getClassTipo(TipoCampoBusqueda tipo) {
-        if (tipo.equals(TipoCampoBusqueda.CARACTER)) {
+        if (tipo.equals(TipoCampoBusqueda.TEXTO)) {
             return String.class;
 
         }
@@ -200,6 +202,31 @@ public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements Pers
 
     }
 
+    private StringBuffer getEntreCriteria(FiltroAvanzadoDto fa, StringBuffer q) {
+        if (fa.getTipoDato().equals(TipoCampoBusqueda.NUMERO)) {
+            return q
+                    .append(fa.getCampo().getValue())
+                    .append(" between ")
+                    .append(fa.getValor1())
+                    .append(" and ")
+                    .append(fa.getValor1());
+        }
+
+        if (fa.getTipoDato().equals(TipoCampoBusqueda.FECHA)) {
+            return q
+                    .append(fa.getCampo().getValue())
+                    .append(" between ")
+                    .append("'")
+                    .append(fa.getValor1())
+                    .append("'")
+                    .append(" and ")
+                    .append("'")
+                    .append(fa.getValor2())
+                    .append("'");
+        }
+        return null;
+    }
+
     /**
      *
      * @param normal
@@ -208,39 +235,59 @@ public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements Pers
      */
     @Override
     public List<Persona> busquedaAvanzada(BusquedaAvanzadaDto normal) throws DataAccessException {
-        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Persona> c = cb.createQuery(Persona.class
-        );
-        Root<Persona> root = c.from(Persona.class
-        );
-        EntityType<Persona> type = getEntityManager().getMetamodel().entity(Persona.class
-        );
-        List<Predicate> criteria = new ArrayList<Predicate>();
-        for (FiltroAvanzadoDto f : normal.getFiltros()) {
-            if (f.getComparador().equals(ComparadorBusqueda.IGUAL)) {
-                Class tipo;
-                criteria.add(cb.equal(root.get(type
-                        .getSingularAttribute(f.getCampo(), tipo = getClassTipo(f.getTipoDato()))),
-                        getValueByClass(tipo, f.getValor1())));
-            }
-            if (f.getComparador().equals(ComparadorBusqueda.DIFERENTE)) {
-                Class tipo;
-                criteria.add(cb.notEqual(root.get(type
-                        .getSingularAttribute(f.getCampo(), tipo = getClassTipo(f.getTipoDato()))),
-                        getValueByClass(tipo, f.getValor1())));
-            }
-            if (f.getComparador().equals(ComparadorBusqueda.ENTRE)) {
-                Class tipo = getClassTipo(f.getTipoDato());
-                criteria.add(getPredicateBetweenByClass(root.get(type
-                        .getSingularAttribute(f.getCampo(), tipo)), tipo,
-                        f.getValor1(),
-                        f.getValor2()));
+        StringBuffer pLaboralByTipoPuestos = new StringBuffer("Select rl.fkPersona from RegistroLaboral rl")
+                .append(" where ")
+                .append("rl in(select p.fkRegistroLaboral form Puesto p "
+                        + " where p.fkPuestoNominal IN :puestos ");
+
+        StringBuffer puestosByRenglon = new StringBuffer("select pp.id from Puestos pp where c.codigoPadre=NULL and ");
+        for (FiltroAvanzadoDto fa : normal.getFiltros()) {
+            if (fa.getCampo().equals(CampoBusquedaAvanzada.REGLON)) {
+                if (fa.getComparador().equals(ComparadorBusqueda.ENTRE)) {
+                    puestosByRenglon = getEntreCriteria(fa, puestosByRenglon);
+                }
             }
         }
 
-        c.where(cb.or(criteria.toArray(new Predicate[criteria.size()])));
-
-        return getEntityManager().createQuery(c).getResultList();
+//        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+//        CriteriaQuery<Persona> cPersona = cb.createQuery(Persona.class
+//        );
+//        Root<Persona> rootPersona = cPersona.from(Persona.class
+//        );
+//        EntityType<Persona> typePersona = getEntityManager().getMetamodel().entity(Persona.class
+//        );
+//
+//        CriteriaQuery<Puesto> c = cb.createQuery(Puesto.class
+//        );
+//        Root<Puesto> root = c.from(Puesto.class);
+//        EntityType<Puesto> type = getEntityManager()
+//                .getMetamodel()
+//                .entity(Puesto.class);
+//
+//        List<Predicate> criteria = new ArrayList<Predicate>();
+//        for (FiltroAvanzadoDto f : normal.getFiltros()) {
+//            if (f.getComparador().equals(ComparadorBusqueda.IGUAL)) {
+//                Class tipo;
+//                criteria.add(cb.equal(root.get(type
+//                        .getSingularAttribute(f.getCampo(), tipo = getClassTipo(f.getTipoDato()))),
+//                        getValueByClass(tipo, f.getValor1())));
+//            }
+//            if (f.getComparador().equals(ComparadorBusqueda.DIFERENTE)) {
+//                Class tipo;
+//                criteria.add(cb.notEqual(root.get(type
+//                        .getSingularAttribute(f.getCampo(), tipo = getClassTipo(f.getTipoDato()))),
+//                        getValueByClass(tipo, f.getValor1())));
+//            }
+//            if (f.getComparador().equals(ComparadorBusqueda.ENTRE)) {
+//                Class tipo = getClassTipo(f.getTipoDato());
+//                criteria.add(getPredicateBetweenByClass(root.get(type
+//                        .getSingularAttribute(f.getCampo().toLowerCase(), tipo)), tipo,
+//                        f.getValor1(),
+//                        f.getValor2()));
+//            }
+//        }
+//        c.where(cb.or(criteria.toArray(new Predicate[criteria.size()])));
+        return null; //getEntityManager().createQuery(c).getResultList();
     }
 
 }

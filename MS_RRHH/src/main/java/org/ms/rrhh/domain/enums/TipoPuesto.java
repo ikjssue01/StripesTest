@@ -12,16 +12,14 @@ import org.codehaus.jackson.annotate.JsonValue;
  *
  * @author edcracken
  */
-public enum ComparadorBusqueda {
+public enum TipoPuesto {
 
-    IGUAL("igual"),
-    DIFERENTE("diferente"),
-    //    TODOS("todos"),
-    ENTRE("entre");
+    PRINCIPAL("principal"),
+    ADICIONAL("adicional");
 
     private String value;
 
-    private ComparadorBusqueda(String value) {
+    private TipoPuesto(String value) {
         this.value = value;
     }
 
@@ -35,7 +33,8 @@ public enum ComparadorBusqueda {
     }
 
     @JsonCreator
-    public static ComparadorBusqueda forValue(String value) {
-        return ComparadorBusqueda.valueOf(value);
+    public static TipoPuesto forValue(String value) {
+        return TipoPuesto.valueOf(value);
     }
+
 }

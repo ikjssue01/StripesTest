@@ -1,6 +1,7 @@
 package org.ms.rrhh.domain.enums;
 
 import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonValue;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,6 +26,7 @@ public enum CampoBusquedaAvanzada {
         this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
         return value;
     }

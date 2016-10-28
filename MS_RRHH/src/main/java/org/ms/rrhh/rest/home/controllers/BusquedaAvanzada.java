@@ -8,8 +8,12 @@ package org.ms.rrhh.rest.home.controllers;
 import java.util.Arrays;
 import java.util.List;
 import org.ms.rrhh.api.AbstractRequestHandler;
+import org.ms.rrhh.dao.PersonasDao;
+import org.ms.rrhh.domain.model.Persona;
+import org.ms.rrhh.domain.utils.BeansConverter;
 import org.ms.rrhh.rest.dto.BusquedaAvanzadaDto;
 import org.ms.rrhh.rest.dto.PersonaDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +28,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/busqueda")
 public class BusquedaAvanzada extends AbstractRequestHandler<BusquedaAvanzadaDto, List<PersonaDto>> {
 
+    @Autowired
+    PersonasDao personas;
+
     @RequestMapping(value = "/avanzada", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public @ResponseBody
     List<PersonaDto> getPersonas(@RequestBody BusquedaAvanzadaDto busqueda) {
@@ -32,7 +39,7 @@ public class BusquedaAvanzada extends AbstractRequestHandler<BusquedaAvanzadaDto
 
     @Override
     public List<PersonaDto> execute(BusquedaAvanzadaDto request) {
-        return Arrays.asList(new PersonaDto("edcracken"));
+        return new BeansConverter<Persona, PersonaDto>().toDTO(personas.busquedaAvanzada(request));
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package org.ms.rrhh.rest.dto;
 
+import org.ms.rrhh.domain.enums.CampoBusquedaAvanzada;
 import org.ms.rrhh.domain.enums.ComparadorBusqueda;
 import org.ms.rrhh.domain.enums.TipoCampoBusqueda;
 
@@ -14,17 +15,17 @@ import org.ms.rrhh.domain.enums.TipoCampoBusqueda;
  */
 public class FiltroAvanzadoDto {
 
-    private String campo;
+    private CampoBusquedaAvanzada campo;
     private ComparadorBusqueda comparador;
     private TipoCampoBusqueda tipoDato;
     private String valor1;
     private String valor2;
 
-    public String getCampo() {
+    public CampoBusquedaAvanzada getCampo() {
         return campo;
     }
 
-    public void setCampo(String campo) {
+    public void setCampo(CampoBusquedaAvanzada campo) {
         this.campo = campo;
     }
 

@@ -15,7 +15,7 @@ public enum TipoCampoBusqueda {
 
     FECHA("fecha"),
     NUMERO("numero"),
-    CARACTER("caracter");
+    TEXTO("texto");
 
     private String value;
 

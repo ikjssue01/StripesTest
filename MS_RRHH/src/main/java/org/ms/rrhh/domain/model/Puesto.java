@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,13 +22,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.ms.rrhh.domain.enums.TipoPuesto;
 
 /**
  *
  * @author edcracken
  */
 @Entity
-@Table( schema = "public", name = "puesto")
+@Table(schema = "public", name = "puesto")
 @NamedQueries({
     @NamedQuery(name = "Puesto.findAll", query = "SELECT p FROM Puesto p")})
 public class Puesto implements Serializable {
@@ -40,7 +43,8 @@ public class Puesto implements Serializable {
     @Column(name = "puesto_funcional", length = 50)
     private String puestoFuncional;
     @Column(length = 50)
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    private TipoPuesto tipo;
     @Column(name = "fk_puesto_nominal")
     private Integer fkPuestoNominal;
     @Column(name = "fk_comunidad")
@@ -90,11 +94,11 @@ public class Puesto implements Serializable {
         this.puestoFuncional = puestoFuncional;
     }
 
-    public String getTipo() {
+    public TipoPuesto getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoPuesto tipo) {
         this.tipo = tipo;
     }
 
@@ -178,5 +182,5 @@ public class Puesto implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.Puesto[ id=" + id + " ]";
     }
-    
+
 }
