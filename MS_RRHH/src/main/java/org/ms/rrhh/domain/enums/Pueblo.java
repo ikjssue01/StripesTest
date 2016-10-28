@@ -1,18 +1,20 @@
 package org.ms.rrhh.domain.enums;
 
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonValue;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author edcracken
  */
 public enum Pueblo {
 
-    MESTIZO_O_LADINO("ladino"),
+    MESTIZO_O_LADINO("mestizo_o_ladino"),
     MAYA("maya"),
     GARIFUNA("garifuna"),
     XINCA("xinca"),
@@ -25,12 +27,18 @@ public enum Pueblo {
         this.value = value;
     }
 
+    @JsonValue
     public String getValue() {
         return value;
     }
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @JsonCreator
+    public static Pueblo forValue(String value) {
+        return Pueblo.valueOf(value);
     }
 
 }

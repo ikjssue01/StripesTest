@@ -9,7 +9,8 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,30 +21,32 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class BaseDaoImpl<T> {
 
+    @PersistenceUnit(unitName = "ms_rrhh")
+    private EntityManagerFactory entityManagerFactory;
+
     protected EntityManager entityManager;
 
     public EntityManager getEntityManager() {
-        return entityManager;
+        return entityManagerFactory.createEntityManager();
     }
 
-    @PersistenceContext
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
-
+//    @PersistenceContext
+//    public void setEntityManager(EntityManager entityManager) {
+//        this.entityManager = entityManager;
+//    }
     @Transactional
     public void save(T entity) throws DataAccessException {
-        entityManager.persist(entity);
+        getEntityManager().persist(entity);
     }
 
     @Transactional
     public void update(T entity) throws DataAccessException {
-        entityManager.merge(entity);
+        getEntityManager().merge(entity);
     }
 
     @Transactional
     public void delete(T entity) throws DataAccessException {
-        entityManager.remove(entity);
+        getEntityManager().remove(entity);
     }
 
     @Transactional

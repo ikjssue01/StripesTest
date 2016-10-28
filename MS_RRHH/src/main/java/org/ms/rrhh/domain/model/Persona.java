@@ -11,11 +11,15 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.ms.rrhh.domain.enums.Pueblo;
+import org.ms.rrhh.domain.enums.Sexo;
 
 /**
  *
@@ -49,7 +53,8 @@ public class Persona implements Serializable {
     @Column(name = "estado_civil", length = 50)
     private String estadoCivil;
     @Column(length = 50)
-    private String sexo;
+    @Enumerated(EnumType.STRING)
+    private Sexo sexo;
     @Basic(optional = false)
     @Column(name = "fk_nacionalidad", nullable = false)
     private int fkNacionalidad;
@@ -75,7 +80,8 @@ public class Persona implements Serializable {
     @Column(name = "nac_no_partida", length = 50)
     private String nacNoPartida;
     @Column(name = "fk_pueblo", length = 50)
-    private String fkPueblo;
+    @Enumerated(EnumType.STRING)
+    private Pueblo fkPueblo;
     @Column(name = "fk_comunidad_linguistica", length = 50)
     private String fkComunidadLinguistica;
     @Column(length = 2147483647)
@@ -134,6 +140,22 @@ public class Persona implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
         this.fechaCreacion = fechaCreacion;
         this.creadoPor = creadoPor;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
+
+    public Pueblo getFkPueblo() {
+        return fkPueblo;
+    }
+
+    public void setFkPueblo(Pueblo fkPueblo) {
+        this.fkPueblo = fkPueblo;
     }
 
     public String getCui() {
@@ -206,14 +228,6 @@ public class Persona implements Serializable {
 
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
     }
 
     public int getFkNacionalidad() {
@@ -294,14 +308,6 @@ public class Persona implements Serializable {
 
     public void setNacNoPartida(String nacNoPartida) {
         this.nacNoPartida = nacNoPartida;
-    }
-
-    public String getFkPueblo() {
-        return fkPueblo;
-    }
-
-    public void setFkPueblo(String fkPueblo) {
-        this.fkPueblo = fkPueblo;
     }
 
     public String getFkComunidadLinguistica() {

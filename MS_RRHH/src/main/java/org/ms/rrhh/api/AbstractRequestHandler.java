@@ -5,6 +5,8 @@
  */
 package org.ms.rrhh.api;
 
+import com.google.gson.Gson;
+
 /**
  *
  * @author edcracken
@@ -15,7 +17,7 @@ public abstract class AbstractRequestHandler<T, Q> implements IRequestHandler<T,
 
     @Override
     public void after(T request, Q response) {
-        
+
     }
 
     @Override
@@ -28,7 +30,8 @@ public abstract class AbstractRequestHandler<T, Q> implements IRequestHandler<T,
 
     @Override
     public void before(T request) {
-        
+        System.out.println(">> in >> " + new Gson().toJson(request));
+
     }
 
 }

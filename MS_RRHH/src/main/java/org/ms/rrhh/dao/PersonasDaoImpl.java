@@ -22,6 +22,7 @@ import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.EntityType;
 import org.ms.rrhh.api.dao.impl.CrudRepositoryImpl;
 import org.ms.rrhh.domain.enums.ComparadorBusqueda;
+import org.ms.rrhh.domain.enums.Sexo;
 import org.ms.rrhh.domain.enums.TipoCampoBusqueda;
 import org.ms.rrhh.domain.model.LugarResidencia;
 import org.ms.rrhh.domain.model.Persona;
@@ -65,8 +66,8 @@ public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements Pers
                     normal.getPrimerApellido()));
         }
         if (normal.getSexo() != null) {
-            criteria.add(cb.like(root.get(type.getSingularAttribute("sexo", String.class)),
-                    normal.getSexo().getValue()));
+            criteria.add(cb.equal(root.get(type.getSingularAttribute("sexo", Sexo.class)),
+                    normal.getSexo()));
         }
         if (normal.getFechaNacInicio() != null) {
             criteria.add(cb.greaterThanOrEqualTo(root.get(type.getSingularAttribute("fechaNacimiento", Date.class)),
