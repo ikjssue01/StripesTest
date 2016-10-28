@@ -28,7 +28,7 @@ import org.ms.rrhh.domain.enums.Estado;
 @Table(schema = "public", name = "usuario")
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")})
-public class Usuario implements Serializable {
+public class Usuario implements Serializable, CustomEntity {
 
     private static final long serialVersionUID = 1L;
     @Id

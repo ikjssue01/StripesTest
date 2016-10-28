@@ -8,8 +8,9 @@ package org.ms.rrhh.rest.roles.controllers.handlers;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import org.ms.rrhh.api.AbstractRequestHandler;
-import org.ms.rrhh.api.dao.impl.CrudRepository;
-import org.ms.rrhh.domain.model.Acceso;
+import org.ms.rrhh.dao.AccesoDao;
+import org.ms.rrhh.dao.AccesoRoleDao;
+import org.ms.rrhh.dao.RolesDao;
 import org.ms.rrhh.domain.model.AccesoRole;
 import org.ms.rrhh.domain.model.Role;
 import org.ms.rrhh.domain.utils.EntitiesHelper;
@@ -25,12 +26,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ModificarHandler extends AbstractRequestHandler<RoleDto, RoleDto> {
 
-    @Autowired("rolesDao")
-    CrudRepository<Role> roles;
-    @Autowired("accesosDao")
-    CrudRepository<Acceso> accesos;
-    @Autowired("accesosRoleDao")
-    CrudRepository<AccesoRole> accesosRole;
+    @Autowired
+    RolesDao roles;
+    @Autowired
+    AccesoDao accesos;
+    @Autowired
+    AccesoRoleDao accesosRole;
 
     @Override
     public RoleDto execute(final RoleDto request) {

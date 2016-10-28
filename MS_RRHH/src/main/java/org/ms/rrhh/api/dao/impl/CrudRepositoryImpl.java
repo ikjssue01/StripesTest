@@ -6,12 +6,13 @@
 package org.ms.rrhh.api.dao.impl;
 
 import org.ms.rrhh.api.BaseDaoImpl;
+import org.ms.rrhh.domain.model.CustomEntity;
 
 /**
  *
  * @author eliud
  * @param <T>
  */
-public class CrudRepositoryImpl<T> extends BaseDaoImpl<T> implements CrudRepository<T> {
+public class CrudRepositoryImpl<T extends CustomEntity> extends BaseDaoImpl<T> implements CrudRepository<T> {
 
 }

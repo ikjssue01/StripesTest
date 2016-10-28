@@ -27,7 +27,7 @@ import org.ms.rrhh.domain.enums.Sexo;
  */
 @Entity
 @Table(schema = "public", name = "persona")
-public class Persona implements Serializable {
+public class Persona implements Serializable, CustomEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
