@@ -10,10 +10,10 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceUnit;
 import org.ms.rrhh.domain.model.CustomEntity;
 import org.ms.rrhh.domain.utils.EntitiesHelper;
-import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -26,8 +26,6 @@ public class BaseDaoImpl<T extends CustomEntity> {
     @PersistenceUnit(unitName = "ms_rrhh")
     private EntityManagerFactory entityManagerFactory;
 
-    protected EntityManager entityManager;
-
     public EntityManager getEntityManager() {
         return entityManagerFactory.createEntityManager();
     }
@@ -36,30 +34,32 @@ public class BaseDaoImpl<T extends CustomEntity> {
 //    public void setEntityManager(EntityManager entityManager) {
 //        this.entityManager = entityManager;
 //    }
-    @Transactional
-    public void save(T entity) throws DataAccessException {
+    @Transactional(readOnly = false)
+    public void save(T entity) {
         EntitiesHelper.setDateCreateRef(entity);
-        getEntityManager().persist(entity);
+        EntityManager entityManager = getEntityManager();
+        entityManager.setFlushMode(FlushModeType.COMMIT);
+        entityManager.persist(entity);
     }
 
     @Transactional
-    public void update(T entity) throws DataAccessException {
+    public void update(T entity) {
         EntitiesHelper.setDateUpdateRef(entity);
         getEntityManager().merge(entity);
     }
 
     @Transactional
-    public void delete(T entity) throws DataAccessException {
+    public void delete(T entity) {
         getEntityManager().remove(entity);
     }
 
     @Transactional
-    public T getOne(Serializable id) throws DataAccessException {
+    public T getOne(Serializable id) {
         return getEntityManager().find(getClazz(), id);
     }
 
     @Transactional
-    public List<T> getAll() throws DataAccessException {
+    public List<T> getAll() {
         return getEntityManager()
                 .createQuery("select t from ".concat(getClazz().getSimpleName().concat(" t")))
                 .getResultList();
