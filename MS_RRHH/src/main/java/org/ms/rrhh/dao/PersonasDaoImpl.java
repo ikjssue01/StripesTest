@@ -15,13 +15,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.EntityType;
 import org.ms.rrhh.api.dao.impl.CrudRepositoryImpl;
 import org.ms.rrhh.domain.enums.ComparadorBusqueda;
@@ -51,23 +49,22 @@ public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements Pers
         CriteriaQuery<Persona> cQueryPersona = cb.createQuery(Persona.class);
         Root<Persona> rootPersona = cQueryPersona.from(Persona.class);
         EntityType<Persona> type = getEntityManager().getMetamodel().entity(Persona.class);
-        Subquery<LugarResidencia> sqLugar = null;
         List<Predicate> criteria = new ArrayList<Predicate>();
         if (normal.getPrimerNombre() != null) {
             criteria.add(cb.like(rootPersona.get(type.getSingularAttribute("primerNombre", String.class)),
-                    normal.getPrimerNombre()));
+                    likeExpr(normal.getPrimerNombre())));
         }
         if (normal.getSegundoNombre() != null) {
             criteria.add(cb.like(rootPersona.get(type.getSingularAttribute("segundoNombre", String.class)),
-                    normal.getSegundoNombre()));
+                    likeExpr(normal.getSegundoNombre())));
         }
         if (normal.getPrimerApellido() != null) {
             criteria.add(cb.like(rootPersona.get(type.getSingularAttribute("primerApellido", String.class)),
-                    normal.getPrimerNombre()));
+                    likeExpr(normal.getPrimerNombre())));
         }
         if (normal.getSegundoApellido() != null) {
             criteria.add(cb.like(rootPersona.get(type.getSingularAttribute("segundoApellido", String.class)),
-                    normal.getPrimerApellido()));
+                    likeExpr(normal.getPrimerApellido())));
         }
         if (normal.getSexo() != null) {
             criteria.add(cb.equal(rootPersona.get(type.getSingularAttribute("sexo", Sexo.class)),
@@ -126,15 +123,6 @@ public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements Pers
 
     private String likeExpr(String val) {
         return "%".concat(val).concat("%");
-    }
-
-    @Transactional
-    @Override
-    public List<Persona> getAll() throws DataAccessException {
-        Query query = getEntityManager().createQuery("select c from Persona c");
-        List<Persona> resultList = query.getResultList();
-        return resultList;
-
     }
 
     /**
