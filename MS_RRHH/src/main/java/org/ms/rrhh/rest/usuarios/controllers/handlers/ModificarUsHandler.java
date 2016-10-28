@@ -5,31 +5,45 @@
  */
 package org.ms.rrhh.rest.usuarios.controllers.handlers;
 
-import org.ms.rrhh.rest.accesos.controllers.handlers.*;
 import org.ms.rrhh.api.AbstractRequestHandler;
-import org.ms.rrhh.dao.AccesoDao;
-import org.ms.rrhh.domain.model.Acceso;
-import org.ms.rrhh.rest.dto.AccesoDto;
-import org.springframework.beans.BeanUtils;
+import org.ms.rrhh.dao.PersonasDao;
+import org.ms.rrhh.dao.RolesDao;
+import org.ms.rrhh.dao.UsuariosDao;
+import org.ms.rrhh.domain.model.Persona;
+import org.ms.rrhh.domain.model.Role;
+import org.ms.rrhh.domain.model.Usuario;
+import org.ms.rrhh.domain.utils.BeansConverter;
+import org.ms.rrhh.rest.dto.UsuarioDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.DigestUtils;
 
 /**
  *
  * @author edcracken
  */
 @Component
-public class ModificarUsHandler extends AbstractRequestHandler<AccesoDto, Acceso> {
+public class ModificarUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDto> {
 
     @Autowired
-    AccesoDao accesos;
+    RolesDao roles;
+    @Autowired
+    UsuariosDao usuarios;
+    @Autowired
+    PersonasDao personas;
 
     @Override
-    public Acceso execute(final AccesoDto request) {
-        Acceso origin = accesos.getOne(request.getId());
-        BeanUtils.copyProperties(request, origin);
-        accesos.update(origin);
-        return origin;
+    public UsuarioDto execute(final UsuarioDto request) {
+        Usuario r = usuarios.getOne(request.getUsuario());
+        Persona p = personas.getOne(request.getCui());
+        Role rr = roles.getOne(request.getRoleId());
+        BeansConverter<Usuario, UsuarioDto> bc = new BeansConverter<Usuario, UsuarioDto>();
+        r.setClave(new String(DigestUtils.md5Digest(request.getClave().getBytes())));
+        r.setFkPersona(p);
+        r.setFkRole(rr);
+
+        usuarios.save(r);
+        return bc.toDTO(r);
     }
 
 }

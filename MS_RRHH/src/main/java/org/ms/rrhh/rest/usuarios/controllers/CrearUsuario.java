@@ -5,7 +5,10 @@
  */
 package org.ms.rrhh.rest.usuarios.controllers;
 
-import org.ms.rrhh.rest.dto.PersonaDto;
+import javax.validation.Valid;
+import org.ms.rrhh.rest.dto.UsuarioDto;
+import org.ms.rrhh.rest.usuarios.controllers.handlers.CrearUsHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("usuarios")
 public class CrearUsuario {
 
-    @RequestMapping(value = "/crea", method = RequestMethod.POST, headers = "Content-Type=application/json")
-    public void crear(@RequestBody PersonaDto persona) {
+    @Autowired
+    CrearUsHandler handler;
 
+    @RequestMapping(value = "/crea", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    public void crear(@RequestBody @Valid UsuarioDto usuario) {
+        handler.handle(usuario);
     }
 }

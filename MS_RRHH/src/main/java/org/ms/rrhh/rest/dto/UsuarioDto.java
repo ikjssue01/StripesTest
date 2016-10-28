@@ -34,10 +34,19 @@ public class UsuarioDto {
     private String cui;
     @NotNull
     private Integer roleId;
+    private PersonaDto persona;
     private Date fechaCreacion;
     private String creadoPor;
     private Date fechaUltimoCambio;
     private String ultimoCambioPor;
+
+    public PersonaDto getPersona() {
+        return persona;
+    }
+
+    public void setPersona(PersonaDto persona) {
+        this.persona = persona;
+    }
 
     public Integer getRoleId() {
         return roleId;
