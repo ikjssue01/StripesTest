@@ -10,6 +10,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,13 +22,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.ms.rrhh.domain.enums.EstadoVariable;
 
 /**
  *
  * @author edcracken
  */
 @Entity
-@Table(name = "lugar_residencia",   schema = "public")
+@Table(name = "lugar_residencia", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "LugarResidencia.findAll", query = "SELECT l FROM LugarResidencia l")})
 public class LugarResidencia implements Serializable {
@@ -39,9 +42,10 @@ public class LugarResidencia implements Serializable {
     private Integer id;
     @Column(name = "fk_municipio")
     private Integer fkMunicipio;
-    @Column(length = 50)
-    private String estado;
-    @Column(length = 2147483647)
+    @Column
+    @Enumerated(EnumType.STRING)
+    private EstadoVariable estado;
+    @Column
     private String direccion;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
@@ -81,11 +85,11 @@ public class LugarResidencia implements Serializable {
         this.fkMunicipio = fkMunicipio;
     }
 
-    public String getEstado() {
+    public EstadoVariable getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoVariable estado) {
         this.estado = estado;
     }
 
@@ -145,5 +149,5 @@ public class LugarResidencia implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.LugarResidencia[ id=" + id + " ]";
     }
-    
+
 }

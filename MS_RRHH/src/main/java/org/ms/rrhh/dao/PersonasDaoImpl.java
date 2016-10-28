@@ -5,6 +5,9 @@
  */
 package org.ms.rrhh.dao;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.HashMultiset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,13 +19,13 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.EntityType;
 import org.ms.rrhh.api.dao.impl.CrudRepositoryImpl;
 import org.ms.rrhh.domain.enums.ComparadorBusqueda;
+import org.ms.rrhh.domain.enums.EstadoVariable;
 import org.ms.rrhh.domain.enums.Sexo;
 import org.ms.rrhh.domain.enums.TipoCampoBusqueda;
 import org.ms.rrhh.domain.model.LugarResidencia;
@@ -82,37 +85,43 @@ public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements Pers
             criteria.add(cb.equal(rootPersona.get(type.getSingularAttribute("edad", Integer.class)),
                     normal.getEdad()));
         }
-        if (normal.getDireccion() != null || normal.getMunicipio() != null) {
-//            sqLugar = cQueryPersona.subquery(LugarResidencia.class);
-//            Root<Persona> subRootPersona = sqLugar.correlate(rootPersona);
-//            Join<Persona, LugarResidencia> joinPersonaLugar = subRootPersona.join("lugarResidenciaCollection");
-//            sqLugar.select(joinPersonaLugar);
-//
-//            Root<LugarResidencia> lugarResidencia = sqLugar.from(LugarResidencia.class);
-//            List<Predicate> criteriaLugar = new ArrayList<Predicate>();
-//            EntityType<LugarResidencia> residenciaType = getEntityManager()
-//                    .getMetamodel()
-//                    .entity(LugarResidencia.class);
-//            if (normal.getDireccion() != null && !normal.getDireccion().isEmpty()) {
-//                criteriaLugar.add(cb.like(
-//                        lugarResidencia.get(residenciaType.getSingularAttribute("direccion", String.class)),
-//                        likeExpr(normal.getDireccion())
-//                ));
-//            }
-//            if (normal.getMunicipio() != null) {
-//                criteriaLugar.add(cb.equal(
-//                        lugarResidencia.get(residenciaType.getSingularAttribute("fkMunicipio", Integer.class)),
-//                        normal.getMunicipio()));
-//            }
-//            sqLugar.where(cb.or(criteriaLugar.toArray(new Predicate[criteriaLugar.size()])));
-        }
-
-        if (sqLugar != null) {
-            criteria.add(cb.in(sqLugar));
-        }
         cQueryPersona.where(cb.or(criteria.toArray(new Predicate[criteria.size()])));
 
-        return getEntityManager().createQuery(cQueryPersona).getResultList();
+        List<Persona> r1 = getEntityManager()
+                .createQuery(cQueryPersona).getResultList();
+        if (normal.getDireccion() != null || normal.getMunicipio() != null) {
+            CriteriaQuery<LugarResidencia> cLugar = cb.createQuery(LugarResidencia.class);
+            Root<LugarResidencia> lugarResidencia = cLugar.from(LugarResidencia.class);
+            List<Predicate> criteriaLugar = new ArrayList<Predicate>();
+            EntityType<LugarResidencia> residenciaType = getEntityManager()
+                    .getMetamodel()
+                    .entity(LugarResidencia.class);
+            if (normal.getDireccion() != null && !normal.getDireccion().isEmpty()) {
+                criteriaLugar.add(cb.like(
+                        lugarResidencia.get(residenciaType.getSingularAttribute("direccion", String.class)),
+                        likeExpr(normal.getDireccion())
+                ));
+            }
+            if (normal.getMunicipio() != null) {
+                criteriaLugar.add(cb.equal(
+                        lugarResidencia.get(residenciaType.getSingularAttribute("fkMunicipio", Integer.class)),
+                        normal.getMunicipio()));
+            }
+            cLugar.where(cb.and(cb.equal(
+                    lugarResidencia.get(residenciaType.getSingularAttribute("estado", EstadoVariable.class)),
+                    EstadoVariable.ACTUAL), cb.or(criteriaLugar.toArray(new Predicate[criteriaLugar.size()]))));
+
+            r1.addAll(Collections2.transform(getEntityManager().createQuery(cLugar).getResultList(),
+                    new Function<LugarResidencia, Persona>() {
+                @Override
+                public Persona apply(LugarResidencia f) {
+                    return f.getFkPersona();
+                }
+            }
+            ));
+        }
+
+        return new ArrayList(HashMultiset.create(r1).elementSet());
     }
 
     private String likeExpr(String val) {
@@ -125,6 +134,7 @@ public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements Pers
         Query query = getEntityManager().createQuery("select c from Persona c");
         List<Persona> resultList = query.getResultList();
         return resultList;
+
     }
 
     /**
@@ -135,12 +145,15 @@ public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements Pers
     private Class getClassTipo(TipoCampoBusqueda tipo) {
         if (tipo.equals(TipoCampoBusqueda.CARACTER)) {
             return String.class;
+
         }
         if (tipo.equals(TipoCampoBusqueda.NUMERO)) {
             return Integer.class;
+
         }
         if (tipo.equals(TipoCampoBusqueda.FECHA)) {
             return Date.class;
+
         }
         return Object.class;
     }
@@ -154,14 +167,20 @@ public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements Pers
     public Object getValueByClass(Class clazz, String value) {
 
         SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
-        if (clazz.equals(Date.class)) {
+
+        if (clazz.equals(Date.class
+        )) {
             try {
                 return sd.parse(value);
+
             } catch (ParseException ex) {
-                Logger.getLogger(PersonasDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PersonasDaoImpl.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
             }
         }
-        if (clazz.equals(Integer.class)) {
+        if (clazz.equals(Integer.class
+        )) {
             return Integer.valueOf(value);
         }
 
@@ -179,7 +198,9 @@ public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements Pers
     public Predicate getPredicateBetweenByClass(Expression<?> ex, Class clazz, String value1, String value2) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         SimpleDateFormat sd = new SimpleDateFormat("dd-MM-yyyy");
-        if (clazz.equals(Date.class)) {
+
+        if (clazz.equals(Date.class
+        )) {
             return cb.between((Expression<Date>) ex,
                     (Date) getValueByClass(clazz, value1),
                     (Date) getValueByClass(clazz, value2));
@@ -200,9 +221,12 @@ public class PersonasDaoImpl extends CrudRepositoryImpl<Persona> implements Pers
     @Override
     public List<Persona> busquedaAvanzada(BusquedaAvanzadaDto normal) throws DataAccessException {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
-        CriteriaQuery<Persona> c = cb.createQuery(Persona.class);
-        Root<Persona> root = c.from(Persona.class);
-        EntityType<Persona> type = getEntityManager().getMetamodel().entity(Persona.class);
+        CriteriaQuery<Persona> c = cb.createQuery(Persona.class
+        );
+        Root<Persona> root = c.from(Persona.class
+        );
+        EntityType<Persona> type = getEntityManager().getMetamodel().entity(Persona.class
+        );
         List<Predicate> criteria = new ArrayList<Predicate>();
         for (FiltroAvanzadoDto f : normal.getFiltros()) {
             if (f.getComparador().equals(ComparadorBusqueda.IGUAL)) {
