@@ -29,7 +29,6 @@ import org.ms.rrhh.domain.enums.Sexo;
 import org.ms.rrhh.domain.enums.TipoCampoBusqueda;
 import org.ms.rrhh.domain.model.LugarResidencia;
 import org.ms.rrhh.domain.model.Persona;
-import org.ms.rrhh.domain.model.Puesto;
 import org.ms.rrhh.rest.dto.BusquedaAvanzadaDto;
 import org.ms.rrhh.rest.dto.BusquedaNormalDto;
 import org.ms.rrhh.rest.dto.FiltroAvanzadoDto;
