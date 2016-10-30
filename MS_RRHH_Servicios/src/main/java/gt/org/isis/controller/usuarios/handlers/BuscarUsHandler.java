@@ -11,15 +11,15 @@ import gt.org.isis.controller.dto.UsuarioDto;
 import gt.org.isis.model.Persona;
 import gt.org.isis.model.Usuario;
 import gt.org.isis.model.utils.BeansConverter;
+import gt.org.isis.repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.ms.rrhh.dao.UsuariosRepository;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author edcracken
  */
-@Component
+@Service
 public class BuscarUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDto> {
 
     @Autowired
@@ -27,7 +27,7 @@ public class BuscarUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioD
 
     @Override
     public UsuarioDto execute(final UsuarioDto request) {
-        Usuario uOr = accesos.getOne(request.getUsuario());
+        Usuario uOr = accesos.findOne(request.getUsuario());
 
         UsuarioDto u = new BeansConverter<Usuario, UsuarioDto>().toDTO(uOr);
         u.setClave("");

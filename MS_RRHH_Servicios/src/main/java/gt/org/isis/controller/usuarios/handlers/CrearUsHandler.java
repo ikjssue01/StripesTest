@@ -11,7 +11,9 @@ import gt.org.isis.model.Persona;
 import gt.org.isis.model.Role;
 import gt.org.isis.model.Usuario;
 import gt.org.isis.model.utils.BeansConverter;
+import gt.org.isis.repository.PersonasRepository;
 import gt.org.isis.repository.RolesRepository;
+import gt.org.isis.repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
@@ -26,14 +28,14 @@ public class CrearUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDt
     @Autowired
     RolesRepository roles;
     @Autowired
-    Usuariosre usuarios;
+    UsuariosRepository usuarios;
     @Autowired
-    PersonasDao personas;
+    PersonasRepository personas;
 
     @Override
     public UsuarioDto execute(final UsuarioDto request) {
-        Persona p = personas.getOne(request.getCui());
-        Role rr = roles.getOne(request.getRoleId());
+        Persona p = personas.findOne(request.getCui());
+        Role rr = roles.findOne(request.getRoleId());
         BeansConverter<Usuario, UsuarioDto> bc;
         final Usuario r = (bc = new BeansConverter<Usuario, UsuarioDto>()).toEntity(request);
         r.setClave(new String(DigestUtils.md5Digest(request.getClave().getBytes())));

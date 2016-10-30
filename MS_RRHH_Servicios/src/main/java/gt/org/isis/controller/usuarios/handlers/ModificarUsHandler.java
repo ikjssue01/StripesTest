@@ -5,18 +5,18 @@
  */
 package gt.org.isis.controller.usuarios.handlers;
 
-import org.ms.rrhh.api.AbstractRequestHandler;
-import org.ms.rrhh.dao.PersonasDao;
-import org.ms.rrhh.dao.RolesDao;
-import org.ms.rrhh.domain.model.Persona;
-import org.ms.rrhh.domain.model.Role;
-import org.ms.rrhh.domain.model.Usuario;
-import org.ms.rrhh.domain.utils.BeansConverter;
-import org.ms.rrhh.rest.dto.UsuarioDto;
+import gt.org.isis.api.AbstractRequestHandler;
+import gt.org.isis.controller.dto.UsuarioDto;
+import gt.org.isis.model.Persona;
+import gt.org.isis.model.Role;
+import gt.org.isis.model.Usuario;
+import gt.org.isis.model.utils.BeansConverter;
+import gt.org.isis.repository.PersonasRepository;
+import gt.org.isis.repository.RolesRepository;
+import gt.org.isis.repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
-import org.ms.rrhh.dao.UsuariosRepository;
 
 /**
  *
@@ -26,17 +26,17 @@ import org.ms.rrhh.dao.UsuariosRepository;
 public class ModificarUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDto> {
 
     @Autowired
-    RolesDao roles;
+    RolesRepository roles;
     @Autowired
     UsuariosRepository usuarios;
     @Autowired
-    PersonasDao personas;
+    PersonasRepository personas;
 
     @Override
     public UsuarioDto execute(final UsuarioDto request) {
-        Usuario r = usuarios.getOne(request.getUsuario());
-        Persona p = personas.getOne(request.getCui());
-        Role rr = roles.getOne(request.getRoleId());
+        Usuario r = usuarios.findOne(request.getUsuario());
+        Persona p = personas.findOne(request.getCui());
+        Role rr = roles.findOne(request.getRoleId());
         BeansConverter<Usuario, UsuarioDto> bc = new BeansConverter<Usuario, UsuarioDto>();
         r.setClave(new String(DigestUtils.md5Digest(request.getClave().getBytes())));
         r.setFkPersona(p);
