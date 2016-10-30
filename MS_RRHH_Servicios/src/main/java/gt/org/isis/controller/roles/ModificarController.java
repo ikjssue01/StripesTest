@@ -32,8 +32,9 @@ public class ModificarController {
     @RequestMapping(value = "/mod/{id}", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpEntity modificar(@PathVariable("id") Integer id, @RequestBody RoleDto persona) {
-        handler.handle(persona);
+    public HttpEntity modificar(@PathVariable("id") Integer id, @RequestBody RoleDto role) {
+        role.setId(id);
+        handler.handle(role);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 }

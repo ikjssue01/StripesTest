@@ -45,6 +45,7 @@ public class CrearHandler extends AbstractRequestHandler<RoleDto, Role> {
                 acceso.setFkRole(r);
                 acceso.setCreadoPor(request.getUsuario());
                 EntitiesHelper.setDateCreateRef(acceso);
+                EntitiesHelper.setDateUpdateRef(acceso);
                 return acceso;
             }
         }));

@@ -40,18 +40,19 @@ public class ModificarHandler extends AbstractRequestHandler<RoleDto, RoleDto> {
         for (AccesoRole ar : r.getAccesoRoleCollection()) {
             accesosRole.delete(ar);
         }
+        final Role r2 = roles.save(r);
         r.setAccesoRoleCollection(Collections2.transform(request.getAccesos(), new Function<AccesoDto, AccesoRole>() {
             @Override
             public AccesoRole apply(AccesoDto f) {
                 AccesoRole acceso = new AccesoRole();
                 acceso.setFkAcceso(accesos.findOne(f.getId()));
-                acceso.setFkRole(r);
+                acceso.setFkRole(r2);
                 acceso.setCreadoPor(request.getUsuario());
                 EntitiesHelper.setDateCreateRef(acceso);
                 return acceso;
             }
         }));
-        roles.save(r);
+
         return request;
     }
 
