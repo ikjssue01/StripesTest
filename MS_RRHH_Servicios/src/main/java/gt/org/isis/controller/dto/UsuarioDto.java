@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
  */
 public class UsuarioDto {
 
-    @NotNull
     private String usuario;
     @NotNull
     private String correo;
@@ -39,6 +38,13 @@ public class UsuarioDto {
     private String creadoPor;
     private Date fechaUltimoCambio;
     private String ultimoCambioPor;
+
+    public UsuarioDto(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public UsuarioDto() {
+    }
 
     public PersonaDto getPersona() {
         return persona;

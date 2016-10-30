@@ -30,6 +30,7 @@ public class ModificarUsuario {
 
     @RequestMapping(value = "/mod/{id}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
     public HttpEntity modificar(@PathVariable("id") String id, @RequestBody UsuarioDto usuario) {
+        usuario.setUsuario(id);
         handler.handle(usuario);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
