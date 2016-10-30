@@ -18,13 +18,13 @@ import gt.org.isis.repository.AccesoRoleRepository;
 import gt.org.isis.repository.AccesosRepository;
 import gt.org.isis.repository.RolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  *
- * @author eliud
+ * @author edcracken
  */
-@Component
+@Service
 public class CrearHandler extends AbstractRequestHandler<RoleDto, Role> {
 
     @Autowired

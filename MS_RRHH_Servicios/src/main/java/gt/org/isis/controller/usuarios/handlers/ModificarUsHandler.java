@@ -15,14 +15,14 @@ import gt.org.isis.repository.PersonasRepository;
 import gt.org.isis.repository.RolesRepository;
 import gt.org.isis.repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 /**
  *
  * @author edcracken
  */
-@Component
+@Service
 public class ModificarUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDto> {
 
     @Autowired
