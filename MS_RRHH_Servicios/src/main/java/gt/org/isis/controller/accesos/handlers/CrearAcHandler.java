@@ -9,9 +9,9 @@ import gt.org.isis.api.AbstractRequestHandler;
 import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.converters.AccesoDtoConverter;
 import gt.org.isis.model.Acceso;
-import gt.org.isis.repository.AccesosDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import gt.org.isis.repository.AccesosRepository;
 
 /**
  *
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 public class CrearAcHandler extends AbstractRequestHandler<AccesoDto, Acceso> {
 
     @Autowired
-    AccesosDao accesos;
+    AccesosRepository accesos;
 
     @Override
     public Acceso execute(final AccesoDto request) {

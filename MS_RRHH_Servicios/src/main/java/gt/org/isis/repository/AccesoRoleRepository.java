@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author eliud
  */
 @Repository
-public interface AccesoRoleDao extends JpaRepository<AccesoRole, Integer> {
+public interface AccesoRoleRepository extends JpaRepository<AccesoRole, Integer> {
 
 }

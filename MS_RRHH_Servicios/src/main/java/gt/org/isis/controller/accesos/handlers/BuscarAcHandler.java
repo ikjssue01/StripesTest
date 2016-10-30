@@ -8,9 +8,9 @@ package gt.org.isis.controller.accesos.handlers;
 import gt.org.isis.api.AbstractRequestHandler;
 import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.converters.AccesoDtoConverter;
-import gt.org.isis.repository.AccesosDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import gt.org.isis.repository.AccesosRepository;
 
 /**
  *
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class BuscarAcHandler extends AbstractRequestHandler<AccesoDto, AccesoDto> {
 
     @Autowired
-    AccesosDao accesos;
+    AccesosRepository accesos;
 
     @Override
     public AccesoDto execute(final AccesoDto request) {

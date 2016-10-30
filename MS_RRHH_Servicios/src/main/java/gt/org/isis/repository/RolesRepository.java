@@ -5,7 +5,7 @@
  */
 package gt.org.isis.repository;
 
-import gt.org.isis.model.Acceso;
+import gt.org.isis.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author eliud
  */
 @Repository
-public interface AccesosDao extends JpaRepository<Acceso, Integer> {
+public interface RolesRepository extends JpaRepository<Role, Integer> {
 
 }
