@@ -10,6 +10,7 @@ import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.converters.AccesoDtoConverter;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,10 @@ public class CrearController {
     CrearAcHandler crear;
 
     @Transactional
-    @RequestMapping(value = "/crea", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/crea",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.POST)
     public @ResponseBody
     AccesoDto crear(@RequestBody @Valid AccesoDto acceso) {
         return new AccesoDtoConverter().toDTO(crear.handle(acceso));
