@@ -7,6 +7,7 @@ package gt.org.isis.controller.roles;
 
 import gt.org.isis.controller.dto.RoleDto;
 import gt.org.isis.controller.roles.handlers.CrearHandler;
+import gt.org.isis.converters.RoleDtoConverter;
 import gt.org.isis.model.Role;
 import gt.org.isis.model.utils.BeansConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -31,7 +33,8 @@ public class CrearController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)
-    public RoleDto crear(@RequestBody RoleDto persona) {
-        return new BeansConverter<Role, RoleDto>().toDTO(crear.handle(persona));
+    public @ResponseBody
+    RoleDto crear(@RequestBody RoleDto persona) {
+        return new RoleDtoConverter().toDTO(crear.handle(persona));
     }
 }
