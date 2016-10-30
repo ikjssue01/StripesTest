@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gt.org.isis.controller.roles;
+package gt.org.isis.controller.usuarios;
 
-import gt.org.isis.controller.dto.RoleDto;
-import gt.org.isis.controller.roles.handlers.BuscarHandler;
+import gt.org.isis.controller.dto.UsuarioDto;
+import gt.org.isis.controller.usuarios.handlers.BuscarTodosHandler;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,17 +19,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author edcracken
  */
-@Controller("getRole")
-@RequestMapping("roles")
-public class BuscarController {
+@Controller("getUsuarios")
+@RequestMapping("usuarios")
+public class BuscarTodosController {
 
     @Autowired
-    BuscarHandler handler;
+    BuscarTodosHandler handler;
 
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET,
+    @RequestMapping(value = "/get/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    RoleDto getRole(@PathVariable("id") Integer id) {
-        return handler.handle(new RoleDto(id));
+    List<UsuarioDto> getRole() {
+        return handler.handle(new UsuarioDto());
     }
 }
