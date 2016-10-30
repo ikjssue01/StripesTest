@@ -9,14 +9,14 @@ import gt.org.isis.api.AbstractRequestHandler;
 import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.converters.AccesoDtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import gt.org.isis.repository.AccesosRepository;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author edcracken
  */
-@Component
+@Service
 public class BuscarAcHandler extends AbstractRequestHandler<AccesoDto, AccesoDto> {
 
     @Autowired
