@@ -10,6 +10,7 @@ import com.google.common.collect.Collections2;
 import gt.org.isis.api.AbstractRequestHandler;
 import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.controller.dto.RoleDto;
+import gt.org.isis.converters.RoleDtoConverter;
 import gt.org.isis.model.Acceso;
 import gt.org.isis.model.AccesoRole;
 import gt.org.isis.model.Role;
@@ -38,7 +39,7 @@ public class BuscarHandler extends AbstractRequestHandler<RoleDto, RoleDto> {
     @Override
     public RoleDto execute(final RoleDto request) {
         Role r;
-        RoleDto rd = new BeansConverter<Role, RoleDto>().toDTO(r = roles.findOne(request.getId()));
+        RoleDto rd = new RoleDtoConverter().toDTO(r = roles.findOne(request.getId()));
         rd.setAccesos((List) Collections2.transform(r.getAccesoRoleCollection(),
                 new Function<AccesoRole, AccesoDto>() {
             @Override

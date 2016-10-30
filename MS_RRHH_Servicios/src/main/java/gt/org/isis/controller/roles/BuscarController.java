@@ -8,9 +8,11 @@ package gt.org.isis.controller.roles;
 import gt.org.isis.controller.dto.RoleDto;
 import gt.org.isis.controller.roles.handlers.BuscarHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -24,7 +26,8 @@ public class BuscarController {
     @Autowired
     BuscarHandler handler;
 
-    @RequestMapping("/get/{id}")
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     RoleDto getRole(@PathVariable("id") Integer id) {
         return handler.handle(new RoleDto(id));

@@ -10,6 +10,7 @@ import gt.org.isis.controller.roles.handlers.CrearHandler;
 import gt.org.isis.model.Role;
 import gt.org.isis.model.utils.BeansConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,10 @@ public class CrearController {
     @Autowired
     CrearHandler crear;
 
-    @RequestMapping(value = "/crea", method = RequestMethod.POST, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/crea",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.POST)
     public RoleDto crear(@RequestBody RoleDto persona) {
         return new BeansConverter<Role, RoleDto>().toDTO(crear.handle(persona));
     }

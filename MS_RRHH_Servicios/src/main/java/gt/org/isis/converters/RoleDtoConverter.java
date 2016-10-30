@@ -5,13 +5,13 @@
  */
 package gt.org.isis.converters;
 
-import gt.org.isis.controller.dto.UsuarioDto;
-import gt.org.isis.model.Usuario;
+import gt.org.isis.controller.dto.RoleDto;
+import gt.org.isis.model.Role;
 import gt.org.isis.model.utils.BeansConverter;
 
 /**
  *
  * @author eliud
  */
-public class RoleDtoConverter extends BeansConverter<Usuario, UsuarioDto> {
+public class RoleDtoConverter extends BeansConverter<Role, RoleDto> {
 }

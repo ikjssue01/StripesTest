@@ -10,9 +10,9 @@ import com.google.common.collect.Collections2;
 import gt.org.isis.api.AbstractRequestHandler;
 import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.controller.dto.RoleDto;
+import gt.org.isis.converters.RoleDtoConverter;
 import gt.org.isis.model.AccesoRole;
 import gt.org.isis.model.Role;
-import gt.org.isis.model.utils.BeansConverter;
 import gt.org.isis.model.utils.EntitiesHelper;
 import gt.org.isis.repository.AccesoRoleRepository;
 import gt.org.isis.repository.AccesosRepository;
@@ -36,7 +36,7 @@ public class CrearHandler extends AbstractRequestHandler<RoleDto, Role> {
 
     @Override
     public Role execute(final RoleDto request) {
-        final Role r = new BeansConverter<Role, RoleDto>().toEntity(request);
+        final Role r = new RoleDtoConverter().toEntity(request);
         r.setAccesoRoleCollection(Collections2.transform(request.getAccesos(), new Function<AccesoDto, AccesoRole>() {
             @Override
             public AccesoRole apply(AccesoDto f) {
@@ -48,6 +48,7 @@ public class CrearHandler extends AbstractRequestHandler<RoleDto, Role> {
                 return acceso;
             }
         }));
+        EntitiesHelper.setDateCreateRef(r);
         roles.save(r);
         return r;
     }
