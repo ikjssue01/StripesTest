@@ -1,4 +1,4 @@
-package com.spr.controller;
+package gt.org.isis.controller;
 
 import java.util.List;
 
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.spr.exception.ShopNotFound;
-import com.spr.model.Shop;
-import com.spr.service.ShopService;
-import com.spr.validation.ShopValidator;
+import gt.org.isis.exception.ShopNotFound;
+import gt.org.isis.model.Shop;
+import gt.org.isis.service.ShopService;
+import gt.org.isis.validation.ShopValidator;
 
 @Controller
 @RequestMapping(value="/shop")

@@ -1,4 +1,4 @@
-package com.spr.model;
+package gt.org.isis.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

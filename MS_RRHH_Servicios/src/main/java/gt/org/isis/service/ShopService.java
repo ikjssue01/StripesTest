@@ -1,9 +1,9 @@
-package com.spr.service;
+package gt.org.isis.service;
 
 import java.util.List;
 
-import com.spr.exception.ShopNotFound;
-import com.spr.model.Shop;
+import gt.org.isis.exception.ShopNotFound;
+import gt.org.isis.model.Shop;
 
 public interface ShopService {
 	

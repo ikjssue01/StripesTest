@@ -1,11 +1,11 @@
-package com.spr.validation;
+package gt.org.isis.validation;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.spr.model.Shop;
+import gt.org.isis.model.Shop;
 
 @Component
 public class ShopValidator implements Validator {
