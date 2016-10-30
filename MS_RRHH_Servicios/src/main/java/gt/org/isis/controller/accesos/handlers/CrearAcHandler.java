@@ -10,14 +10,14 @@ import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.converters.AccesoDtoConverter;
 import gt.org.isis.model.Acceso;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import gt.org.isis.repository.AccesosRepository;
+import org.springframework.stereotype.Service;
 
 /**
  *
- * @author eliud
+ * @author edcracken
  */
-@Component
+@Service
 public class CrearAcHandler extends AbstractRequestHandler<AccesoDto, Acceso> {
 
     @Autowired

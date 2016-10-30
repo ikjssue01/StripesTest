@@ -6,6 +6,8 @@
 package gt.org.isis.controller.dto;
 
 import java.util.List;
+import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -14,7 +16,10 @@ import java.util.List;
 public class RoleDto {
 
     private Integer id;
+    @NotNull
     private String nombre;
+    @NotNull
+    @NotEmpty
     private List<AccesoDto> accesos;
     private String usuario;
 

@@ -5,7 +5,9 @@
  */
 package gt.org.isis.controller.usuarios;
 
-import gt.org.isis.controller.dto.PersonaDto;
+import gt.org.isis.controller.dto.UsuarioDto;
+import gt.org.isis.controller.usuarios.handlers.BuscarUsHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("usuarios")
 public class BuscarUsuario {
 
+    @Autowired
+    BuscarUsHandler handler;
+
     @RequestMapping("/get/{id}")
     public @ResponseBody
-    PersonaDto getUsuario(@PathVariable("id") String cui) {
-        return null;
+    UsuarioDto getUsuario(@PathVariable("id") String id) {
+
+        return handler.handle(new UsuarioDto(id));
     }
 }

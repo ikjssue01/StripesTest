@@ -3,21 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gt.org.isis.controller.roles;
+package gt.org.isis.controller.roles.handlers;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import gt.org.isis.api.AbstractRequestHandler;
 import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.controller.dto.RoleDto;
-import gt.org.isis.model.Acceso;
 import gt.org.isis.model.AccesoRole;
 import gt.org.isis.model.Role;
-import gt.org.isis.model.utils.BeansConverter;
+import gt.org.isis.model.utils.EntitiesHelper;
 import gt.org.isis.repository.AccesoRoleRepository;
 import gt.org.isis.repository.AccesosRepository;
 import gt.org.isis.repository.RolesRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +24,7 @@ import org.springframework.stereotype.Service;
  * @author edcracken
  */
 @Service
-public class BuscarHandler extends AbstractRequestHandler<RoleDto, RoleDto> {
+public class ModificarHandler extends AbstractRequestHandler<RoleDto, RoleDto> {
 
     @Autowired
     RolesRepository roles;
@@ -37,16 +35,25 @@ public class BuscarHandler extends AbstractRequestHandler<RoleDto, RoleDto> {
 
     @Override
     public RoleDto execute(final RoleDto request) {
-        Role r;
-        RoleDto rd = new BeansConverter<Role, RoleDto>().toDTO(r = roles.findOne(request.getId()));
-        rd.setAccesos((List) Collections2.transform(r.getAccesoRoleCollection(),
-                new Function<AccesoRole, AccesoDto>() {
+        final Role r = roles.findOne(request.getId());
+        r.setNombre(request.getNombre());
+        for (AccesoRole ar : r.getAccesoRoleCollection()) {
+            accesosRole.delete(ar);
+        }
+        final Role r2 = roles.save(r);
+        r.setAccesoRoleCollection(Collections2.transform(request.getAccesos(), new Function<AccesoDto, AccesoRole>() {
             @Override
-            public AccesoDto apply(AccesoRole f) {
-                return new BeansConverter<Acceso, AccesoDto>().toDTO(f.getFkAcceso());
+            public AccesoRole apply(AccesoDto f) {
+                AccesoRole acceso = new AccesoRole();
+                acceso.setFkAcceso(accesos.findOne(f.getId()));
+                acceso.setFkRole(r2);
+                acceso.setCreadoPor(request.getUsuario());
+                EntitiesHelper.setDateCreateRef(acceso);
+                return acceso;
             }
         }));
-        return rd;
+
+        return request;
     }
 
 }

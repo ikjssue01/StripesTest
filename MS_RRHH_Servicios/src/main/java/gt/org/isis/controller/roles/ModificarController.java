@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gt.org.isis.controller.usuarios;
+package gt.org.isis.controller.roles;
 
-import gt.org.isis.controller.dto.UsuarioDto;
-import gt.org.isis.controller.usuarios.handlers.ModificarUsHandler;
+import gt.org.isis.controller.dto.RoleDto;
+import gt.org.isis.controller.roles.handlers.ModificarHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,19 +20,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author edcracken
+ * @author eliud
  */
-@Controller("usuariosModificar")
-@RequestMapping("usuarios")
-public class ModificarUsuario {
+@Controller("modificarAcceso")
+@RequestMapping("roles")
+public class ModificarController {
 
     @Autowired
-    ModificarUsHandler handler;
+    ModificarHandler handler;
 
-    @RequestMapping(value = "/mod/{id}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
-    public HttpEntity modificar(@PathVariable("id") String id, @RequestBody UsuarioDto usuario) {
-        usuario.setUsuario(id);
-        handler.handle(usuario);
+    @RequestMapping(value = "/mod/{id}", method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public HttpEntity modificar(@PathVariable("id") Integer id, @RequestBody RoleDto role) {
+        role.setId(id);
+        handler.handle(role);
         return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 }

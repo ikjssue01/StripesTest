@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gt.org.isis.controller.usuarios;
+package gt.org.isis.controller.roles;
 
-import gt.org.isis.controller.dto.UsuarioDto;
-import gt.org.isis.controller.usuarios.handlers.CrearUsHandler;
-import javax.validation.Valid;
+import gt.org.isis.controller.dto.RoleDto;
+import gt.org.isis.controller.roles.handlers.CrearHandler;
+import gt.org.isis.converters.RoleDtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -20,19 +20,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author eliud
  */
-@Controller("usuariosCrear")
-@RequestMapping("usuarios")
-public class CrearUsuario {
+@Controller("crearAccesos")
+@RequestMapping("roles")
+public class CrearController {
 
     @Autowired
-    CrearUsHandler handler;
+    CrearHandler crear;
 
     @RequestMapping(value = "/crea",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)
     public @ResponseBody
-    UsuarioDto crear(@RequestBody @Valid UsuarioDto usuario) {
-        return handler.handle(usuario);
+    RoleDto crear(@RequestBody RoleDto persona) {
+        return new RoleDtoConverter().toDTO(crear.handle(persona));
     }
 }

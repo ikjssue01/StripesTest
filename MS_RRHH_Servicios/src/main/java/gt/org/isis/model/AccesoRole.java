@@ -44,7 +44,7 @@ public class AccesoRole implements Serializable, CustomEntity {
     @Column(name = "creado_por", length = 50)
     private String creadoPor;
     @Basic(optional = false)
-    @Column(name = "fecha_ultimo_cambio", nullable = false)
+    @Column(name = "fecha_ultimo_cambio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
