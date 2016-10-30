@@ -5,7 +5,7 @@
  */
 package gt.org.isis.controller.usuarios;
 
-import gt.org.isis.controller.dto.PersonaDto;
+import gt.org.isis.controller.dto.UsuarioDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +21,7 @@ public class BuscarUsuario {
 
     @RequestMapping("/get/{id}")
     public @ResponseBody
-    PersonaDto getUsuario(@PathVariable("id") String cui) {
+    UsuarioDto getUsuario(@PathVariable("id") String cui) {
         return null;
     }
 }

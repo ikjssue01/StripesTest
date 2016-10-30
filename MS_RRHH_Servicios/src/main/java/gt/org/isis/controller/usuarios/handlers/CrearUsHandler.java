@@ -34,13 +34,13 @@ public class CrearUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDt
 
     @Override
     public UsuarioDto execute(final UsuarioDto request) {
-        Persona p = personas.findOne(request.getCui());
-        Role rr = roles.findOne(request.getRoleId());
+        Persona persona = personas.findOne(request.getCui());
+        Role role = roles.findOne(request.getRoleId());
         BeansConverter<Usuario, UsuarioDto> bc;
         final Usuario r = (bc = new BeansConverter<Usuario, UsuarioDto>()).toEntity(request);
         r.setClave(new String(DigestUtils.md5Digest(request.getClave().getBytes())));
-        r.setFkPersona(p);
-        r.setFkRole(rr);
+        r.setFkPersona(persona);
+        r.setFkRole(role);
 
         usuarios.save(r);
         return bc.toDTO(r);

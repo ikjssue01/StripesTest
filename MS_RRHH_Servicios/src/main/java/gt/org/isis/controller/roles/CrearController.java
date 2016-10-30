@@ -8,8 +8,6 @@ package gt.org.isis.controller.roles;
 import gt.org.isis.controller.dto.RoleDto;
 import gt.org.isis.controller.roles.handlers.CrearHandler;
 import gt.org.isis.converters.RoleDtoConverter;
-import gt.org.isis.model.Role;
-import gt.org.isis.model.utils.BeansConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
