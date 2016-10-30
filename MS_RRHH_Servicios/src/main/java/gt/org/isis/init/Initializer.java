@@ -1,4 +1,4 @@
-package com.spr.init;
+package gt.org.isis.init;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

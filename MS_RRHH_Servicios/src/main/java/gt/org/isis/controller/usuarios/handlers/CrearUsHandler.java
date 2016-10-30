@@ -20,7 +20,7 @@ import org.springframework.util.DigestUtils;
 
 /**
  *
- * @author eliud
+ * @author edcracken
  */
 @Component
 public class CrearUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDto> {

@@ -1,4 +1,4 @@
-package com.spr.init;
+package gt.org.isis.init;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;

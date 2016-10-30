@@ -11,7 +11,7 @@ import gt.org.isis.model.utils.BeansConverter;
 
 /**
  *
- * @author eliud
+ * @author edcracken
  */
 public class UsuarioDtoConverter extends BeansConverter<Usuario, UsuarioDto> {
 }

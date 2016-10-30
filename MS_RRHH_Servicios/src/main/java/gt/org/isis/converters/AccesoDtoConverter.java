@@ -12,7 +12,7 @@ import gt.org.isis.model.utils.BeansConverter;
 
 /**
  *
- * @author eliud
+ * @author edcracken
  */
 public class AccesoDtoConverter extends BeansConverter<Acceso, AccesoDto> {
 }
