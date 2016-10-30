@@ -5,7 +5,12 @@
  */
 package gt.org.isis.controller.usuarios;
 
-import gt.org.isis.controller.dto.PersonaDto;
+import gt.org.isis.controller.dto.UsuarioDto;
+import gt.org.isis.controller.usuarios.handlers.ModificarUsHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,14 +19,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author eliud
+ * @author edcracken
  */
 @Controller("usuariosModificar")
 @RequestMapping("usuarios")
 public class ModificarUsuario {
 
-    @RequestMapping(value = "/mod/{id}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
-    public void modificar(@PathVariable("id") String id, @RequestBody PersonaDto persona) {
+    @Autowired
+    ModificarUsHandler handler;
 
+    @RequestMapping(value = "/mod/{id}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
+    public HttpEntity modificar(@PathVariable("id") String id, @RequestBody UsuarioDto usuario) {
+        handler.handle(usuario);
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 }

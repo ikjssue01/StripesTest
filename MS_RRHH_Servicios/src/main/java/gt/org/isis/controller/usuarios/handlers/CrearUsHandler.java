@@ -7,10 +7,11 @@ package gt.org.isis.controller.usuarios.handlers;
 
 import gt.org.isis.api.AbstractRequestHandler;
 import gt.org.isis.controller.dto.UsuarioDto;
+import gt.org.isis.converters.UsuarioDtoConverter;
 import gt.org.isis.model.Persona;
 import gt.org.isis.model.Role;
 import gt.org.isis.model.Usuario;
-import gt.org.isis.model.utils.BeansConverter;
+import gt.org.isis.model.utils.EntitiesHelper;
 import gt.org.isis.repository.PersonasRepository;
 import gt.org.isis.repository.RolesRepository;
 import gt.org.isis.repository.UsuariosRepository;
@@ -36,12 +37,14 @@ public class CrearUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDt
     public UsuarioDto execute(final UsuarioDto request) {
         Persona persona = personas.findOne(request.getCui());
         Role role = roles.findOne(request.getRoleId());
-        BeansConverter<Usuario, UsuarioDto> bc;
-        final Usuario r = (bc = new BeansConverter<Usuario, UsuarioDto>()).toEntity(request);
+        UsuarioDtoConverter bc;
+        final Usuario r = (bc = new UsuarioDtoConverter()).toEntity(request);
         r.setClave(new String(DigestUtils.md5Digest(request.getClave().getBytes())));
         r.setFkPersona(persona);
         r.setFkRole(role);
-
+        r.setId(request.getUsuario());
+        EntitiesHelper.setDateCreateRef(r);
+        r.setCreadoPor("test");
         usuarios.save(r);
         return bc.toDTO(r);
     }

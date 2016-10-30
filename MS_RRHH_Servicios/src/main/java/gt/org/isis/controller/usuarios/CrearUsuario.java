@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -30,7 +31,8 @@ public class CrearUsuario {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)
-    public void crear(@RequestBody @Valid UsuarioDto usuario) {
-        handler.handle(usuario);
+    public @ResponseBody
+    UsuarioDto crear(@RequestBody @Valid UsuarioDto usuario) {
+        return handler.handle(usuario);
     }
 }
