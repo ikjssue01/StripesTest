@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gt.org.isis.controller.roles;
+package gt.org.isis.controller.roles.handlers;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
@@ -12,7 +12,6 @@ import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.controller.dto.RoleDto;
 import gt.org.isis.model.AccesoRole;
 import gt.org.isis.model.Role;
-import gt.org.isis.model.utils.BeansConverter;
 import gt.org.isis.model.utils.EntitiesHelper;
 import gt.org.isis.repository.AccesoRoleRepository;
 import gt.org.isis.repository.AccesosRepository;
@@ -22,10 +21,10 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author eliud
+ * @author edcracken
  */
 @Component
-public class CrearHandler extends AbstractRequestHandler<RoleDto, Role> {
+public class ModificarHandler extends AbstractRequestHandler<RoleDto, RoleDto> {
 
     @Autowired
     RolesRepository roles;
@@ -35,8 +34,12 @@ public class CrearHandler extends AbstractRequestHandler<RoleDto, Role> {
     AccesoRoleRepository accesosRole;
 
     @Override
-    public Role execute(final RoleDto request) {
-        final Role r = new BeansConverter<Role, RoleDto>().toEntity(request);
+    public RoleDto execute(final RoleDto request) {
+        final Role r = roles.findOne(request.getId());
+        r.setNombre(request.getNombre());
+        for (AccesoRole ar : r.getAccesoRoleCollection()) {
+            accesosRole.delete(ar);
+        }
         r.setAccesoRoleCollection(Collections2.transform(request.getAccesos(), new Function<AccesoDto, AccesoRole>() {
             @Override
             public AccesoRole apply(AccesoDto f) {
@@ -49,7 +52,7 @@ public class CrearHandler extends AbstractRequestHandler<RoleDto, Role> {
             }
         }));
         roles.save(r);
-        return r;
+        return request;
     }
 
 }
