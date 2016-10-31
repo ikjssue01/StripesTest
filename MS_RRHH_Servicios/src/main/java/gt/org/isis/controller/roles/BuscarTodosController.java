@@ -5,6 +5,7 @@
  */
 package gt.org.isis.controller.roles;
 
+import gt.org.isis.api.C;
 import gt.org.isis.controller.dto.RoleDto;
 import gt.org.isis.controller.roles.handlers.BuscarTodosHandler;
 import gt.org.isis.web.annotation.CrossOrigin;
@@ -32,6 +33,6 @@ public class BuscarTodosController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     List<RoleDto> getRole() {
-        return handler.handle(new RoleDto(-1));
+        return handler.handle(C.EMPTY);
     }
 }

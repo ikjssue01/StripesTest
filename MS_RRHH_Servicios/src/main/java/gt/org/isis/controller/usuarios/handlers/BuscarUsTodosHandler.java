@@ -22,13 +22,14 @@ import org.springframework.stereotype.Service;
  * @author edcracken
  */
 @Service
-public class BuscarUsTodosHandler extends AbstractRequestHandler<UsuarioDto, List<UsuarioDto>> {
+public class BuscarUsTodosHandler
+        extends AbstractRequestHandler<Object, List<UsuarioDto>> {
 
     @Autowired
     UsuariosRepository usuarios;
 
     @Override
-    public List<UsuarioDto> execute(final UsuarioDto request) {
+    public List<UsuarioDto> execute(final Object request) {
         return new ArrayList<UsuarioDto>(Collections2.transform(usuarios.findAll(), new Function<Usuario, UsuarioDto>() {
             @Override
             public UsuarioDto apply(Usuario r) {
@@ -36,7 +37,6 @@ public class BuscarUsTodosHandler extends AbstractRequestHandler<UsuarioDto, Lis
                 return new UsuarioDtoConverter().toDTO(r);
             }
         }));
-
     }
 
 }

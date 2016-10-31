@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
  * @author edcracken
  */
 @Service
-public class BuscarTodosHandler extends AbstractRequestHandler<RoleDto, List<RoleDto>> {
+public class BuscarTodosHandler extends AbstractRequestHandler<Object, List<RoleDto>> {
 
     @Autowired
     RolesRepository roles;
@@ -37,7 +37,7 @@ public class BuscarTodosHandler extends AbstractRequestHandler<RoleDto, List<Rol
     AccesoRoleRepository accesosRole;
 
     @Override
-    public List<RoleDto> execute(final RoleDto request) {
+    public List<RoleDto> execute(final Object request) {
         return new ArrayList<RoleDto>(Collections2.transform(roles.findAll(), new Function<Role, RoleDto>() {
             @Override
             public RoleDto apply(Role r) {
