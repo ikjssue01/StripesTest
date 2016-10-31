@@ -5,12 +5,10 @@
  */
 package gt.org.isis.controller.catalogos.unidadesnotificadoras;
 
-import gt.org.isis.controller.accesos.handlers.BuscarAcTodosHandler;
-import gt.org.isis.controller.catalogos.puestos.handlers.PuestosBuscarTodosHandler;
-import gt.org.isis.controller.dto.AccesoDto;
+import gt.org.isis.controller.catalogos.unidadesnotificadoras.handlers.UnidNotifBuscarTodosHandler;
 import gt.org.isis.controller.dto.CatalogosRequestDto;
 import gt.org.isis.controller.dto.PuestoDto;
-import gt.org.isis.controller.dto.RoleDto;
+import gt.org.isis.controller.dto.UnidadNotificadoraDto;
 import gt.org.isis.web.annotation.CrossOrigin;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +28,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UnidNotifBuscarTodosController {
 
     @Autowired
-    PuestosBuscarTodosHandler handler;
+    UnidNotifBuscarTodosHandler handler;
 
     @CrossOrigin
     @RequestMapping(value = "/get/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List<PuestoDto> getList(@RequestParam("padre") Integer padre,
+    List<UnidadNotificadoraDto> getList(@RequestParam("padre") Integer padre,
             @RequestParam("valor") String valor,
             @RequestParam("padres") Integer tipo) {
 
