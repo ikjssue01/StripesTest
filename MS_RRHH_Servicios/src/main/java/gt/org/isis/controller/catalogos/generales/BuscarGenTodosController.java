@@ -33,9 +33,9 @@ public class BuscarGenTodosController {
     @RequestMapping(value = "/get/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List<CatalogoDto> getList(@RequestParam("padre") Integer padre,
-            @RequestParam("valor") String valor,
-            @RequestParam("padres") Integer tipo) {
+    List<CatalogoDto> getList(@RequestParam(value = "padre", required = false) Integer padre,
+            @RequestParam(value = "valor", required = false) String valor,
+            @RequestParam("tipo") Integer tipo) {
 
         return handler.handle(new CatalogosRequestDto(padre, tipo, valor));
     }

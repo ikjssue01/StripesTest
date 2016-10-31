@@ -7,7 +7,6 @@ package gt.org.isis.controller.catalogos.unidadesnotificadoras;
 
 import gt.org.isis.controller.catalogos.unidadesnotificadoras.handlers.UnidNotifBuscarTodosHandler;
 import gt.org.isis.controller.dto.CatalogosRequestDto;
-import gt.org.isis.controller.dto.PuestoDto;
 import gt.org.isis.controller.dto.UnidadNotificadoraDto;
 import gt.org.isis.web.annotation.CrossOrigin;
 import java.util.List;
