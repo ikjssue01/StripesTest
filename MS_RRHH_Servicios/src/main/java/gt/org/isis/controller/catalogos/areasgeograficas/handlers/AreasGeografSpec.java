@@ -5,11 +5,10 @@
  */
 package gt.org.isis.controller.catalogos.areasgeograficas.handlers;
 
-import gt.org.isis.controller.catalogos.unidadesnotificadoras.handlers.*;
 import gt.org.isis.api.SpecificationBuilder;
 import gt.org.isis.controller.dto.CatalogosRequestDto;
-import gt.org.isis.model.UnidadNotificadora;
-import gt.org.isis.model.UnidadNotificadora_;
+import gt.org.isis.model.AreaGeografica;
+import gt.org.isis.model.AreaGeografica_;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -24,22 +23,22 @@ import org.springframework.stereotype.Component;
  * @author edcracken
  */
 @Component
-public class AreasGeografSpec implements SpecificationBuilder<CatalogosRequestDto, UnidadNotificadora> {
+public class AreasGeografSpec implements SpecificationBuilder<CatalogosRequestDto, AreaGeografica> {
 
     @Override
-    public Specification<UnidadNotificadora> build(final CatalogosRequestDto param) {
-        return new Specification<UnidadNotificadora>() {
+    public Specification<AreaGeografica> build(final CatalogosRequestDto param) {
+        return new Specification<AreaGeografica>() {
             @Override
-            public Predicate toPredicate(Root<UnidadNotificadora> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<AreaGeografica> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
                 if (param.getCodigoPadre() != null) {
-                    predicates.add(cb.equal(root.get(UnidadNotificadora_.codigoPadre), param.getCodigoPadre()));
+                    predicates.add(cb.equal(root.get(AreaGeografica_.codigoPadre), param.getCodigoPadre()));
                 }
                 if (param.getTipo() != null) {
-                    predicates.add(cb.equal(root.get(UnidadNotificadora_.tipo), param.getTipo()));
+                    predicates.add(cb.equal(root.get(AreaGeografica_.tipo), param.getTipo()));
                 }
                 if (param.getValor() != null) {
-                    predicates.add(cb.like(root.get(UnidadNotificadora_.valor),
+                    predicates.add(cb.like(root.get(AreaGeografica_.valor),
                             param.getValor()));
                 }
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
