@@ -5,6 +5,7 @@
  */
 package gt.org.isis.model;
 
+import gt.org.isis.model.enums.Estado;
 import gt.org.isis.model.enums.EstadoCivil;
 import gt.org.isis.model.enums.Pueblo;
 import gt.org.isis.model.enums.Sexo;
@@ -59,10 +60,10 @@ public class Persona implements Serializable, CustomEntity {
     private Sexo sexo;
     @Basic(optional = false)
     @Column(name = "fk_nacionalidad", nullable = false)
-    private int fkNacionalidad;
+    private Integer fkNacionalidad;
     @Basic(optional = false)
     @Column(name = "fk_profesion", nullable = false)
-    private int fkProfesion;
+    private Integer fkProfesion;
     @Column(name = "limitaciones_fisicas")
     private String limitacionesFisicas;
     @Column(name = "sabe_leer")
@@ -91,7 +92,8 @@ public class Persona implements Serializable, CustomEntity {
     @Column(name = "no_cedula")
     private String noCedula;
     @Column(length = 50)
-    private String estado;
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
     @Column(name = "fk_municipio_cedula")
     private Integer fkMunicipioCedula;
     @Column(name = "fk_municipio_vecindad")
@@ -133,7 +135,7 @@ public class Persona implements Serializable, CustomEntity {
         this.cui = cui;
     }
 
-    public Persona(String cui, String primerNombre, String primerApellido, int fkNacionalidad, int fkProfesion, Date fechaNacimiento, Date fechaCreacion, String creadoPor) {
+    public Persona(String cui, String primerNombre, String primerApellido, Integer fkNacionalidad, Integer fkProfesion, Date fechaNacimiento, Date fechaCreacion, String creadoPor) {
         this.cui = cui;
         this.primerNombre = primerNombre;
         this.primerApellido = primerApellido;
@@ -232,19 +234,19 @@ public class Persona implements Serializable, CustomEntity {
         this.estadoCivil = estadoCivil;
     }
 
-    public int getFkNacionalidad() {
+    public Integer getFkNacionalidad() {
         return fkNacionalidad;
     }
 
-    public void setFkNacionalidad(int fkNacionalidad) {
+    public void setFkNacionalidad(Integer fkNacionalidad) {
         this.fkNacionalidad = fkNacionalidad;
     }
 
-    public int getFkProfesion() {
+    public Integer getFkProfesion() {
         return fkProfesion;
     }
 
-    public void setFkProfesion(int fkProfesion) {
+    public void setFkProfesion(Integer fkProfesion) {
         this.fkProfesion = fkProfesion;
     }
 
@@ -336,11 +338,11 @@ public class Persona implements Serializable, CustomEntity {
         this.noCedula = noCedula;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
@@ -491,7 +493,7 @@ public class Persona implements Serializable, CustomEntity {
 
     @Override
     public void setFechaUltimoCambio(Date fechaUltimoCambio) {
-        System.out.println("nothing...");
+        System.out.println("no");
     }
 
 }

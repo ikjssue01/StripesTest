@@ -25,6 +25,6 @@ public class Buscar {
     @RequestMapping(value = "/get", method = RequestMethod.GET, headers = "Content-Type=application/json")
     public @ResponseBody
     PersonaDto getPersona(@RequestParam("cui") String cui) {
-        return new PersonaDto("edcracken");
+        return new PersonaDto();
     }
 }
