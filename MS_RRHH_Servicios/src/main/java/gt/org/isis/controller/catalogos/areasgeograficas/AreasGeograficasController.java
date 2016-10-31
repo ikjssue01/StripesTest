@@ -5,9 +5,9 @@
  */
 package gt.org.isis.controller.catalogos.areasgeograficas;
 
-import gt.org.isis.controller.catalogos.unidadesnotificadoras.handlers.UnidNotifBuscarTodosHandler;
+import gt.org.isis.controller.catalogos.areasgeograficas.handlers.AreaGeoBuscarTodosHandler;
+import gt.org.isis.controller.dto.AreaGeograficaDto;
 import gt.org.isis.controller.dto.CatalogosRequestDto;
-import gt.org.isis.controller.dto.UnidadNotificadoraDto;
 import gt.org.isis.web.annotation.CrossOrigin;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +27,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class AreasGeograficasController {
 
     @Autowired
-    UnidNotifBuscarTodosHandler handler;
+    AreaGeoBuscarTodosHandler handler;
 
     @CrossOrigin
     @RequestMapping(value = "/get/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List<UnidadNotificadoraDto> getList(@RequestParam(value = "padre", required = false) Integer padre,
+    List<AreaGeograficaDto> getList(@RequestParam(value = "padre", required = false) Integer padre,
             @RequestParam(value = "valor", required = false) String valor,
             @RequestParam("tipo") String tipo) {
 
