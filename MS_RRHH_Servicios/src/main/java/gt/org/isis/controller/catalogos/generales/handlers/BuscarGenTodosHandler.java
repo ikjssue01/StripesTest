@@ -9,6 +9,7 @@ import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import gt.org.isis.api.AbstractRequestHandler;
 import gt.org.isis.controller.dto.CatalogoDto;
+import gt.org.isis.controller.dto.CatalogosRequestDto;
 import gt.org.isis.converters.CatalogosDtoConverter;
 import gt.org.isis.model.Catalogos;
 import gt.org.isis.repository.CatalogosRepository;
@@ -22,13 +23,13 @@ import org.springframework.stereotype.Service;
  * @author edcracken
  */
 @Service
-public class BuscarGenTodosHandler extends AbstractRequestHandler<Object, List<CatalogoDto>> {
+public class BuscarGenTodosHandler extends AbstractRequestHandler<CatalogosRequestDto, List<CatalogoDto>> {
 
     @Autowired
     CatalogosRepository catalogos;
 
     @Override
-    public List<CatalogoDto> execute(final Object request) {
+    public List<CatalogoDto> execute(CatalogosRequestDto request) {
         return new ArrayList<CatalogoDto>(Collections2.transform(catalogos.findAll(), new Function<Catalogos, CatalogoDto>() {
             @Override
             public CatalogoDto apply(Catalogos r) {
