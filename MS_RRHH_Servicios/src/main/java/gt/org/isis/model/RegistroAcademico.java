@@ -32,7 +32,7 @@ import javax.persistence.TemporalType;
 @Table(name = "registro_academico", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "RegistroAcademico.findAll", query = "SELECT r FROM RegistroAcademico r")})
-public class RegistroAcademico implements Serializable {
+public class RegistroAcademico implements Serializable, CustomEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -162,6 +162,11 @@ public class RegistroAcademico implements Serializable {
     @Override
     public String toString() {
         return "org.ms.rrhh.domain.model.RegistroAcademico[ id=" + id + " ]";
+    }
+
+    @Override
+    public void setFechaUltimoCambio(Date fechaUltimoCambio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

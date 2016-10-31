@@ -28,7 +28,7 @@ import javax.persistence.TemporalType;
 @Table(schema = "public", name = "dpi")
 @NamedQueries({
     @NamedQuery(name = "Dpi.findAll", query = "SELECT d FROM Dpi d")})
-public class Dpi implements Serializable {
+public class Dpi implements Serializable, CustomEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -148,6 +148,11 @@ public class Dpi implements Serializable {
     @Override
     public String toString() {
         return "org.ms.rrhh.domain.model.Dpi[ noSerie=" + noSerie + " ]";
+    }
+
+    @Override
+    public void setFechaUltimoCambio(Date fechaUltimoCambio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

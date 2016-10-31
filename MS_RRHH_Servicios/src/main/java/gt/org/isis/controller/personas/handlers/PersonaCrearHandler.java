@@ -17,6 +17,7 @@ import gt.org.isis.model.Dpi;
 import gt.org.isis.model.Persona;
 import gt.org.isis.model.RegistroAcademico;
 import gt.org.isis.model.RegistroLaboral;
+import gt.org.isis.model.utils.EntitiesHelper;
 import gt.org.isis.repository.PersonasRepository;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +46,14 @@ public class PersonaCrearHandler extends AbstractRequestHandler<PersonaDto, Bool
                 Arrays.asList(
                         ra = new RegistroAcademicoConverter().toEntity(r.getRegistroAcademico())));
         ra.setFkPersona(p);
+        EntitiesHelper.setDateCreateRef(ra);
 
         RegistroLaboral rl;
         p.setRegistroLaboralCollection(
                 Arrays.asList(rl = new RegistroLaboralConverter().toEntity(r.getRegistroLaboral()))
         );
         rl.setFkPersona(p);
+        EntitiesHelper.setDateCreateRef(rl);
 
         Dpi dpi;
         p.setDpiCollection(Arrays.asList(dpi = new DpiDtoConverter().toEntity(r.getDpi())));
@@ -58,7 +61,10 @@ public class PersonaCrearHandler extends AbstractRequestHandler<PersonaDto, Bool
                 new EstudiosSaludConverter()
                         .toEntity(r.getEstudiosSalud()));
         dpi.setFkPersona(p);
+        EntitiesHelper.setDateCreateRef(dpi);
+        EntitiesHelper.setDateCreateRef(p);
 
+        repo.save(p);
         return true;
     }
 
