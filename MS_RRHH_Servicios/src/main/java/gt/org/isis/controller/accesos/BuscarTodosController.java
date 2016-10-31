@@ -7,7 +7,6 @@ package gt.org.isis.controller.accesos;
 
 import gt.org.isis.controller.accesos.handlers.BuscarAcTodosHandler;
 import gt.org.isis.controller.dto.AccesoDto;
-import gt.org.isis.controller.dto.RoleDto;
 import gt.org.isis.web.annotation.CrossOrigin;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
