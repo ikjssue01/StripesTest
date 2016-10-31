@@ -30,12 +30,14 @@ public class BuscarGenTodosHandler extends AbstractRequestHandler<CatalogosReque
 
     @Override
     public List<CatalogoDto> execute(CatalogosRequestDto request) {
-        return new ArrayList<CatalogoDto>(Collections2.transform(catalogos.findAll(), new Function<Catalogos, CatalogoDto>() {
-            @Override
-            public CatalogoDto apply(Catalogos r) {
-                return new CatalogosDtoConverter().toDTO(r);
-            }
-        }));
+        return new ArrayList<CatalogoDto>(Collections2
+                .transform(catalogos.findAll(new CatalogosSpec().build(request)),
+                        new Function<Catalogos, CatalogoDto>() {
+                    @Override
+                    public CatalogoDto apply(Catalogos r) {
+                        return new CatalogosDtoConverter().toDTO(r);
+                    }
+                }));
     }
 
 }
