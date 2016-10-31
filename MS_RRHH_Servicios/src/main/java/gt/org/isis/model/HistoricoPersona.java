@@ -26,10 +26,10 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name = "historico_persona",   schema = "public")
+@Table(name = "historico_persona", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "HistoricoPersona.findAll", query = "SELECT h FROM HistoricoPersona h")})
-public class HistoricoPersona implements Serializable {
+public class HistoricoPersona implements Serializable, CustomEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -428,5 +428,10 @@ public class HistoricoPersona implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.HistoricoPersona[ id=" + id + " ]";
     }
-    
+
+    @Override
+    public void setFechaUltimoCambio(Date fechaUltimoCambio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -5,7 +5,7 @@
  */
 package gt.org.isis.converters;
 
-import gt.org.isis.controller.dto.PersonaDto;
+import gt.org.isis.model.HistoricoPersona;
 import gt.org.isis.model.Persona;
 import gt.org.isis.model.utils.BeansConverter;
 import org.springframework.stereotype.Component;
@@ -15,5 +15,5 @@ import org.springframework.stereotype.Component;
  * @author edcracken
  */
 @Component
-public class PersonaDtoConverter extends BeansConverter<Persona, PersonaDto> {
+public class PersonaHistorialConverter extends BeansConverter<HistoricoPersona, Persona> {
 }

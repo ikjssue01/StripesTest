@@ -26,10 +26,10 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(  schema = "public",name = "idioma")
+@Table(schema = "public", name = "idioma")
 @NamedQueries({
     @NamedQuery(name = "Idioma.findAll", query = "SELECT i FROM Idioma i")})
-public class Idioma implements Serializable {
+public class Idioma implements Serializable, CustomEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -160,5 +160,5 @@ public class Idioma implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.Idioma[ id=" + id + " ]";
     }
-    
+
 }
