@@ -44,6 +44,8 @@ public class Acceso implements Serializable, CustomEntity {
     private String tipo;
     @Column(length = 50)
     private String estado;
+    @Column(name = "codigo_padre")
+    private Integer codigoPadre;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -70,6 +72,14 @@ public class Acceso implements Serializable, CustomEntity {
         this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.fechaUltimoCambio = fechaUltimoCambio;
+    }
+
+    public Integer getCodigoPadre() {
+        return codigoPadre;
+    }
+
+    public void setCodigoPadre(Integer codigoPadre) {
+        this.codigoPadre = codigoPadre;
     }
 
     public Integer getId() {
