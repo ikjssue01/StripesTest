@@ -7,6 +7,7 @@ package gt.org.isis.controller.usuarios;
 
 import gt.org.isis.controller.dto.UsuarioDto;
 import gt.org.isis.controller.usuarios.handlers.BuscarUsHandler;
+import gt.org.isis.web.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ public class BuscarUsuario {
     @Autowired
     BuscarUsHandler handler;
 
+    @CrossOrigin
     @RequestMapping("/get/{id}")
     public @ResponseBody
     UsuarioDto getUsuario(@PathVariable("id") String id) {

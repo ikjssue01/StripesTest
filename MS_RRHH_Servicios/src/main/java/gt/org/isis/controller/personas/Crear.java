@@ -6,6 +6,7 @@
 package gt.org.isis.controller.personas;
 
 import gt.org.isis.controller.dto.PersonaDto;
+import gt.org.isis.web.annotation.CrossOrigin;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("personas")
 public class Crear {
 
+    @CrossOrigin
     @RequestMapping(value = "/crea", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public void crear(@RequestBody PersonaDto persona) {
 

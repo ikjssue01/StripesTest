@@ -7,6 +7,7 @@ package gt.org.isis.controller.roles;
 
 import gt.org.isis.controller.dto.RoleDto;
 import gt.org.isis.controller.roles.handlers.BuscarTodosHandler;
+import gt.org.isis.web.annotation.CrossOrigin;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,6 +27,7 @@ public class BuscarTodosController {
     @Autowired
     BuscarTodosHandler handler;
 
+    @CrossOrigin
     @RequestMapping(value = "/get/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody

@@ -6,6 +6,7 @@
 package gt.org.isis.controller.personas;
 
 import gt.org.isis.controller.dto.PersonaDto;
+import gt.org.isis.web.annotation.CrossOrigin;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("personas")
 public class Buscar {
 
+    @CrossOrigin
     @RequestMapping(value = "/get", method = RequestMethod.GET, headers = "Content-Type=application/json")
     public @ResponseBody
     PersonaDto getPersona(@RequestParam("cui") String cui) {

@@ -8,6 +8,7 @@ package gt.org.isis.controller.accesos;
 import gt.org.isis.controller.accesos.handlers.CrearAcHandler;
 import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.converters.AccesoDtoConverter;
+import gt.org.isis.web.annotation.CrossOrigin;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,6 +30,7 @@ public class CrearController {
     @Autowired
     CrearAcHandler crear;
 
+    @CrossOrigin
     @Transactional
     @RequestMapping(value = "/crea",
             consumes = MediaType.APPLICATION_JSON_VALUE,

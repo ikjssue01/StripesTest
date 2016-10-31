@@ -7,6 +7,7 @@ package gt.org.isis.controller.roles;
 
 import gt.org.isis.controller.dto.RoleDto;
 import gt.org.isis.controller.roles.handlers.ModificarHandler;
+import gt.org.isis.web.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ public class ModificarController {
     @Autowired
     ModificarHandler handler;
 
+    @CrossOrigin
     @RequestMapping(value = "/mod/{id}", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

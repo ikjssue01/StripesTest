@@ -7,6 +7,7 @@ package gt.org.isis.controller.accesos;
 
 import gt.org.isis.controller.accesos.handlers.ModificarAcHandler;
 import gt.org.isis.controller.dto.AccesoDto;
+import gt.org.isis.web.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,7 @@ public class ModificarController {
     @Autowired
     ModificarAcHandler handler;
 
+    @CrossOrigin
     @RequestMapping(value = "/mod/{id}", method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

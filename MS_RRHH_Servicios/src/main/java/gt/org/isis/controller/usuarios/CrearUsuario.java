@@ -7,6 +7,7 @@ package gt.org.isis.controller.usuarios;
 
 import gt.org.isis.controller.dto.UsuarioDto;
 import gt.org.isis.controller.usuarios.handlers.CrearUsHandler;
+import gt.org.isis.web.annotation.CrossOrigin;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -27,6 +28,7 @@ public class CrearUsuario {
     @Autowired
     CrearUsHandler handler;
 
+    @CrossOrigin
     @RequestMapping(value = "/crea",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,
