@@ -23,10 +23,9 @@ public class CorsFilter extends HandlerInterceptorAdapter {
 
         if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
-            // Test if the controller-method is annotated with @Spring3CORSFilter
             CrossOrigin filter = handlerMethod.getMethod().getAnnotation(CrossOrigin.class);
             if (filter != null) {
-                // ... do the filtering
+                System.out.println("filtering>>>>");
                 response.setHeader("Access-Control-Allow-Origin", "*");
                 response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
                 response.setHeader("Access-Control-Max-Age", "3600");
