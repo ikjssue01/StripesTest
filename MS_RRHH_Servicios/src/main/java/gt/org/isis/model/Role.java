@@ -40,9 +40,9 @@ public class Role implements Serializable, CustomEntity {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer id;
-    @Column(length = 50)
+    @Column
     private String nombre;
-    @Column(length = 50)
+    @Column
     private Estado estado;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)

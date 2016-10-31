@@ -18,8 +18,7 @@ CREATE TABLE role
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE role
-  OWNER TO postgres;
+
 -- Table: acceso
 
 -- DROP TABLE acceso;
@@ -40,8 +39,7 @@ CREATE TABLE acceso
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE acceso
-  OWNER TO postgres;
+
 
 CREATE TABLE acceso_role
 (
@@ -63,8 +61,6 @@ CREATE TABLE acceso_role
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE acceso_role
-  OWNER TO postgres;
 
 
   -- Table: usuario
@@ -91,8 +87,7 @@ CREATE TABLE usuario
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE usuario
-  OWNER TO postgres;
+
 
 -- Table: area_geografica
 
@@ -114,8 +109,7 @@ CREATE TABLE area_geografica
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE area_geografica
-  OWNER TO postgres;
+
   -- Table: catalogos
 
 -- DROP TABLE catalogos;
@@ -136,8 +130,7 @@ CREATE TABLE catalogos
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE catalogos
-  OWNER TO postgres;
+
 
 -- Table: persona
 
@@ -183,8 +176,7 @@ CREATE TABLE persona
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE persona
-  OWNER TO postgres;
+
 COMMENT ON COLUMN persona.fk_nacionalidad IS 'Catalogo tipo NACIONALIDADES';
 COMMENT ON COLUMN persona.fk_profesion IS 'Catalogo tipo PROFESIONES';
 COMMENT ON COLUMN persona.fk_municipio_nacimiento IS 'Catalogo tipo MUNICIPIOS';
@@ -212,8 +204,7 @@ CREATE TABLE dpi
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE dpi
-  OWNER TO postgres;
+
 -- Table: estudio_salud
 
 -- DROP TABLE estudio_salud;
@@ -235,8 +226,7 @@ CREATE TABLE estudio_salud
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE estudio_salud
-  OWNER TO postgres;
+
 -- Table: historico_persona
 
 -- DROP TABLE historico_persona;
@@ -285,8 +275,7 @@ CREATE TABLE historico_persona
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE historico_persona
-  OWNER TO postgres;
+
 -- Table: idioma
 
 -- DROP TABLE idioma;
@@ -309,8 +298,7 @@ CREATE TABLE idioma
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE idioma
-  OWNER TO postgres;
+
 COMMENT ON COLUMN idioma.fk_idioma IS 'Catalogo tipo IDIOMAS';
 
 -- Table: lugar_residencia
@@ -334,8 +322,7 @@ CREATE TABLE lugar_residencia
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE lugar_residencia
-  OWNER TO postgres;
+
 COMMENT ON COLUMN lugar_residencia.fk_municipio IS 'Catalogo tipo MUNICIPIOS';
 
 
@@ -360,8 +347,7 @@ CREATE TABLE puestos
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE puestos
-  OWNER TO postgres;
+
 -- Table: registro_academico
 
 -- DROP TABLE registro_academico;
@@ -384,8 +370,7 @@ CREATE TABLE registro_academico
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE registro_academico
-  OWNER TO postgres;
+
 -- Table: registro_laboral
 
 -- DROP TABLE registro_laboral;
@@ -412,8 +397,6 @@ CREATE TABLE registro_laboral
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE registro_laboral
-  OWNER TO postgres;
 COMMENT ON COLUMN registro_laboral.fk_expectativa IS 'Catalogo tipo EXPECTATIVAS';
 COMMENT ON COLUMN registro_laboral.fk_calificacion_servicio IS 'Catalogo tipo CALIFICACION_SERVICIO';
 COMMENT ON COLUMN registro_laboral.fk_comunidad_comisionado IS 'Catalogo tipo AREA_GEOGRAFICA';
@@ -442,8 +425,6 @@ CREATE TABLE puesto
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE puesto
-  OWNER TO postgres;
   -- Table: shops
 
 -- DROP TABLE shops;
@@ -458,8 +439,6 @@ CREATE TABLE shops
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE shops
-  OWNER TO postgres;
 -- Table: unidad_ejecutora
 
 -- DROP TABLE unidad_ejecutora;
@@ -478,8 +457,6 @@ CREATE TABLE unidad_ejecutora
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE unidad_ejecutora
-  OWNER TO postgres;
 
   -- Table: unidad_notificadora
 
@@ -501,5 +478,3 @@ CREATE TABLE unidad_notificadora
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE unidad_notificadora
-  OWNER TO postgres;

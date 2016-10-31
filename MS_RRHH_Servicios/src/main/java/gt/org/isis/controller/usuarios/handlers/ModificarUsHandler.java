@@ -52,7 +52,7 @@ public class ModificarUsHandler extends AbstractRequestHandler<UsuarioDto, Usuar
             Role rr = roles.findOne(request.getRoleId());
             UsuarioDtoConverter bc = new UsuarioDtoConverter();
             r.setClave(new String(DigestUtils.md5Digest(request.getClave().getBytes())));
-            r.setFkPersona(p);
+//            r.setFkPersona(p);
             r.setFkRole(rr);
 
             usuarios.save(r);

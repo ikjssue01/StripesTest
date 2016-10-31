@@ -40,7 +40,7 @@ public class CrearUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDt
         UsuarioDtoConverter bc;
         final Usuario r = (bc = new UsuarioDtoConverter()).toEntity(request);
         r.setClave(new String(DigestUtils.md5Digest(request.getClave().getBytes())));
-        r.setFkPersona(persona);
+//        r.setFkPersona(persona);
         r.setFkRole(role);
         r.setId(request.getUsuario());
         EntitiesHelper.setDateCreateRef(r);
