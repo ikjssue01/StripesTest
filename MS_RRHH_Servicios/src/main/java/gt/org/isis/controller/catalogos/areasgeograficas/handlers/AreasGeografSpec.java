@@ -35,11 +35,12 @@ public class AreasGeografSpec implements SpecificationBuilder<CatalogosRequestDt
                     predicates.add(cb.equal(root.get(AreaGeografica_.codigoPadre), param.getCodigoPadre()));
                 }
                 if (param.getTipo() != null) {
-                    predicates.add(cb.equal(root.get(AreaGeografica_.tipo), param.getTipo()));
+                    predicates.add(cb.like(cb.lower(root.get(AreaGeografica_.tipo)),
+                            param.getTipo().toLowerCase()));
                 }
                 if (param.getValor() != null) {
-                    predicates.add(cb.like(root.get(AreaGeografica_.valor),
-                            param.getValor()));
+                    predicates.add(cb.like(cb.lower(root.get(AreaGeografica_.valor)),
+                            param.getValor().toLowerCase()));
                 }
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }
