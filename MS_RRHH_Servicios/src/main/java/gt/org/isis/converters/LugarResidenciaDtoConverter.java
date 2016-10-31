@@ -6,13 +6,13 @@
  */
 package gt.org.isis.converters;
 
-import gt.org.isis.controller.dto.UnidadEjecutoraDto;
-import gt.org.isis.model.UnidadEjecutora;
+import gt.org.isis.controller.dto.LugarResidenciaDto;
+import gt.org.isis.model.LugarResidencia;
 import gt.org.isis.model.utils.BeansConverter;
 
 /**
  *
  * @author edcracken
  */
-public class LugarResidenciaDtoConverter extends BeansConverter<UnidadEjecutora, UnidadEjecutoraDto> {
+public class LugarResidenciaDtoConverter extends BeansConverter<LugarResidencia, LugarResidenciaDto> {
 }

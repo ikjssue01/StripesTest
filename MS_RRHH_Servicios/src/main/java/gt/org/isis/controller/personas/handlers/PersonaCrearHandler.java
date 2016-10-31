@@ -10,13 +10,16 @@ import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.converters.DpiDtoConverter;
 import gt.org.isis.converters.EstudiosSaludConverter;
 import gt.org.isis.converters.IdiomaDtoConverter;
+import gt.org.isis.converters.LugarResidenciaDtoConverter;
 import gt.org.isis.converters.PersonaDtoConverter;
 import gt.org.isis.converters.RegistroAcademicoConverter;
 import gt.org.isis.converters.RegistroLaboralConverter;
 import gt.org.isis.model.Dpi;
+import gt.org.isis.model.LugarResidencia;
 import gt.org.isis.model.Persona;
 import gt.org.isis.model.RegistroAcademico;
 import gt.org.isis.model.RegistroLaboral;
+import gt.org.isis.model.enums.EstadoVariable;
 import gt.org.isis.model.utils.EntitiesHelper;
 import gt.org.isis.repository.PersonasRepository;
 import java.util.Arrays;
@@ -46,12 +49,14 @@ public class PersonaCrearHandler extends AbstractRequestHandler<PersonaDto, Bool
                 Arrays.asList(
                         ra = new RegistroAcademicoConverter().toEntity(r.getRegistroAcademico())));
         ra.setFkPersona(p);
+        ra.setEstado(EstadoVariable.ACTUAL);
         EntitiesHelper.setDateCreateRef(ra);
 
         RegistroLaboral rl;
         p.setRegistroLaboralCollection(
                 Arrays.asList(rl = new RegistroLaboralConverter().toEntity(r.getRegistroLaboral()))
         );
+        rl.setEstado(EstadoVariable.ACTUAL);
         rl.setFkPersona(p);
         EntitiesHelper.setDateCreateRef(rl);
 
@@ -61,9 +66,18 @@ public class PersonaCrearHandler extends AbstractRequestHandler<PersonaDto, Bool
                 new EstudiosSaludConverter()
                         .toEntity(r.getEstudiosSalud()));
         dpi.setFkPersona(p);
+        dpi.setEstado(EstadoVariable.ACTUAL);
         EntitiesHelper.setDateCreateRef(dpi);
-        EntitiesHelper.setDateCreateRef(p);
 
+        LugarResidencia lr;
+        p.setLugarResidenciaCollection(Arrays.asList(
+                lr = new LugarResidenciaDtoConverter().toEntity(r.getLugarResidencia())
+        ));
+        lr.setFkPersona(p);
+        lr.setEstado(EstadoVariable.ACTUAL);
+        EntitiesHelper.setDateCreateRef(dpi);
+
+        EntitiesHelper.setDateCreateRef(p);
         repo.save(p);
         return true;
     }
