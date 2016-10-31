@@ -5,6 +5,7 @@
  */
 package gt.org.isis.model;
 
+import gt.org.isis.model.enums.EstadoVariable;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -43,7 +44,7 @@ public class Dpi implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaVencimiento;
     @Column(length = 50)
-    private String estado;
+    private EstadoVariable estado;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -92,11 +93,11 @@ public class Dpi implements Serializable {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public String getEstado() {
+    public EstadoVariable getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoVariable estado) {
         this.estado = estado;
     }
 
@@ -148,5 +149,5 @@ public class Dpi implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.Dpi[ noSerie=" + noSerie + " ]";
     }
-    
+
 }

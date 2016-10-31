@@ -5,6 +5,8 @@
  */
 package gt.org.isis.controller.dto;
 
+import java.util.List;
+
 /**
  *
  * @author eliud
@@ -19,6 +21,24 @@ public class RegistroLaboralDto {
     private String descripcionCalificacionServicio;
     private Boolean comisionado;
     private Integer fkComunidadComisionado;
+    private String nombreComunidadComisionado;
+    private List<RegistroLaboralDto> historial;
+
+    public List<RegistroLaboralDto> getHistorial() {
+        return historial;
+    }
+
+    public void setHistorial(List<RegistroLaboralDto> historial) {
+        this.historial = historial;
+    }
+
+    public String getNombreComunidadComisionado() {
+        return nombreComunidadComisionado;
+    }
+
+    public void setNombreComunidadComisionado(String nombreComunidadComisionado) {
+        this.nombreComunidadComisionado = nombreComunidadComisionado;
+    }
 
     public String getDescripcionExpectativa() {
         return descripcionExpectativa;
