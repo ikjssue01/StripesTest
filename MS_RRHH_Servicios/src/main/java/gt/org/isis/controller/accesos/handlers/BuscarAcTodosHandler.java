@@ -24,18 +24,19 @@ import org.springframework.stereotype.Service;
  * @author edcracken
  */
 @Service
-public class BuscarAcTodosHandler extends AbstractRequestHandler<Object, List<AccesoDto>> {
+public class BuscarAcTodosHandler extends AbstractRequestHandler<Integer, List<AccesoDto>> {
 
     @Autowired
-    RolesRepository roles;
+    AccesosRepository accesosRepo;
     @Autowired
-    AccesosRepository accesos;
-    @Autowired
-    AccesoRoleRepository accesosRole;
+    AccesosSpec spec;
 
     @Override
-    public List<AccesoDto> execute(final Object request) {
-        return new ArrayList<AccesoDto>(Collections2.transform(accesos.findAll(), new Function<Acceso, AccesoDto>() {
+    public List<AccesoDto> execute(final Integer codigoPadre) {
+        List accesos = codigoPadre != null ? accesosRepo.findAll(spec.build(codigoPadre))
+                : accesosRepo.findAll();
+        return new ArrayList<AccesoDto>(Collections2.transform(accesos,
+                new Function<Acceso, AccesoDto>() {
             @Override
             public AccesoDto apply(Acceso r) {
                 return new AccesoDtoConverter().toDTO(r);
