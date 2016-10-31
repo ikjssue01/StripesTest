@@ -33,9 +33,9 @@ public class PuestosBuscarTodosController {
     @RequestMapping(value = "/get/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List<PuestoDto> getList(@RequestParam("padre") Integer padre,
-            @RequestParam("valor") String valor,
-            @RequestParam("padres") Integer tipo) {
+    List<PuestoDto> getList(@RequestParam(value = "padre", required = false) Integer padre,
+            @RequestParam(value = "valor", required = false) String valor,
+            @RequestParam("tipo") String tipo) {
 
         return handler.handle(new CatalogosRequestDto(padre, tipo, valor));
     }

@@ -35,7 +35,7 @@ public class UnidNotifBuscarTodosController {
     public @ResponseBody
     List<UnidadNotificadoraDto> getList(@RequestParam("padre") Integer padre,
             @RequestParam("valor") String valor,
-            @RequestParam("padres") Integer tipo) {
+            @RequestParam("tipo") String tipo) {
 
         return handler.handle(new CatalogosRequestDto(padre, tipo, valor));
     }

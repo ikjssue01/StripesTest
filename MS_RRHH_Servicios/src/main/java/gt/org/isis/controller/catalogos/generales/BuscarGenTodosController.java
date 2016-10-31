@@ -35,7 +35,7 @@ public class BuscarGenTodosController {
     public @ResponseBody
     List<CatalogoDto> getList(@RequestParam(value = "padre", required = false) Integer padre,
             @RequestParam(value = "valor", required = false) String valor,
-            @RequestParam("tipo") Integer tipo) {
+            @RequestParam("tipo") String tipo) {
 
         return handler.handle(new CatalogosRequestDto(padre, tipo, valor));
     }

@@ -12,20 +12,20 @@ package gt.org.isis.controller.dto;
 public class CatalogosRequestDto {
 
     private Integer codigoPadre;
-    private Integer tipo;
+    private String tipo;
     private String valor;
 
-    public CatalogosRequestDto(Integer codigoPadre, Integer tipo, String valor) {
+    public CatalogosRequestDto(Integer codigoPadre, String tipo, String valor) {
         this.codigoPadre = codigoPadre;
         this.tipo = tipo;
         this.valor = valor;
     }
 
-    public Integer getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(Integer tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
