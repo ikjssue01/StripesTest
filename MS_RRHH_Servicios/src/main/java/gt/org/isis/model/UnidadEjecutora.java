@@ -11,6 +11,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,9 +38,10 @@ public class UnidadEjecutora implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer id;
-    @Column(length = 500)
+    @Column
     private String nombre;
-    @Column(length = 50)
+    @Column
+    @Enumerated(EnumType.STRING)
     private Estado estado;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)

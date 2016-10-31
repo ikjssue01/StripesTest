@@ -5,6 +5,7 @@
  */
 package gt.org.isis.model;
 
+import gt.org.isis.model.enums.EstadoCivil;
 import gt.org.isis.model.enums.Pueblo;
 import gt.org.isis.model.enums.Sexo;
 import java.io.Serializable;
@@ -32,26 +33,27 @@ public class Persona implements Serializable, CustomEntity {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String cui;
     @Basic(optional = false)
-    @Column(name = "primer_nombre", nullable = false, length = 100)
+    @Column(name = "primer_nombre", nullable = false)
     private String primerNombre;
-    @Column(name = "segundo_nombre", length = 100)
+    @Column(name = "segundo_nombre")
     private String segundoNombre;
     @Column(name = "otros_nombres")
     private String otrosNombres;
     @Basic(optional = false)
-    @Column(name = "primer_apellido", nullable = false, length = 100)
+    @Column(name = "primer_apellido", nullable = false)
     private String primerApellido;
-    @Column(name = "segundo_apellido", length = 100)
+    @Column(name = "segundo_apellido")
     private String segundoApellido;
     @Column(name = "otros_apellidos")
     private String otrosApellidos;
-    @Column(name = "apellido_casada", length = 100)
+    @Column(name = "apellido_casada")
     private String apellidoCasada;
-    @Column(name = "estado_civil", length = 50)
-    private String estadoCivil;
+    @Column(name = "estado_civil")
+    @Enumerated(EnumType.STRING)
+    private EstadoCivil estadoCivil;
     @Column(length = 50)
     @Enumerated(EnumType.STRING)
     private Sexo sexo;
@@ -73,20 +75,20 @@ public class Persona implements Serializable, CustomEntity {
     private Date fechaNacimiento;
     @Column(name = "fk_municipio_nacimiento")
     private Integer fkMunicipioNacimiento;
-    @Column(name = "nac_no_libro", length = 50)
+    @Column(name = "nac_no_libro")
     private String nacNoLibro;
-    @Column(name = "nac_no_folio", length = 50)
+    @Column(name = "nac_no_folio")
     private String nacNoFolio;
-    @Column(name = "nac_no_partida", length = 50)
+    @Column(name = "nac_no_partida")
     private String nacNoPartida;
-    @Column(name = "fk_pueblo", length = 50)
+    @Column(name = "fk_pueblo")
     @Enumerated(EnumType.STRING)
     private Pueblo fkPueblo;
-    @Column(name = "fk_comunidad_linguistica", length = 50)
+    @Column(name = "fk_comunidad_linguistica")
     private String fkComunidadLinguistica;
     @Column(length = 2147483647)
     private String mrz;
-    @Column(name = "no_cedula", length = 50)
+    @Column(name = "no_cedula")
     private String noCedula;
     @Column(length = 50)
     private String estado;
@@ -98,16 +100,16 @@ public class Persona implements Serializable, CustomEntity {
     private Boolean huellaManoDer;
     @Column(name = "huella_mano_izq")
     private Boolean huellaManoIzq;
-    @Column(name = "huella_dedo_der", length = 50)
+    @Column(name = "huella_dedo_der")
     private String huellaDedoDer;
-    @Column(name = "huella_dedo_izq", length = 50)
+    @Column(name = "huella_dedo_izq")
     private String huellaDedoIzq;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
     @Basic(optional = false)
-    @Column(name = "creado_por", nullable = false, length = 50)
+    @Column(name = "creado_por", nullable = false)
     private String creadoPor;
     @OneToMany(mappedBy = "fkPersona")
     private Collection<Idioma> idiomaCollection;
