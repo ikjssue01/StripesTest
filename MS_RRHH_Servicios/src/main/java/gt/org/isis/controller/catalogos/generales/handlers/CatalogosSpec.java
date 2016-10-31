@@ -30,10 +30,10 @@ public class CatalogosSpec implements SpecificationBuilder<CatalogosRequestDto, 
             public Predicate toPredicate(Root<Catalogos> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<Predicate>();
                 if (param.getCodigoPadre() != null) {
-                    predicates.add(cb.equal(root.get("codigoPadre"), param.getCodigoPadre()));
+                    predicates.add(cb.equal(root.get(Catalogos_.codigoPadre), param.getCodigoPadre()));
                 }
                 if (param.getTipo() != null) {
-                    predicates.add(cb.equal(root.get("tipo"), param.getTipo()));
+                    predicates.add(cb.equal(root.get(Catalogos_.tipo), param.getTipo()));
                 }
                 if (param.getValor() != null) {
                     predicates.add(cb.like(root.get(Catalogos_.valor),
