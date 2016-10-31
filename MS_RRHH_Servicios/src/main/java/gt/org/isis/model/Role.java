@@ -56,7 +56,7 @@ public class Role implements Serializable, CustomEntity {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
     private String ultimoCambioPor;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkRole", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "fkRole", fetch = FetchType.EAGER)
     private Collection<AccesoRole> accesoRoleCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "fkRole")
     private Collection<Usuario> usuarioCollection;

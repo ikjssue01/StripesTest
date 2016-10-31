@@ -42,9 +42,6 @@ WITH (
 );
 ALTER TABLE acceso
   OWNER TO postgres;
--- Table: acceso_role
-
--- DROP TABLE acceso_role;
 
 CREATE TABLE acceso_role
 (
@@ -56,11 +53,11 @@ CREATE TABLE acceso_role
   fecha_ultimo_cambio timestamp with time zone,
   ultimo_cambio_por character varying(50),
   CONSTRAINT acceso_role_pkey PRIMARY KEY (id),
-  CONSTRAINT acceso_fk_acceso_fkey FOREIGN KEY (fk_role)
-      REFERENCES acceso (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT acceso_fk_role_fkey FOREIGN KEY (fk_role)
       REFERENCES role (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fk_acceso_fk FOREIGN KEY (fk_acceso)
+      REFERENCES acceso (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (
