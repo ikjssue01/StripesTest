@@ -5,7 +5,6 @@
  */
 package gt.org.isis.controller.catalogos.puestos.handlers;
 
-import gt.org.isis.controller.catalogos.generales.handlers.*;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import gt.org.isis.api.AbstractRequestHandler;
@@ -30,7 +29,7 @@ public class PuestosBuscarTodosHandler extends AbstractRequestHandler<CatalogosR
     @Autowired
     PuestosRepository catalogos;
     @Autowired
-    CatalogosSpec spec;
+    PuestosSpec spec;
 
     @Override
     public List<PuestoDto> execute(CatalogosRequestDto request) {

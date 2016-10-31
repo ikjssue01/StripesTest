@@ -36,11 +36,13 @@ public class Puestos implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer id;
-    @Column(length = 500)
+    @Column
     private String valor;
-    @Column(length = 50)
+    @Column(name = "valor_num")
+    private Integer valorNum;
+    @Column
     private String tipo;
-    @Column(length = 50)
+    @Column
     private Estado estado;
     @Column(name = "codigo_padre")
     private Integer codigoPadre;
@@ -68,6 +70,14 @@ public class Puestos implements Serializable {
         this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.fechaUltimoCambio = fechaUltimoCambio;
+    }
+
+    public Integer getValorNum() {
+        return valorNum;
+    }
+
+    public void setValorNum(Integer valorNum) {
+        this.valorNum = valorNum;
     }
 
     public Integer getId() {
