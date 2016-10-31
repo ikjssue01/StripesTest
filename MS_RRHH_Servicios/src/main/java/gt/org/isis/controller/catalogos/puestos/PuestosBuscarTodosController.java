@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gt.org.isis.controller.catalogos.unidadesnotificadoras;
+package gt.org.isis.controller.catalogos.puestos;
 
+import gt.org.isis.controller.accesos.*;
 import gt.org.isis.controller.accesos.handlers.BuscarAcTodosHandler;
 import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.controller.dto.RoleDto;
@@ -21,9 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author edcracken
  */
-@Controller("getUnidadesNotificadoras")
-@RequestMapping("unidades-notificadoras")
-public class BuscarTodosController {
+@Controller("getPuestos")
+@RequestMapping("puestos")
+public class PuestosBuscarTodosController {
 
     @Autowired
     BuscarAcTodosHandler handler;
