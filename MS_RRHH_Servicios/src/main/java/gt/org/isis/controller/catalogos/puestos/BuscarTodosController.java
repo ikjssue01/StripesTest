@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author edcracken
  */
-@Controller("getAccesos")
-@RequestMapping("accesos")
+@Controller("getPuestos")
+@RequestMapping("puestos")
 public class BuscarTodosController {
 
     @Autowired

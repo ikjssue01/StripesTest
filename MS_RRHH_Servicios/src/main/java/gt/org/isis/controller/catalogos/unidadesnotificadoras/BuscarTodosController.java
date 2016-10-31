@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author edcracken
  */
-@Controller("getAccesos")
-@RequestMapping("accesos")
+@Controller("getUnidadesNotificadoras")
+@RequestMapping("unidades-notificadoras")
 public class BuscarTodosController {
 
     @Autowired

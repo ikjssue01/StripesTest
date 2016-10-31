@@ -5,7 +5,6 @@
  */
 package gt.org.isis.controller.catalogos.unidadesejecutoras;
 
-import gt.org.isis.controller.accesos.*;
 import gt.org.isis.controller.accesos.handlers.BuscarAcTodosHandler;
 import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.controller.dto.RoleDto;
@@ -22,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author edcracken
  */
-@Controller("getAccesos")
-@RequestMapping("accesos")
+@Controller("getUnidadesEjecutoras")
+@RequestMapping("unidades-ejecutoras")
 public class BuscarTodosController {
 
     @Autowired
