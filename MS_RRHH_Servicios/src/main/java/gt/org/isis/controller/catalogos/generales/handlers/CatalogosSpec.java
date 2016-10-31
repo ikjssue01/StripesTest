@@ -35,11 +35,12 @@ public class CatalogosSpec implements SpecificationBuilder<CatalogosRequestDto, 
                     predicates.add(cb.equal(root.get(Catalogos_.codigoPadre), param.getCodigoPadre()));
                 }
                 if (param.getTipo() != null) {
-                    predicates.add(cb.equal(root.get(Catalogos_.tipo), param.getTipo()));
+                    predicates.add(cb.like(cb.lower(root.get(Catalogos_.tipo)),
+                            param.getTipo().toLowerCase()));
                 }
                 if (param.getValor() != null) {
-                    predicates.add(cb.like(root.get(Catalogos_.valor),
-                            param.getValor()));
+                    predicates.add(cb.like(cb.lower(root.get(Catalogos_.valor)),
+                            param.getValor().toLowerCase()));
                 }
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }
