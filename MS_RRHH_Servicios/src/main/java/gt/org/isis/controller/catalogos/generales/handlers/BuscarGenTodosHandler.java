@@ -27,11 +27,13 @@ public class BuscarGenTodosHandler extends AbstractRequestHandler<CatalogosReque
 
     @Autowired
     CatalogosRepository catalogos;
+    @Autowired
+    CatalogosSpec spec;
 
     @Override
     public List<CatalogoDto> execute(CatalogosRequestDto request) {
         return new ArrayList<CatalogoDto>(Collections2
-                .transform(catalogos.findAll(new CatalogosSpec().build(request)),
+                .transform(catalogos.findAll(spec.build(request)),
                         new Function<Catalogos, CatalogoDto>() {
                     @Override
                     public CatalogoDto apply(Catalogos r) {
