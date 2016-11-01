@@ -9,8 +9,9 @@ package gt.org.isis.api;
  *
  * @author eliud
  */
-public class C {
+public class ValidationsHelper {
 
-    public static final String EMPTY = "";
-    public static final String CAT_TIPO_MUNICIPIOS = "MUNICIPIOS";
+    public static boolean isNull(Object o) {
+        return o == null;
+    }
 }

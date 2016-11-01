@@ -7,7 +7,6 @@ package gt.org.isis.api;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import lombok.Getter;
 
 /**
  *
@@ -15,7 +14,14 @@ import lombok.Getter;
  */
 public class ValidationRequestContext {
 
-    @Getter
     private Map<String, Object> attributes = new LinkedHashMap<String, Object>();
+
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, Object> attributes) {
+        this.attributes = attributes;
+    }
 
 }

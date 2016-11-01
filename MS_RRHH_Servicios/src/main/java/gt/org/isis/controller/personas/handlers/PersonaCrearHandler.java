@@ -5,7 +5,7 @@
  */
 package gt.org.isis.controller.personas.handlers;
 
-import gt.org.isis.api.AbstractRequestHandler;
+import gt.org.isis.api.AbstractValidationsRequestHandler;
 import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.converters.DpiDtoConverter;
 import gt.org.isis.converters.EstudiosSaludConverter;
@@ -31,7 +31,7 @@ import org.springframework.stereotype.Service;
  * @author edcracken
  */
 @Service
-public class PersonaCrearHandler extends AbstractRequestHandler<PersonaDto, Boolean> {
+public class PersonaCrearHandler extends AbstractValidationsRequestHandler<PersonaDto, Boolean> {
 
     @Autowired
     PersonasRepository repo;
