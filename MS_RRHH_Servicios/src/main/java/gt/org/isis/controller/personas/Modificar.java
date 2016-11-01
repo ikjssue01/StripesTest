@@ -6,7 +6,6 @@
 package gt.org.isis.controller.personas;
 
 import gt.org.isis.controller.dto.PersonaDto;
-import gt.org.isis.web.annotation.CrossOrigin;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("personas")
 public class Modificar {
 
-    @CrossOrigin
     @RequestMapping(value = "/mod/{cui}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
     public void modificar(@PathVariable("cui") String cui, @RequestBody PersonaDto persona) {
 

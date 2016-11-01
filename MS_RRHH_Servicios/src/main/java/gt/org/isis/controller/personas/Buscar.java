@@ -7,7 +7,6 @@ package gt.org.isis.controller.personas;
 
 import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.controller.personas.handlers.PersonaBuscarHandler;
-import gt.org.isis.web.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -29,7 +28,6 @@ public class Buscar {
     @Autowired
     PersonaBuscarHandler handler;
 
-    @CrossOrigin
     @RequestMapping(value = "/get", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity getPersona(@RequestParam("cui") String cui) {

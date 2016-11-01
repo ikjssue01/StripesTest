@@ -7,9 +7,7 @@ package gt.org.isis.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import gt.org.isis.web.annotation.CrossOrigin;
 
 /**
  *

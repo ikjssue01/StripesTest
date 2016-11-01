@@ -7,7 +7,6 @@ package gt.org.isis.controller.roles;
 
 import gt.org.isis.controller.dto.RoleDto;
 import gt.org.isis.controller.roles.handlers.BuscarHandler;
-import gt.org.isis.web.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -27,7 +26,6 @@ public class BuscarController {
     @Autowired
     BuscarHandler handler;
 
-    @CrossOrigin
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody

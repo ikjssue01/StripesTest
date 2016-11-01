@@ -7,7 +7,6 @@ package gt.org.isis.controller.accesos;
 
 import gt.org.isis.controller.accesos.handlers.BuscarAcTodosHandler;
 import gt.org.isis.controller.dto.AccesoDto;
-import gt.org.isis.web.annotation.CrossOrigin;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,7 +27,6 @@ public class BuscarTodosController {
     @Autowired
     BuscarAcTodosHandler handler;
 
-    @CrossOrigin
     @RequestMapping(value = "/get/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody

@@ -8,7 +8,6 @@ package gt.org.isis.controller.unidadesejecutoras;
 import gt.org.isis.api.C;
 import gt.org.isis.controller.dto.UnidadEjecutoraDto;
 import gt.org.isis.controller.unidadesejecutoras.handlers.UnEjecBuscarTodosHandler;
-import gt.org.isis.web.annotation.CrossOrigin;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,7 +27,6 @@ public class UnidEjecBuscarTodosController {
     @Autowired
     UnEjecBuscarTodosHandler handler;
 
-    @CrossOrigin
     @RequestMapping(value = "/get/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody

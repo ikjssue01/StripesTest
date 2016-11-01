@@ -8,7 +8,6 @@ package gt.org.isis.controller.roles;
 import gt.org.isis.controller.dto.RoleDto;
 import gt.org.isis.controller.roles.handlers.CrearHandler;
 import gt.org.isis.converters.RoleDtoConverter;
-import gt.org.isis.web.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -28,7 +27,6 @@ public class CrearController {
     @Autowired
     CrearHandler crear;
 
-    @CrossOrigin
     @RequestMapping(value = "/crea",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,

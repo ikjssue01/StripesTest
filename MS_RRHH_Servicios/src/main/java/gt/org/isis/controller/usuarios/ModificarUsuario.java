@@ -7,7 +7,6 @@ package gt.org.isis.controller.usuarios;
 
 import gt.org.isis.controller.dto.UsuarioDto;
 import gt.org.isis.controller.usuarios.handlers.ModificarUsHandler;
-import gt.org.isis.web.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -30,7 +29,6 @@ public class ModificarUsuario {
     @Autowired
     ModificarUsHandler handler;
 
-    @CrossOrigin
     @RequestMapping(value = "/mod/{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,

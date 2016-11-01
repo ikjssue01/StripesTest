@@ -8,7 +8,6 @@ package gt.org.isis.controller.catalogos.unidadesnotificadoras;
 import gt.org.isis.controller.catalogos.unidadesnotificadoras.handlers.UnidNotifBuscarTodosHandler;
 import gt.org.isis.controller.dto.CatalogosRequestDto;
 import gt.org.isis.controller.dto.UnidadNotificadoraDto;
-import gt.org.isis.web.annotation.CrossOrigin;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -29,7 +28,6 @@ public class UnidNotifBuscarTodosController {
     @Autowired
     UnidNotifBuscarTodosHandler handler;
 
-    @CrossOrigin
     @RequestMapping(value = "/get/all", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
