@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author eliud
  */
-@Controller("modificarRole")
+@Controller("modificarAcceso")
 @RequestMapping("accesos")
 public class ModificarController {
 

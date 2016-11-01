@@ -11,6 +11,7 @@ import gt.org.isis.web.annotation.CrossOrigin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,10 @@ public class ModificarUsuario {
     ModificarUsHandler handler;
 
     @CrossOrigin
-    @RequestMapping(value = "/mod/{id}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/mod/{id}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.PUT)
     public HttpEntity modificar(@PathVariable("id") String id, @RequestBody UsuarioDto usuario) {
         usuario.setUsuario(id);
         handler.handle(usuario);

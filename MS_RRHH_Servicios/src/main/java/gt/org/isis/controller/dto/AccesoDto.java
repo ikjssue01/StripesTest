@@ -22,12 +22,21 @@ public class AccesoDto {
     private String estado;
     private Date fechaCreacion;
     private String creadoPor;
+    private Integer codigoPadre;
 
     public AccesoDto() {
     }
 
     public AccesoDto(Integer id) {
         this.id = id;
+    }
+
+    public Integer getCodigoPadre() {
+        return codigoPadre;
+    }
+
+    public void setCodigoPadre(Integer codigoPadre) {
+        this.codigoPadre = codigoPadre;
     }
 
     public Integer getId() {

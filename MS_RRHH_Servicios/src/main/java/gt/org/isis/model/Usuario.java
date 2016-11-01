@@ -59,7 +59,7 @@ public class Usuario implements Serializable, CustomEntity {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por")
     private String ultimoCambioPor;
-    @JoinColumn(name = "fk_persona", referencedColumnName = "cui", nullable = false)
+    @JoinColumn(name = "fk_persona", referencedColumnName = "cui")
     @ManyToOne(optional = false)
     private Persona fkPersona;
     @JoinColumn(name = "fk_role", referencedColumnName = "id", nullable = false)

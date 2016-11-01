@@ -6,12 +6,17 @@
 package gt.org.isis.controller.personas;
 
 import gt.org.isis.controller.dto.PersonaDto;
+import gt.org.isis.controller.personas.handlers.PersonaBuscarHandler;
 import gt.org.isis.web.annotation.CrossOrigin;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -21,10 +26,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("personas")
 public class Buscar {
 
+    @Autowired
+    PersonaBuscarHandler handler;
+
     @CrossOrigin
-    @RequestMapping(value = "/get", method = RequestMethod.GET, headers = "Content-Type=application/json")
-    public @ResponseBody
-    PersonaDto getPersona(@RequestParam("cui") String cui) {
-        return new PersonaDto();
+    @RequestMapping(value = "/get", method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public HttpEntity getPersona(@RequestParam("cui") String cui) {
+        PersonaDto p = handler.handle(cui);
+        return p != null ? new ResponseEntity<PersonaDto>(p, HttpStatus.OK)
+                : new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 }
