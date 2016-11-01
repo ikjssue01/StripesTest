@@ -6,6 +6,9 @@
 package gt.org.isis.controller.personas;
 
 import gt.org.isis.controller.dto.PersonaDto;
+import gt.org.isis.controller.personas.handlers.PersonaCrearHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +16,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author eliud
+ * @author edcracken
  */
 @Controller
 @RequestMapping("personas")
 public class Crear {
 
-    @RequestMapping(value = "/crea", method = RequestMethod.POST, headers = "Content-Type=application/json")
-    public void crear(@RequestBody PersonaDto persona) {
+    @Autowired
+    PersonaCrearHandler handler;
 
+    @RequestMapping(value = "/crea", method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public void crear(@RequestBody PersonaDto persona) {
+        handler.handle(persona);
     }
 }
