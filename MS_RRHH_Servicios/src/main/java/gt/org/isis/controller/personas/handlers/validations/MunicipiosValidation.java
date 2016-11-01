@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  *
  * @author edcrakcne
  */
-@Component
+//@Component
 public class MunicipiosValidation implements IValidationRequest<PersonaDto> {
 
     @Autowired
