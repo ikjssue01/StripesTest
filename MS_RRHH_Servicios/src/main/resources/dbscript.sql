@@ -171,6 +171,8 @@ CREATE TABLE persona
   huella_dedo_izq character varying(50),
   fecha_creacion timestamp with time zone NOT NULL,
   creado_por character varying(50) NOT NULL,
+  fecha_ultimo_cambio timestamp with time zone,
+  ultimo_cambio_por character varying(50),
   CONSTRAINT persona_pkey PRIMARY KEY (cui)
 )
 WITH (

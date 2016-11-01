@@ -114,6 +114,11 @@ public class Persona implements Serializable, CustomEntity {
     @Basic(optional = false)
     @Column(name = "creado_por", nullable = false)
     private String creadoPor;
+    @Column(name = "fecha_ultimo_cambio")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fechaUltimoCambio;
+    @Column(name = "ultimo_cambio_por")
+    private String ultimoCambioPor;
     @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
     private Collection<Idioma> idiomaCollection;
     @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
@@ -145,6 +150,14 @@ public class Persona implements Serializable, CustomEntity {
         this.fechaNacimiento = fechaNacimiento;
         this.fechaCreacion = fechaCreacion;
         this.creadoPor = creadoPor;
+    }
+
+    public String getUltimoCambioPor() {
+        return ultimoCambioPor;
+    }
+
+    public void setUltimoCambioPor(String ultimoCambioPor) {
+        this.ultimoCambioPor = ultimoCambioPor;
     }
 
     public Sexo getSexo() {
