@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -113,19 +114,19 @@ public class Persona implements Serializable, CustomEntity {
     @Basic(optional = false)
     @Column(name = "creado_por", nullable = false)
     private String creadoPor;
-    @OneToMany(mappedBy = "fkPersona")
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
     private Collection<Idioma> idiomaCollection;
-    @OneToMany(mappedBy = "fkPersona")
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
     private Collection<RegistroAcademico> registroAcademicoCollection;
-    @OneToMany(mappedBy = "fkPersona")
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
     private Collection<HistoricoPersona> historicoPersonaCollection;
-    @OneToMany(mappedBy = "fkPersona")
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
     private Collection<EstudioSalud> estudioSaludCollection;
-    @OneToMany(mappedBy = "fkPersona")
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
     private Collection<RegistroLaboral> registroLaboralCollection;
-    @OneToMany(mappedBy = "fkPersona")
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
     private Collection<LugarResidencia> lugarResidenciaCollection;
-    @OneToMany(mappedBy = "fkPersona")
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
     private Collection<Dpi> dpiCollection;
 
     public Persona() {
