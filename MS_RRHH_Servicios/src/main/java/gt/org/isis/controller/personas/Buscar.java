@@ -31,8 +31,6 @@ public class Buscar {
     @RequestMapping(value = "/get", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity getPersona(@RequestParam("cui") String cui) {
-        PersonaDto p = handler.handle(cui);
-        return p != null ? new ResponseEntity<PersonaDto>(p, HttpStatus.OK)
-                : new ResponseEntity(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<PersonaDto>(handler.handle(cui), HttpStatus.OK);
     }
 }

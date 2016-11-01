@@ -7,6 +7,7 @@ package gt.org.isis.api.misc.exceptions;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import gt.org.isis.api.misc.exceptions.ext.NotFoundException;
 import gt.org.isis.api.misc.exceptions.ext.ValidationError;
 import gt.org.isis.api.misc.exceptions.ext.ValidationException;
 import java.util.Arrays;
@@ -25,6 +26,10 @@ public class ExceptionsManager {
                 return splitError(f);
             }
         }));
+    }
+
+    public static RuntimeException newNotFound() {
+        return new NotFoundException();
     }
 
     protected static ValidationError splitError(String error) {

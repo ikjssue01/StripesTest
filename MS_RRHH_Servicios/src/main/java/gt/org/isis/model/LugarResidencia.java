@@ -150,4 +150,9 @@ public class LugarResidencia implements Serializable, CustomEntity {
         return "org.ms.rrhh.domain.model.LugarResidencia[ id=" + id + " ]";
     }
 
+    @Override
+    public void setFechaUltimoCambio(Date fechaUltimoCambio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
