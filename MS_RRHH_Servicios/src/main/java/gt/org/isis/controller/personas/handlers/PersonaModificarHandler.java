@@ -27,10 +27,13 @@ import gt.org.isis.model.RegistroAcademico;
 import gt.org.isis.model.RegistroLaboral;
 import gt.org.isis.model.enums.EstadoVariable;
 import gt.org.isis.model.utils.EntitiesHelper;
+import gt.org.isis.repository.DpiRepository;
 import gt.org.isis.repository.EstudiosSaludRepository;
 import gt.org.isis.repository.HIstoricoPersonasRepository;
 import gt.org.isis.repository.IdiomaRepository;
 import gt.org.isis.repository.PersonasRepository;
+import gt.org.isis.repository.RegistroAcademicoRepository;
+import gt.org.isis.repository.RegistroLaboralRepository;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,37 +55,23 @@ public class PersonaModificarHandler extends AbstractRequestHandler<PersonaDto, 
     EstudiosSaludRepository estudiosRepo;
     @Autowired
     PersonaDtoConverter converter;
+    @Autowired
+    RegistroAcademicoRepository rAcaRepository;
+    @Autowired
+    RegistroLaboralRepository rLabRepository;
+    @Autowired
+    DpiRepository dpiRepository;
 
     @Override
+
     public Boolean execute(PersonaDto r) {
         Persona p = repo.findOne(r.getCui());
         crearHistorico(p);
         guardaIdiomas(p, r);
         guardaEstudiosSalud(p, r);
-        RegistroAcademico ra;
-        p.setRegistroAcademicoCollection(
-                Arrays.asList(
-                        ra = new RegistroAcademicoConverter().toEntity(r.getRegistroAcademico())));
-        ra.setFkPersona(p);
-        ra.setEstado(EstadoVariable.ACTUAL);
-        EntitiesHelper.setDateCreateRef(ra);
-
-        RegistroLaboral rl;
-        p.setRegistroLaboralCollection(
-                Arrays.asList(rl = new RegistroLaboralConverter().toEntity(r.getRegistroLaboral()))
-        );
-        rl.setEstado(EstadoVariable.ACTUAL);
-        rl.setFkPersona(p);
-        EntitiesHelper.setDateCreateRef(rl);
-
-        Dpi dpi;
-        p.setDpiCollection(Arrays.asList(dpi = new DpiDtoConverter().toEntity(r.getDpi())));
-        p.setEstudioSaludCollection(
-                new EstudiosSaludConverter()
-                        .toEntity(r.getEstudiosSalud()));
-        dpi.setFkPersona(p);
-        dpi.setEstado(EstadoVariable.ACTUAL);
-        EntitiesHelper.setDateCreateRef(dpi);
+        actualizaRegistroAcademico(p, r);
+        actualizaRegistroLaboral(p, r);
+        actualizaDpi(p, r);
 
         LugarResidencia lr;
         p.setLugarResidenciaCollection(Arrays.asList(
@@ -90,7 +79,6 @@ public class PersonaModificarHandler extends AbstractRequestHandler<PersonaDto, 
         ));
         lr.setFkPersona(p);
         lr.setEstado(EstadoVariable.ACTUAL);
-        EntitiesHelper.setDateCreateRef(dpi);
 
         EntitiesHelper.setDateCreateRef(p);
         repo.save(p);
@@ -121,6 +109,33 @@ public class PersonaModificarHandler extends AbstractRequestHandler<PersonaDto, 
         hp.setFkPersona(p);
         EntitiesHelper.setDateCreateRef(hp);
         historicoRepo.save(hp);
+    }
+
+    private void actualizaRegistroAcademico(Persona p, PersonaDto r) {
+        rAcaRepository.archivarRegitro(p.getCui());
+        RegistroAcademico ra = new RegistroAcademicoConverter()
+                .toEntity(r.getRegistroAcademico());
+        ra.setEstado(EstadoVariable.ACTUAL);
+        EntitiesHelper.setDateCreateRef(ra);
+        rAcaRepository.save(ra);
+    }
+
+    private void actualizaRegistroLaboral(Persona p, PersonaDto r) {
+        rLabRepository.archivarRegitro(p.getCui());
+        RegistroLaboral ra = new RegistroLaboralConverter()
+                .toEntity(r.getRegistroLaboral());
+        ra.setEstado(EstadoVariable.ACTUAL);
+        EntitiesHelper.setDateCreateRef(ra);
+        rLabRepository.save(ra);
+    }
+
+    private void actualizaDpi(Persona p, PersonaDto r) {
+        dpiRepository.archivarRegitro(p.getCui());
+        Dpi ra = new DpiDtoConverter()
+                .toEntity(r.getDpi());
+        ra.setEstado(EstadoVariable.ACTUAL);
+        EntitiesHelper.setDateCreateRef(ra);
+        dpiRepository.save(ra);
     }
 
 }

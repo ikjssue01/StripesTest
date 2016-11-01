@@ -84,7 +84,6 @@ public class PersonaDto {
     private LugarResidenciaDto lugarResidencia;
     @NotNull
     private RegistroAcademicoDto registroAcademico;
-    @NotNull
     private DpiDto dpi;
     @NotNull
     @NotEmpty
