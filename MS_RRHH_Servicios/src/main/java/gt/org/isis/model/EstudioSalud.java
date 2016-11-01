@@ -26,10 +26,10 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name = "estudio_salud",   schema = "public")
+@Table(name = "estudio_salud", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "EstudioSalud.findAll", query = "SELECT e FROM EstudioSalud e")})
-public class EstudioSalud implements Serializable {
+public class EstudioSalud implements Serializable, CustomEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -148,5 +148,5 @@ public class EstudioSalud implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.EstudioSalud[ id=" + id + " ]";
     }
-    
+
 }

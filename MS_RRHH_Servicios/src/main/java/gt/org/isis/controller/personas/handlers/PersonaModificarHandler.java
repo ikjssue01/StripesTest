@@ -6,22 +6,28 @@
 package gt.org.isis.controller.personas.handlers;
 
 import gt.org.isis.api.AbstractRequestHandler;
+import gt.org.isis.controller.dto.EstudioSaludDto;
+import gt.org.isis.controller.dto.IdiomaDto;
 import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.converters.DpiDtoConverter;
 import gt.org.isis.converters.EstudiosSaludConverter;
+import gt.org.isis.converters.IdiomaDtoConverter;
 import gt.org.isis.converters.LugarResidenciaDtoConverter;
 import gt.org.isis.converters.PersonaDtoConverter;
 import gt.org.isis.converters.PersonaHistorialConverter;
 import gt.org.isis.converters.RegistroAcademicoConverter;
 import gt.org.isis.converters.RegistroLaboralConverter;
 import gt.org.isis.model.Dpi;
+import gt.org.isis.model.EstudioSalud;
 import gt.org.isis.model.HistoricoPersona;
+import gt.org.isis.model.Idioma;
 import gt.org.isis.model.LugarResidencia;
 import gt.org.isis.model.Persona;
 import gt.org.isis.model.RegistroAcademico;
 import gt.org.isis.model.RegistroLaboral;
 import gt.org.isis.model.enums.EstadoVariable;
 import gt.org.isis.model.utils.EntitiesHelper;
+import gt.org.isis.repository.EstudiosSaludRepository;
 import gt.org.isis.repository.HIstoricoPersonasRepository;
 import gt.org.isis.repository.IdiomaRepository;
 import gt.org.isis.repository.PersonasRepository;
@@ -43,39 +49,16 @@ public class PersonaModificarHandler extends AbstractRequestHandler<PersonaDto, 
     @Autowired
     IdiomaRepository idiomasRepo;
     @Autowired
+    EstudiosSaludRepository estudiosRepo;
+    @Autowired
     PersonaDtoConverter converter;
-
-    private void crearHistorico(Persona p) {
-        HistoricoPersona hp = new PersonaHistorialConverter().toEntity(p);
-        hp.setFkPersona(p);
-        EntitiesHelper.setDateCreateRef(hp);
-        historicoRepo.save(hp);
-    }
-
-    private void guardaIdiomas(Persona p, PersonaDto r) {
-//        p.getIdiomaCollection().forEach(new Consumer<Idioma>() {
-//            @Override
-//            public void accept(Idioma t) {
-//                idiomasRepo.delete(t);
-//            }
-//        });
-
-//        r.getIdiomas().forEach(new Consumer<IdiomaDto>() {
-//            @Override
-//            public void accept(IdiomaDto t) {
-//                Idioma i = new IdiomaDtoConverter().toEntity(t);
-//                EntitiesHelper.setDateCreateRef(i);
-//                idiomasRepo.save(i);
-//            }
-//        });
-    }
 
     @Override
     public Boolean execute(PersonaDto r) {
         Persona p = repo.findOne(r.getCui());
         crearHistorico(p);
         guardaIdiomas(p, r);
-
+        guardaEstudiosSalud(p, r);
         RegistroAcademico ra;
         p.setRegistroAcademicoCollection(
                 Arrays.asList(
@@ -112,6 +95,32 @@ public class PersonaModificarHandler extends AbstractRequestHandler<PersonaDto, 
         EntitiesHelper.setDateCreateRef(p);
         repo.save(p);
         return true;
+    }
+
+    private void guardaEstudiosSalud(Persona p, PersonaDto r) {
+        estudiosRepo.deleteInBatch(p.getEstudioSaludCollection());
+
+        for (EstudioSaludDto t : r.getEstudiosSalud()) {
+            EstudioSalud i = new EstudiosSaludConverter().toEntity(t);
+            EntitiesHelper.setDateCreateRef(i);
+            estudiosRepo.save(i);
+        }
+    }
+
+    private void guardaIdiomas(Persona p, PersonaDto r) {
+        idiomasRepo.deleteInBatch(p.getIdiomaCollection());
+        for (IdiomaDto t : r.getIdiomas()) {
+            Idioma i = new IdiomaDtoConverter().toEntity(t);
+            EntitiesHelper.setDateCreateRef(i);
+            idiomasRepo.save(i);
+        }
+    }
+
+    private void crearHistorico(Persona p) {
+        HistoricoPersona hp = new PersonaHistorialConverter().toEntity(p);
+        hp.setFkPersona(p);
+        EntitiesHelper.setDateCreateRef(hp);
+        historicoRepo.save(hp);
     }
 
 }
