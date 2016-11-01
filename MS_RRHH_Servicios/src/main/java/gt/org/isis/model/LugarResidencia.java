@@ -32,7 +32,7 @@ import javax.persistence.TemporalType;
 @Table(name = "lugar_residencia", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "LugarResidencia.findAll", query = "SELECT l FROM LugarResidencia l")})
-public class LugarResidencia implements Serializable {
+public class LugarResidencia implements Serializable, CustomEntity {
 
     private static final long serialVersionUID = 1L;
     @Id

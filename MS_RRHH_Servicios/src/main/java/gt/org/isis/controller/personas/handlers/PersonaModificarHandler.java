@@ -31,6 +31,7 @@ import gt.org.isis.repository.DpiRepository;
 import gt.org.isis.repository.EstudiosSaludRepository;
 import gt.org.isis.repository.HIstoricoPersonasRepository;
 import gt.org.isis.repository.IdiomaRepository;
+import gt.org.isis.repository.LugarResidenciaRepository;
 import gt.org.isis.repository.PersonasRepository;
 import gt.org.isis.repository.RegistroAcademicoRepository;
 import gt.org.isis.repository.RegistroLaboralRepository;
@@ -61,6 +62,8 @@ public class PersonaModificarHandler extends AbstractRequestHandler<PersonaDto, 
     RegistroLaboralRepository rLabRepository;
     @Autowired
     DpiRepository dpiRepository;
+    @Autowired
+    LugarResidenciaRepository lrRepository;
 
     @Override
 
@@ -72,15 +75,8 @@ public class PersonaModificarHandler extends AbstractRequestHandler<PersonaDto, 
         actualizaRegistroAcademico(p, r);
         actualizaRegistroLaboral(p, r);
         actualizaDpi(p, r);
+        actualizaLugarResidencia(p, r);
 
-        LugarResidencia lr;
-        p.setLugarResidenciaCollection(Arrays.asList(
-                lr = new LugarResidenciaDtoConverter().toEntity(r.getLugarResidencia())
-        ));
-        lr.setFkPersona(p);
-        lr.setEstado(EstadoVariable.ACTUAL);
-
-        EntitiesHelper.setDateCreateRef(p);
         repo.save(p);
         return true;
     }
@@ -136,6 +132,15 @@ public class PersonaModificarHandler extends AbstractRequestHandler<PersonaDto, 
         ra.setEstado(EstadoVariable.ACTUAL);
         EntitiesHelper.setDateCreateRef(ra);
         dpiRepository.save(ra);
+    }
+
+    private void actualizaLugarResidencia(Persona p, PersonaDto r) {
+        lrRepository.archivarRegitro(p.getCui());
+        LugarResidencia ra = new LugarResidenciaDtoConverter()
+                .toEntity(r.getLugarResidencia());
+        ra.setEstado(EstadoVariable.ACTUAL);
+        EntitiesHelper.setDateCreateRef(ra);
+        lrRepository.save(ra);
     }
 
 }
