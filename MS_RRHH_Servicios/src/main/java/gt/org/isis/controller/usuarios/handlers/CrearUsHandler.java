@@ -16,7 +16,13 @@ import gt.org.isis.model.utils.EntitiesHelper;
 import gt.org.isis.repository.PersonasRepository;
 import gt.org.isis.repository.RolesRepository;
 import gt.org.isis.repository.UsuariosRepository;
+import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -36,7 +42,16 @@ public class CrearUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDt
 
     @Override
     public UsuarioDto execute(final UsuarioDto request) {
-
+        List<Usuario> ls = usuarios.findAll(new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery cq, CriteriaBuilder cb) {
+                return cb.equal(root.get("id"), request.getUsuario());
+            }
+        });
+        if (!ls.isEmpty()) {
+            throw ExceptionsManager.newValidationException("already_exits",
+                    new String[]{"user_id,Usuario ya existe!"});
+        }
         Role role = roles.findOne(request.getRoleId());
         if (isNull(role)) {
             throw ExceptionsManager.newValidationException("invalid_role",

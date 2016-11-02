@@ -43,7 +43,7 @@ public class ModificarUsHandler extends AbstractRequestHandler<UsuarioDto, Usuar
         List<Usuario> ls = usuarios.findAll(new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery cq, CriteriaBuilder cb) {
-                return cb.like(root.get("id"), request.getUsuario());
+                return cb.equal(root.get("id"), request.getUsuario());
             }
         });
         if (!ls.isEmpty()) {
