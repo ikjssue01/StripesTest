@@ -9,6 +9,7 @@ import gt.org.isis.api.AbstractRequestHandler;
 import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.converters.AccesoDtoConverter;
 import gt.org.isis.model.Acceso;
+import gt.org.isis.model.utils.EntitiesHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import gt.org.isis.repository.AccesosRepository;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class CrearAcHandler extends AbstractRequestHandler<AccesoDto, Acceso> {
     @Override
     public Acceso execute(final AccesoDto request) {
         final Acceso r = new AccesoDtoConverter().toEntity(request);
+        EntitiesHelper.setDateCreateRef(r);
+
         accesos.save(r);
         return r;
     }
