@@ -35,7 +35,7 @@ public class CrearUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDt
 
     @Override
     public UsuarioDto execute(final UsuarioDto request) {
-        Persona persona = personas.findOne(request.getCui());
+//        Persona persona = personas.findOne(request.getCui());
         Role role = roles.findOne(request.getRoleId());
         UsuarioDtoConverter bc;
         final Usuario r = (bc = new UsuarioDtoConverter()).toEntity(request);
@@ -45,8 +45,10 @@ public class CrearUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDt
         r.setId(request.getUsuario());
         EntitiesHelper.setDateCreateRef(r);
         r.setCreadoPor("test");
-        usuarios.save(r);
-        return bc.toDTO(r);
+        UsuarioDto us = bc.toDTO(usuarios.save(r));
+        us.setClave(null);
+        us.setConfirmacionClave(null);
+        return us;
     }
 
 }
