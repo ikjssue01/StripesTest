@@ -9,7 +9,10 @@ import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.controller.personas.handlers.PersonaCrearHandler;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +32,8 @@ public class Crear {
     @RequestMapping(value = "/crea", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public void crear(@RequestBody @Valid PersonaDto persona) {
+    public HttpEntity crear(@RequestBody @Valid PersonaDto persona) {
         handler.handle(persona);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

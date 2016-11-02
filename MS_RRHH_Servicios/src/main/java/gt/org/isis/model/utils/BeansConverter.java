@@ -7,6 +7,7 @@ package gt.org.isis.model.utils;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
+import gt.org.isis.model.CustomEntity;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -63,7 +64,9 @@ public class BeansConverter<A, B> {
     public A toEntity(B iB) {
         A iA = BeanUtils.instantiate((Class<A>) resolve(0));
         BeanUtils.copyProperties(iB, iA);
-
+        if (iA instanceof CustomEntity) {
+            EntitiesHelper.setDateCreateRef((CustomEntity) iA);
+        }
         return iA;
     }
 
