@@ -5,6 +5,7 @@
  */
 package gt.org.isis.model;
 
+import gt.org.isis.model.enums.Estado;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -43,7 +44,7 @@ public class Acceso implements Serializable, CustomEntity {
     @Column(length = 50)
     private String tipo;
     @Column(length = 50)
-    private String estado;
+    private Estado estado;
     @Column(name = "codigo_padre")
     private Integer codigoPadre;
     @Basic(optional = false)
@@ -105,11 +106,11 @@ public class Acceso implements Serializable, CustomEntity {
         this.tipo = tipo;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
