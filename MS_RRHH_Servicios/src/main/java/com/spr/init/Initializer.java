@@ -17,12 +17,14 @@ public class Initializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext container)
             throws ServletException {
+        container.setInitParameter("spring.profiles.active", "dev");
+
         AnnotationConfigWebApplicationContext ctx
                 = new AnnotationConfigWebApplicationContext();
         ctx.register(WebAppConfig.class);
-
         container.addListener(new ContextLoaderListener(ctx));
         ctx.setServletContext(container);
+        ctx.getEnvironment().setActiveProfiles("dev");
         container.addFilter("CorsFilter", NativeCorsFilter.class)
                 .addMappingForUrlPatterns(null, false, "/*");
         Dynamic servlet = container.addServlet(DISPATCHER_SERVLET_NAME,

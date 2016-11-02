@@ -13,6 +13,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,6 +46,7 @@ public class Acceso implements Serializable, CustomEntity {
     @Column(length = 50)
     private String tipo;
     @Column(length = 50)
+    @Enumerated(EnumType.STRING)
     private Estado estado;
     @Column(name = "codigo_padre")
     private Integer codigoPadre;
