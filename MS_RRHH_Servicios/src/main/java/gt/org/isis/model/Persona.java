@@ -87,7 +87,7 @@ public class Persona implements Serializable, CustomEntity {
     @Enumerated(EnumType.STRING)
     private Pueblo fkPueblo;
     @Column(name = "fk_comunidad_linguistica")
-    private String fkComunidadLinguistica;
+    private Integer fkComunidadLinguistica;
     @Column(length = 2147483647)
     private String mrz;
     @Column(name = "no_cedula")
@@ -328,11 +328,11 @@ public class Persona implements Serializable, CustomEntity {
         this.nacNoPartida = nacNoPartida;
     }
 
-    public String getFkComunidadLinguistica() {
+    public Integer getFkComunidadLinguistica() {
         return fkComunidadLinguistica;
     }
 
-    public void setFkComunidadLinguistica(String fkComunidadLinguistica) {
+    public void setFkComunidadLinguistica(Integer fkComunidadLinguistica) {
         this.fkComunidadLinguistica = fkComunidadLinguistica;
     }
 

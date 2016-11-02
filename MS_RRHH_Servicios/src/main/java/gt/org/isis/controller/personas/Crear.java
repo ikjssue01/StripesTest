@@ -7,6 +7,7 @@ package gt.org.isis.controller.personas;
 
 import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.controller.personas.handlers.PersonaCrearHandler;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,7 @@ public class Crear {
     @RequestMapping(value = "/crea", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public void crear(@RequestBody PersonaDto persona) {
+    public void crear(@RequestBody @Valid PersonaDto persona) {
         handler.handle(persona);
     }
 }

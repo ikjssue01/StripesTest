@@ -59,7 +59,7 @@ public class PersonaDto {
     @NotNull
     private Pueblo fkPueblo;
     @NotNull
-    private String fkComunidadLinguistica;
+    private Integer fkComunidadLinguistica;
     @NotNull
     private String mrz;
     @NotNull
@@ -88,8 +88,6 @@ public class PersonaDto {
     @NotNull
     @NotEmpty
     private List<IdiomaDto> idiomas;
-    @NotNull
-    @NotEmpty
     private List<EstudioSaludDto> estudiosSalud;
 
     public RegistroLaboralDto getRegistroLaboral() {
@@ -308,11 +306,11 @@ public class PersonaDto {
         this.fkPueblo = fkPueblo;
     }
 
-    public String getFkComunidadLinguistica() {
+    public Integer getFkComunidadLinguistica() {
         return fkComunidadLinguistica;
     }
 
-    public void setFkComunidadLinguistica(String fkComunidadLinguistica) {
+    public void setFkComunidadLinguistica(Integer fkComunidadLinguistica) {
         this.fkComunidadLinguistica = fkComunidadLinguistica;
     }
 
