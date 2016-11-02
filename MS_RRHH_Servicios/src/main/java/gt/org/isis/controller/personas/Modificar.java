@@ -6,6 +6,7 @@
 package gt.org.isis.controller.personas;
 
 import gt.org.isis.controller.dto.PersonaDto;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("personas")
 public class Modificar {
 
-    @RequestMapping(value = "/mod/{cui}", method = RequestMethod.PUT, headers = "Content-Type=application/json")
+    @RequestMapping(value = "/mod/{cui}",
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public void modificar(@PathVariable("cui") String cui, @RequestBody PersonaDto persona) {
 
     }

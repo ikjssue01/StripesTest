@@ -12,4 +12,5 @@ package gt.org.isis.api;
 public class C {
 
     public static final String EMPTY = "";
+    public static final String CAT_TIPO_MUNICIPIOS = "MUNICIPIOS";
 }

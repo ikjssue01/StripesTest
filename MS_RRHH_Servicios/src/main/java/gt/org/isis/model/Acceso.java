@@ -5,6 +5,7 @@
  */
 package gt.org.isis.model;
 
+import gt.org.isis.model.enums.Estado;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -12,6 +13,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +46,8 @@ public class Acceso implements Serializable, CustomEntity {
     @Column(length = 50)
     private String tipo;
     @Column(length = 50)
-    private String estado;
+    @Enumerated(EnumType.STRING)
+    private Estado estado;
     @Column(name = "codigo_padre")
     private Integer codigoPadre;
     @Basic(optional = false)
@@ -52,8 +56,7 @@ public class Acceso implements Serializable, CustomEntity {
     private Date fechaCreacion;
     @Column(name = "creado_por", length = 50)
     private String creadoPor;
-    @Basic(optional = false)
-    @Column(name = "fecha_ultimo_cambio", nullable = false)
+    @Column(name = "fecha_ultimo_cambio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
@@ -106,11 +109,11 @@ public class Acceso implements Serializable, CustomEntity {
         this.tipo = tipo;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 

@@ -14,4 +14,12 @@ import gt.org.isis.model.utils.BeansConverter;
  * @author edcracken
  */
 public class UsuarioDtoConverter extends BeansConverter<Usuario, UsuarioDto> {
+
+    @Override
+    public UsuarioDto toDTO(Usuario iA) {
+        UsuarioDto dto = super.toDTO(iA);
+        dto.setUsuario(iA.getId());
+        return dto;
+    }
+
 }

@@ -32,7 +32,9 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan("gt.org.isis")
-@PropertySource("classpath:application.properties")
+@PropertySource({"classpath:application-${spring.profiles.active}.properties",
+    "classpath:application.properties"
+})
 @EnableJpaRepositories("gt.org.isis.repository")
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 

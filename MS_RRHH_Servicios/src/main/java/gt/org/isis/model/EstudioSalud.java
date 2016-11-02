@@ -26,10 +26,10 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name = "estudio_salud",   schema = "public")
+@Table(name = "estudio_salud", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "EstudioSalud.findAll", query = "SELECT e FROM EstudioSalud e")})
-public class EstudioSalud implements Serializable {
+public class EstudioSalud implements Serializable, CustomEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,8 +45,7 @@ public class EstudioSalud implements Serializable {
     private Date fechaCreacion;
     @Column(name = "creado_por", length = 50)
     private String creadoPor;
-    @Basic(optional = false)
-    @Column(name = "fecha_ultimo_cambio", nullable = false)
+    @Column(name = "fecha_ultimo_cambio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
@@ -148,5 +147,5 @@ public class EstudioSalud implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.EstudioSalud[ id=" + id + " ]";
     }
-    
+
 }

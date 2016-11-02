@@ -6,6 +6,8 @@
 package gt.org.isis.controller.personas.handlers;
 
 import gt.org.isis.api.AbstractRequestHandler;
+import static gt.org.isis.api.ValidationsHelper.isNull;
+import gt.org.isis.api.misc.exceptions.ExceptionsManager;
 import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.converters.PersonaDtoConverter;
 import gt.org.isis.model.Persona;
@@ -26,7 +28,10 @@ public class PersonaBuscarHandler extends AbstractRequestHandler<String, Persona
     @Override
     public PersonaDto execute(String request) {
         Persona p = repo.findOne(request);
-        return p != null ? new PersonaDtoConverter().toDTO(p) : null;
+        if (isNull(p)) {
+            throw ExceptionsManager.newNotFound();
+        }
+        return new PersonaDtoConverter().toDTO(p);
     }
 
 }

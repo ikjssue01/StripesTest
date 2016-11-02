@@ -9,6 +9,8 @@ import gt.org.isis.api.AbstractRequestHandler;
 import gt.org.isis.controller.dto.AccesoDto;
 import gt.org.isis.converters.AccesoDtoConverter;
 import gt.org.isis.model.Acceso;
+import gt.org.isis.model.enums.Estado;
+import gt.org.isis.model.utils.EntitiesHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import gt.org.isis.repository.AccesosRepository;
 import org.springframework.stereotype.Service;
@@ -18,16 +20,18 @@ import org.springframework.stereotype.Service;
  * @author edcracken
  */
 @Service
-public class CrearAcHandler extends AbstractRequestHandler<AccesoDto, Acceso> {
+public class CrearAcHandler extends AbstractRequestHandler<AccesoDto, AccesoDto> {
 
     @Autowired
     AccesosRepository accesos;
 
     @Override
-    public Acceso execute(final AccesoDto request) {
+    public AccesoDto execute(final AccesoDto request) {
         final Acceso r = new AccesoDtoConverter().toEntity(request);
+        EntitiesHelper.setDateCreateRef(r);
+        r.setEstado(Estado.ACTIVO);
         accesos.save(r);
-        return r;
+        return new AccesoDtoConverter().toDTO(r);
     }
 
 }

@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
  * @author edcracken
  */
 @Entity
-@Table(name = "area_geografica",   schema = "public")
+@Table(name = "area_geografica", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "AreaGeografica.findAll", query = "SELECT a FROM AreaGeografica a")})
 public class AreaGeografica implements Serializable {
@@ -49,8 +49,7 @@ public class AreaGeografica implements Serializable {
     private Date fechaCreacion;
     @Column(name = "creado_por", length = 50)
     private String creadoPor;
-    @Basic(optional = false)
-    @Column(name = "fecha_ultimo_cambio", nullable = false)
+    @Column(name = "fecha_ultimo_cambio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
@@ -165,5 +164,5 @@ public class AreaGeografica implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.AreaGeografica[ id=" + id + " ]";
     }
-    
+
 }

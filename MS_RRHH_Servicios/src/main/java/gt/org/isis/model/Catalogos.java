@@ -45,8 +45,7 @@ public class Catalogos implements Serializable {
     private Date fechaCreacion;
     @Column(name = "creado_por", length = 50)
     private String creadoPor;
-    @Basic(optional = false)
-    @Column(name = "fecha_ultimo_cambio", nullable = false)
+    @Column(name = "fecha_ultimo_cambio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por", length = 50)
@@ -161,5 +160,5 @@ public class Catalogos implements Serializable {
     public String toString() {
         return "org.ms.rrhh.domain.model.Catalogos[ id=" + id + " ]";
     }
-    
+
 }
