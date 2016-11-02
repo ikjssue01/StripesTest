@@ -17,7 +17,8 @@ public class Initializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext container)
             throws ServletException {
-        container.setInitParameter("spring.profiles.active", "prod");
+        String profile = System.getProperty("rrhh_profile");
+        container.setInitParameter("spring.profiles.active", profile != null ? profile : "prod");
 
         AnnotationConfigWebApplicationContext ctx
                 = new AnnotationConfigWebApplicationContext();
