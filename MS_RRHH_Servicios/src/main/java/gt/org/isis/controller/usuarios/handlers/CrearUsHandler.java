@@ -42,6 +42,10 @@ public class CrearUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDt
 
     @Override
     public UsuarioDto execute(final UsuarioDto request) {
+        if (request.getUsuario() == null) {
+            throw ExceptionsManager.newValidationException("invalid_user",
+                    new String[]{"usuario,Usuario es requerido!"});
+        }
         List<Usuario> ls = usuarios.findAll(new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery cq, CriteriaBuilder cb) {
@@ -50,12 +54,12 @@ public class CrearUsHandler extends AbstractRequestHandler<UsuarioDto, UsuarioDt
         });
         if (!ls.isEmpty()) {
             throw ExceptionsManager.newValidationException("already_exits",
-                    new String[]{"user_id,Usuario ya existe!"});
+                    new String[]{"usuario,Usuario ya existe!"});
         }
         Role role = roles.findOne(request.getRoleId());
         if (isNull(role)) {
             throw ExceptionsManager.newValidationException("invalid_role",
-                    new String[]{"role_id,Role es invalido o no existe"});
+                    new String[]{"role,Role es invalido o no existe"});
         }
         UsuarioDtoConverter bc;
         final Usuario r = (bc = new UsuarioDtoConverter()).toEntity(request);
