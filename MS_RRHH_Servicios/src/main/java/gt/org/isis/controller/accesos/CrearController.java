@@ -7,7 +7,6 @@ package gt.org.isis.controller.accesos;
 
 import gt.org.isis.controller.accesos.handlers.CrearAcHandler;
 import gt.org.isis.controller.dto.AccesoDto;
-import gt.org.isis.converters.AccesoDtoConverter;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -36,6 +35,6 @@ public class CrearController {
             method = RequestMethod.POST)
     public @ResponseBody
     AccesoDto crear(@RequestBody @Valid AccesoDto acceso) {
-        return new AccesoDtoConverter().toDTO(crear.handle(acceso));
+        return crear.handle(acceso);
     }
 }

@@ -20,18 +20,18 @@ import org.springframework.stereotype.Service;
  * @author edcracken
  */
 @Service
-public class CrearAcHandler extends AbstractRequestHandler<AccesoDto, Acceso> {
+public class CrearAcHandler extends AbstractRequestHandler<AccesoDto, AccesoDto> {
 
     @Autowired
     AccesosRepository accesos;
 
     @Override
-    public Acceso execute(final AccesoDto request) {
+    public AccesoDto execute(final AccesoDto request) {
         final Acceso r = new AccesoDtoConverter().toEntity(request);
         EntitiesHelper.setDateCreateRef(r);
         r.setEstado(Estado.ACTIVO);
         accesos.save(r);
-        return r;
+        return new AccesoDtoConverter().toDTO(r);
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package gt.org.isis.controller.dto;
 
+import gt.org.isis.model.enums.Estado;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
 
@@ -19,7 +20,7 @@ public class AccesoDto {
     private String valor;
     @NotNull
     private String tipo;
-    private String estado;
+    private Estado estado;
     private Date fechaCreacion;
     private String creadoPor;
     private Integer codigoPadre;
@@ -63,11 +64,11 @@ public class AccesoDto {
         this.tipo = tipo;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
