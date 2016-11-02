@@ -19,6 +19,7 @@ import gt.org.isis.model.LugarResidencia;
 import gt.org.isis.model.Persona;
 import gt.org.isis.model.RegistroAcademico;
 import gt.org.isis.model.RegistroLaboral;
+import gt.org.isis.model.enums.Estado;
 import gt.org.isis.model.enums.EstadoVariable;
 import gt.org.isis.model.utils.EntitiesHelper;
 import gt.org.isis.repository.PersonasRepository;
@@ -41,6 +42,10 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<Perso
     @Override
     public Boolean execute(PersonaDto r) {
         Persona p = converter.toEntity(r);
+        p.setEstado(Estado.ACTIVO);
+        p.setCui(r.getCui());
+        p.setCreadoPor("admin");
+        EntitiesHelper.setDateCreateRef(p);
         repo.save(p);
         p.setIdiomaCollection(new IdiomaDtoConverter().toEntity(r.getIdiomas()));
 
@@ -60,11 +65,12 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<Perso
         rl.setFkPersona(p);
         EntitiesHelper.setDateCreateRef(rl);
 
-        Dpi dpi;
-        p.setDpiCollection(Arrays.asList(dpi = new DpiDtoConverter().toEntity(r.getDpi())));
         p.setEstudioSaludCollection(
                 new EstudiosSaludConverter()
                         .toEntity(r.getEstudiosSalud()));
+
+        Dpi dpi;
+        p.setDpiCollection(Arrays.asList(dpi = new DpiDtoConverter().toEntity(r.getDpi())));
         dpi.setFkPersona(p);
         dpi.setEstado(EstadoVariable.ACTUAL);
         EntitiesHelper.setDateCreateRef(dpi);
@@ -75,9 +81,8 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<Perso
         ));
         lr.setFkPersona(p);
         lr.setEstado(EstadoVariable.ACTUAL);
-        EntitiesHelper.setDateCreateRef(dpi);
+        EntitiesHelper.setDateCreateRef(lr);
 
-        EntitiesHelper.setDateCreateRef(p);
         repo.save(p);
         return true;
     }

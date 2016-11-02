@@ -73,12 +73,12 @@ public class BeansConverter<A, B> {
      * @return
      */
     public List<A> toEntity(List<B> origin) {
-        return (List<A>) Collections2.transform(origin, new Function<B, A>() {
+        return new ArrayList<A>(Collections2.transform(origin, new Function<B, A>() {
             @Override
             public A apply(B a) {
                 return BeansConverter.this.toEntity(a);
             }
-        });
+        }));
     }
 
     /**

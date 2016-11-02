@@ -64,7 +64,6 @@ public class PersonaDto {
     private String mrz;
     @NotNull
     private String noCedula;
-    @NotNull
     private Estado estado;
     @NotNull
     private Integer fkMunicipioCedula;
@@ -88,6 +87,8 @@ public class PersonaDto {
     @NotNull
     @NotEmpty
     private List<IdiomaDto> idiomas;
+    @NotNull
+    @NotEmpty
     private List<EstudioSaludDto> estudiosSalud;
 
     public RegistroLaboralDto getRegistroLaboral() {

@@ -119,19 +119,19 @@ public class Persona implements Serializable, CustomEntity {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por")
     private String ultimoCambioPor;
-    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<Idioma> idiomaCollection;
-    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<RegistroAcademico> registroAcademicoCollection;
-    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<HistoricoPersona> historicoPersonaCollection;
-    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<EstudioSalud> estudioSaludCollection;
-    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<RegistroLaboral> registroLaboralCollection;
-    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<LugarResidencia> lugarResidenciaCollection;
-    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<Dpi> dpiCollection;
 
     public Persona() {
@@ -150,6 +150,10 @@ public class Persona implements Serializable, CustomEntity {
         this.fechaNacimiento = fechaNacimiento;
         this.fechaCreacion = fechaCreacion;
         this.creadoPor = creadoPor;
+    }
+
+    public Date getFechaUltimoCambio() {
+        return fechaUltimoCambio;
     }
 
     public String getUltimoCambioPor() {
