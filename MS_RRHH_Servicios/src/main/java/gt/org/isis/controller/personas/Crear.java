@@ -5,6 +5,7 @@
  */
 package gt.org.isis.controller.personas;
 
+import gt.org.isis.controller.dto.NuevaPersonaDto;
 import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.controller.personas.handlers.PersonaCrearHandler;
 import javax.validation.Valid;
@@ -32,7 +33,7 @@ public class Crear {
     @RequestMapping(value = "/crea", method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpEntity crear(@RequestBody @Valid PersonaDto persona) {
+    public HttpEntity crear(@RequestBody @Valid NuevaPersonaDto persona) {
         handler.handle(persona);
         return new ResponseEntity(HttpStatus.OK);
     }

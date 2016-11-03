@@ -9,8 +9,8 @@ import gt.org.isis.api.IValidationRequest;
 import gt.org.isis.api.ValidationRequestContext;
 import static gt.org.isis.api.ValidationsHelper.isNull;
 import gt.org.isis.api.misc.exceptions.ExceptionsManager;
+import gt.org.isis.controller.dto.NuevaPersonaDto;
 import gt.org.isis.controller.dto.PersonaDto;
-import gt.org.isis.controller.personas.handlers.PersonaCrearHandler;
 import gt.org.isis.repository.PersonasRepository;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +21,13 @@ import org.springframework.stereotype.Component;
  * @author edcracken
  */
 @Component
-public class ExistePersonaValidation implements IValidationRequest<PersonaDto> {
+public class ExistePersonaValidation implements IValidationRequest<NuevaPersonaDto> {
 
     @Autowired
     PersonasRepository repo;
 
     @Override
-    public void validate(PersonaDto persona, ValidationRequestContext ctx) {
+    public void validate(NuevaPersonaDto persona, ValidationRequestContext ctx) {
         if (!isNull(repo.findOne(persona.getCui()))) {
             throw ExceptionsManager.newValidationException("persona_existe",
                     Arrays.asList("cui_persona,Persona con CUI ya existe!")
