@@ -10,6 +10,7 @@ import gt.org.isis.api.ValidationRequestContext;
 import static gt.org.isis.api.ValidationsHelper.isNull;
 import gt.org.isis.api.misc.exceptions.ExceptionsManager;
 import gt.org.isis.controller.dto.PersonaDto;
+import gt.org.isis.controller.personas.handlers.PersonaCrearHandler;
 import gt.org.isis.repository.PersonasRepository;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author edcrakcne
+ * @author edcracken
  */
 @Component
 public class ExistePersonaValidation implements IValidationRequest<PersonaDto> {

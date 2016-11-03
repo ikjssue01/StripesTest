@@ -14,7 +14,6 @@ import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.model.AreaGeografica;
 import gt.org.isis.repository.AreasGeografRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  *
