@@ -37,6 +37,7 @@ import gt.org.isis.repository.LugarResidenciaRepository;
 import gt.org.isis.repository.PersonasRepository;
 import gt.org.isis.repository.RegistroAcademicoRepository;
 import gt.org.isis.repository.RegistroLaboralRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,7 +77,7 @@ public class PersonaModificarHandler extends AbstractValidationsRequestHandler<R
         actualizaRegistroLaboral(p, r);
         actualizaDpi(p, r);
         actualizaLugarResidencia(p, r);
-
+        BeanUtils.copyProperties(r, p);
         repo.save(p);
         return true;
     }
