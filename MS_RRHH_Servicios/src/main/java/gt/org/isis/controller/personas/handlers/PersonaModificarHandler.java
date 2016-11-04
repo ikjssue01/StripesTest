@@ -9,6 +9,7 @@ import gt.org.isis.api.AbstractRequestHandler;
 import gt.org.isis.controller.dto.EstudioSaludDto;
 import gt.org.isis.controller.dto.IdiomaDto;
 import gt.org.isis.controller.dto.PersonaDto;
+import gt.org.isis.controller.dto.ReqModPersonaDto;
 import gt.org.isis.converters.DpiDtoConverter;
 import gt.org.isis.converters.EstudiosSaludConverter;
 import gt.org.isis.converters.IdiomaDtoConverter;
@@ -43,7 +44,7 @@ import org.springframework.stereotype.Service;
  * @author edcracken
  */
 @Service
-public class PersonaModificarHandler extends AbstractRequestHandler<PersonaDto, Boolean> {
+public class PersonaModificarHandler extends AbstractRequestHandler<ReqModPersonaDto, Boolean> {
 
     @Autowired
     PersonasRepository repo;
@@ -65,8 +66,7 @@ public class PersonaModificarHandler extends AbstractRequestHandler<PersonaDto, 
     LugarResidenciaRepository lrRepository;
 
     @Override
-
-    public Boolean execute(PersonaDto r) {
+    public Boolean execute(ReqModPersonaDto r) {
         Persona p = repo.findOne(r.getCui());
         crearHistorico(p);
         guardaIdiomas(p, r);
@@ -100,7 +100,8 @@ public class PersonaModificarHandler extends AbstractRequestHandler<PersonaDto, 
     }
 
     private void crearHistorico(Persona p) {
-        HistoricoPersona hp = new PersonaHistorialConverter().toEntity(p);
+        HistoricoPersona hp = new PersonaHistorialConverter()
+                .toEntity(new PersonaDtoConverter().toDTO(p));
         hp.setFkPersona(p);
         EntitiesHelper.setDateCreateRef(hp);
         historicoRepo.save(hp);

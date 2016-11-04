@@ -31,7 +31,7 @@ public abstract class AbstractValidationsRequestHandler<T, Q> extends AbstractRe
             LOG.info("validaciones a implementar: " + validations.size());
             ValidationRequestContext ctx = new ValidationRequestContext();
             for (IValidationRequest v : validations) {
-                v.validate(r, ctx);
+                v.checkType(r, ctx);
             }
         }
     }

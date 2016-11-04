@@ -6,7 +6,7 @@
 package gt.org.isis.controller.personas.handlers.validations;
 
 import gt.org.isis.api.C;
-import gt.org.isis.api.IValidationRequest;
+import gt.org.isis.api.GenericValidationRequest;
 import gt.org.isis.api.ValidationRequestContext;
 import static gt.org.isis.api.ValidationsHelper.isNull;
 import gt.org.isis.api.misc.exceptions.ExceptionsManager;
@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author edcrakcne
  */
 //@Component
-public class MunicipiosValidation implements IValidationRequest<PersonaDto> {
+public class MunicipiosValidation extends GenericValidationRequest<PersonaDto> {
 
     @Autowired
     AreasGeografRepository areasRepo;

@@ -5,6 +5,9 @@
  */
 package gt.org.isis.model;
 
+import gt.org.isis.model.enums.Estado;
+import gt.org.isis.model.enums.EstadoCivil;
+import gt.org.isis.model.enums.Sexo;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -53,10 +56,10 @@ public class HistoricoPersona implements Serializable, CustomEntity {
     private String otrosApellidos;
     @Column(name = "apellido_casada", length = 100)
     private String apellidoCasada;
-    @Column(name = "estado_civil", length = 50)
-    private String estadoCivil;
+    @Column(name = "estado_civil")
+    private EstadoCivil estadoCivil;
     @Column(length = 50)
-    private String sexo;
+    private Sexo sexo;
     @Basic(optional = false)
     @Column(name = "fk_nacionalidad", nullable = false)
     private int fkNacionalidad;
@@ -75,22 +78,22 @@ public class HistoricoPersona implements Serializable, CustomEntity {
     private Date fechaNacimiento;
     @Column(name = "fk_municipio_nacimiento")
     private Integer fkMunicipioNacimiento;
-    @Column(name = "nac_no_libro", length = 50)
+    @Column(name = "nac_no_libro")
     private String nacNoLibro;
-    @Column(name = "nac_no_folio", length = 50)
+    @Column(name = "nac_no_folio")
     private String nacNoFolio;
-    @Column(name = "nac_no_partida", length = 50)
+    @Column(name = "nac_no_partida")
     private String nacNoPartida;
-    @Column(name = "fk_pueblo", length = 50)
+    @Column(name = "fk_pueblo")
     private String fkPueblo;
-    @Column(name = "fk_comunidad_linguistica", length = 50)
-    private String fkComunidadLinguistica;
-    @Column(length = 2147483647)
+    @Column(name = "fk_comunidad_linguistica")
+    private Integer fkComunidadLinguistica;
+    @Column
     private String mrz;
-    @Column(name = "no_cedula", length = 50)
+    @Column(name = "no_cedula")
     private String noCedula;
     @Column(length = 50)
-    private String estado;
+    private Estado estado;
     @Column(name = "fk_municipio_cedula")
     private Integer fkMunicipioCedula;
     @Column(name = "fk_municipio_vecindad")
@@ -99,16 +102,16 @@ public class HistoricoPersona implements Serializable, CustomEntity {
     private Boolean huellaManoDer;
     @Column(name = "huella_mano_izq")
     private Boolean huellaManoIzq;
-    @Column(name = "huella_dedo_der", length = 50)
+    @Column(name = "huella_dedo_der")
     private String huellaDedoDer;
-    @Column(name = "huella_dedo_izq", length = 50)
+    @Column(name = "huella_dedo_izq")
     private String huellaDedoIzq;
     @Basic(optional = false)
     @Column(name = "fecha_creacion", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaCreacion;
     @Basic(optional = false)
-    @Column(name = "creado_por", nullable = false, length = 50)
+    @Column(name = "creado_por", nullable = false)
     private String creadoPor;
     @JoinColumn(name = "fk_persona", referencedColumnName = "cui")
     @ManyToOne
@@ -194,22 +197,6 @@ public class HistoricoPersona implements Serializable, CustomEntity {
 
     public void setApellidoCasada(String apellidoCasada) {
         this.apellidoCasada = apellidoCasada;
-    }
-
-    public String getEstadoCivil() {
-        return estadoCivil;
-    }
-
-    public void setEstadoCivil(String estadoCivil) {
-        this.estadoCivil = estadoCivil;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
     }
 
     public int getFkNacionalidad() {
@@ -300,11 +287,11 @@ public class HistoricoPersona implements Serializable, CustomEntity {
         this.fkPueblo = fkPueblo;
     }
 
-    public String getFkComunidadLinguistica() {
+    public Integer getFkComunidadLinguistica() {
         return fkComunidadLinguistica;
     }
 
-    public void setFkComunidadLinguistica(String fkComunidadLinguistica) {
+    public void setFkComunidadLinguistica(Integer fkComunidadLinguistica) {
         this.fkComunidadLinguistica = fkComunidadLinguistica;
     }
 
@@ -322,14 +309,6 @@ public class HistoricoPersona implements Serializable, CustomEntity {
 
     public void setNoCedula(String noCedula) {
         this.noCedula = noCedula;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public Integer getFkMunicipioCedula() {

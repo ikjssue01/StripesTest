@@ -15,7 +15,7 @@ import javax.persistence.metamodel.EntityType;
  *
  * @author edcracken
  */
-public interface QuerySpecification<T> {
+public interface IQuerySpecification<T> {
 
     public Predicate toPredicate(Root<T> root,
             CriteriaQuery<?> query,
