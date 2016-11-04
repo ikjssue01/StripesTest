@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 @RequestMapping("personas")
-public class Buscar {
+public class BusquedaSimple {
 
     @Autowired
     PersonaBuscarHandler handler;
