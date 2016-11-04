@@ -16,7 +16,7 @@ public abstract class GenericValidationRequest<T> implements IValidationRequest<
 
     @Override
     public void checkType(T parameter, ValidationRequestContext ctx) {
-        if (parameter.getClass().isInstance(getClazz())) {
+        if (parameter.getClass().getSimpleName().equalsIgnoreCase(getClazz().getSimpleName())) {
             validate(parameter, ctx);
         }
     }

@@ -23,6 +23,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  *
@@ -119,18 +121,25 @@ public class Persona implements Serializable, CustomEntity {
     private Date fechaUltimoCambio;
     @Column(name = "ultimo_cambio_por")
     private String ultimoCambioPor;
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<Idioma> idiomaCollection;
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<RegistroAcademico> registroAcademicoCollection;
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<HistoricoPersona> historicoPersonaCollection;
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<EstudioSalud> estudioSaludCollection;
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<RegistroLaboral> registroLaboralCollection;
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<LugarResidencia> lugarResidenciaCollection;
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "fkPersona", cascade = CascadeType.ALL)
     private Collection<Dpi> dpiCollection;
 

@@ -6,6 +6,7 @@
 package gt.org.isis.controller.personas.handlers;
 
 import gt.org.isis.api.AbstractRequestHandler;
+import gt.org.isis.api.AbstractValidationsRequestHandler;
 import gt.org.isis.controller.dto.EstudioSaludDto;
 import gt.org.isis.controller.dto.IdiomaDto;
 import gt.org.isis.controller.dto.PersonaDto;
@@ -44,7 +45,7 @@ import org.springframework.stereotype.Service;
  * @author edcracken
  */
 @Service
-public class PersonaModificarHandler extends AbstractRequestHandler<ReqModPersonaDto, Boolean> {
+public class PersonaModificarHandler extends AbstractValidationsRequestHandler<ReqModPersonaDto, Boolean> {
 
     @Autowired
     PersonasRepository repo;
@@ -104,6 +105,7 @@ public class PersonaModificarHandler extends AbstractRequestHandler<ReqModPerson
                 .toEntity(new PersonaDtoConverter().toDTO(p));
         hp.setFkPersona(p);
         EntitiesHelper.setDateCreateRef(hp);
+        hp.setCreadoPor("admin");
         historicoRepo.save(hp);
     }
 

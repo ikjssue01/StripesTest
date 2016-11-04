@@ -7,6 +7,7 @@ package gt.org.isis.model;
 
 import gt.org.isis.model.enums.Estado;
 import gt.org.isis.model.enums.EstadoCivil;
+import gt.org.isis.model.enums.Pueblo;
 import gt.org.isis.model.enums.Sexo;
 import java.io.Serializable;
 import java.util.Date;
@@ -62,10 +63,10 @@ public class HistoricoPersona implements Serializable, CustomEntity {
     private Sexo sexo;
     @Basic(optional = false)
     @Column(name = "fk_nacionalidad", nullable = false)
-    private int fkNacionalidad;
+    private Integer fkNacionalidad;
     @Basic(optional = false)
     @Column(name = "fk_profesion", nullable = false)
-    private int fkProfesion;
+    private Integer fkProfesion;
     @Column(name = "limitaciones_fisicas", length = 2147483647)
     private String limitacionesFisicas;
     @Column(name = "sabe_leer")
@@ -85,7 +86,7 @@ public class HistoricoPersona implements Serializable, CustomEntity {
     @Column(name = "nac_no_partida")
     private String nacNoPartida;
     @Column(name = "fk_pueblo")
-    private String fkPueblo;
+    private Pueblo fkPueblo;
     @Column(name = "fk_comunidad_linguistica")
     private Integer fkComunidadLinguistica;
     @Column
@@ -133,6 +134,30 @@ public class HistoricoPersona implements Serializable, CustomEntity {
         this.fechaNacimiento = fechaNacimiento;
         this.fechaCreacion = fechaCreacion;
         this.creadoPor = creadoPor;
+    }
+
+    public EstadoCivil getEstadoCivil() {
+        return estadoCivil;
+    }
+
+    public void setEstadoCivil(EstadoCivil estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     public Integer getId() {
@@ -277,14 +302,6 @@ public class HistoricoPersona implements Serializable, CustomEntity {
 
     public void setNacNoPartida(String nacNoPartida) {
         this.nacNoPartida = nacNoPartida;
-    }
-
-    public String getFkPueblo() {
-        return fkPueblo;
-    }
-
-    public void setFkPueblo(String fkPueblo) {
-        this.fkPueblo = fkPueblo;
     }
 
     public Integer getFkComunidadLinguistica() {
