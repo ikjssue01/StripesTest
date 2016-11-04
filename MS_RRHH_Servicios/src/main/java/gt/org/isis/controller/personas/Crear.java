@@ -34,6 +34,6 @@ public class Crear {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity crear(@RequestBody @Valid ReqNuevaPersonaDto persona) {
         handler.handle(persona);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 }

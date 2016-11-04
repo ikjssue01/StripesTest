@@ -6,8 +6,6 @@
 package gt.org.isis.controller.personas.handlers;
 
 import gt.org.isis.api.AbstractRequestHandler;
-import static gt.org.isis.api.ValidationsHelper.isNull;
-import gt.org.isis.api.misc.exceptions.ExceptionsManager;
 import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.converters.PersonaDtoConverter;
 import gt.org.isis.model.Persona;
@@ -20,17 +18,14 @@ import org.springframework.stereotype.Service;
  * @author edcracken
  */
 @Service
-public class PersonaBuscarHandler extends AbstractRequestHandler<String, PersonaDto> {
+public class PersonaBuscarHandler extends AbstractRequestHandler<PersonaDto, PersonaDto> {
 
     @Autowired
     PersonasRepository repo;
 
     @Override
-    public PersonaDto execute(String request) {
-        Persona p = repo.findOne(request);
-        if (isNull(p)) {
-            throw ExceptionsManager.newNotFound();
-        }
+    public PersonaDto execute(PersonaDto request) {
+        Persona p = repo.findOne(request.getCui());
         return new PersonaDtoConverter().toDTO(p);
     }
 

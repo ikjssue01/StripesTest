@@ -91,6 +91,13 @@ public class PersonaDto {
     @NotEmpty
     private List<EstudioSaludDto> estudiosSalud;
 
+    public PersonaDto() {
+    }
+
+    public PersonaDto(String cui) {
+        this.cui = cui;
+    }
+
     public RegistroLaboralDto getRegistroLaboral() {
         return registroLaboral;
     }
