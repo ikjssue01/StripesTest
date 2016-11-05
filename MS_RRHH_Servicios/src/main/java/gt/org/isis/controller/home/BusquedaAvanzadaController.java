@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author eliud
  */
-@Controller("crearAcceso")
-@RequestMapping("accesos")
+@Controller
+@RequestMapping("home")
 public class BusquedaAvanzadaController {
 
     @Transactional
-    @RequestMapping(value = "/crea",
+    @RequestMapping(value = "/busquedaAvanzada",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)

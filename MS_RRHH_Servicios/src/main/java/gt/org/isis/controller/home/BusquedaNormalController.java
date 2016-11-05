@@ -5,7 +5,7 @@
  */
 package gt.org.isis.controller.home;
 
-import gt.org.isis.controller.dto.AccesoDto;
+import gt.org.isis.controller.dto.BusquedaNormalDto;
 import javax.validation.Valid;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -21,16 +21,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author edcracken
  */
-@Controller("getAcceso")
-@RequestMapping("accesos")
+@Controller
+@RequestMapping("home")
 public class BusquedaNormalController {
 
     @Transactional
-    @RequestMapping(value = "/crea",
+    @RequestMapping(value = "/busquedaNormal",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)
-    public HttpEntity crear(@RequestBody @Valid AccesoDto acceso) {
+    public HttpEntity buscar(@RequestBody @Valid BusquedaNormalDto acceso) {
         return new ResponseEntity(HttpStatus.IM_USED);
     }
 }

@@ -77,6 +77,8 @@ public class Persona implements Serializable, CustomEntity {
     @Column(name = "fecha_nacimiento", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaNacimiento;
+    @Column(name = "edad")
+    private Integer edad;
     @Column(name = "fk_municipio_nacimiento")
     private Integer fkMunicipioNacimiento;
     @Column(name = "nac_no_libro")
@@ -199,6 +201,14 @@ public class Persona implements Serializable, CustomEntity {
 
     public String getPrimerNombre() {
         return primerNombre;
+    }
+
+    public Integer getEdad() {
+        return edad;
+    }
+
+    public void setEdad(Integer edad) {
+        this.edad = edad;
     }
 
     public void setPrimerNombre(String primerNombre) {
