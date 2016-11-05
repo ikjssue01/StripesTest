@@ -15,6 +15,7 @@ import gt.org.isis.model.LugarResidencia;
 import gt.org.isis.model.Persona;
 import gt.org.isis.repository.LugarResidenciaRepository;
 import gt.org.isis.repository.PersonasRepository;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -49,27 +50,30 @@ public class BusquedaNormalHandler extends AbstractValidationsRequestHandler<Bus
                         .withDto(request)
                         .build();
             }
-        });
+        }, request.getPageable())
+                .getContent();
         if (request.getDireccion() != null || request.getMunicipio() != null) {
 
-            s1.addAll(Collections2.transform(lugarRepo.findAll(new Specification<LugarResidencia>() {
-                @Override
-                public Predicate toPredicate(Root<LugarResidencia> root, CriteriaQuery<?> cq,
-                        CriteriaBuilder cb) {
-                    return CriteriaBuilderLugarResidencia
-                            .get()
-                            .withDto(request)
-                            .withCB(cb)
-                            .withCq(cq)
-                            .withRoot(root)
-                            .build();
-                }
-            }), new Function<LugarResidencia, Persona>() {
-                @Override
-                public Persona apply(LugarResidencia f) {
-                    return f.getFkPersona();
-                }
-            }));
+            (s1 = (s1 == null ? new ArrayList<Persona>() : s1))
+                    .addAll(Collections2.transform(lugarRepo.findAll(new Specification<LugarResidencia>() {
+                        @Override
+                        public Predicate toPredicate(Root<LugarResidencia> root, CriteriaQuery<?> cq,
+                                CriteriaBuilder cb) {
+                            return CriteriaBuilderLugarResidencia
+                                    .get()
+                                    .withDto(request)
+                                    .withCB(cb)
+                                    .withCq(cq)
+                                    .withRoot(root)
+                                    .build();
+                        }
+                    }, request.getPageable())
+                            .getContent(), new Function<LugarResidencia, Persona>() {
+                        @Override
+                        public Persona apply(LugarResidencia f) {
+                            return f.getFkPersona();
+                        }
+                    }));
         }
         return new PersonaDtoConverter().toDTO(s1);
     }

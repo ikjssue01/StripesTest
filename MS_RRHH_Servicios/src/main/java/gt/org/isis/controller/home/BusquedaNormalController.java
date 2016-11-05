@@ -9,6 +9,7 @@ import gt.org.isis.controller.dto.BusquedaNormalDto;
 import gt.org.isis.controller.home.handlers.BusquedaNormalHandler;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,7 +34,7 @@ public class BusquedaNormalController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)
-    public HttpEntity buscar(@RequestBody @Valid BusquedaNormalDto acceso) {
-        return new ResponseEntity(handler.handle(acceso), HttpStatus.OK);
+    public HttpEntity buscar(@RequestBody @Valid BusquedaNormalDto filtro, Pageable pageable) {
+        return new ResponseEntity(handler.handle(filtro), HttpStatus.OK);
     }
 }
