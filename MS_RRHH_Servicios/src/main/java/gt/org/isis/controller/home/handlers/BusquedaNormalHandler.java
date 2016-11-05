@@ -54,11 +54,14 @@ public class BusquedaNormalHandler extends AbstractValidationsRequestHandler<Bus
 
             s1.addAll(Collections2.transform(lugarRepo.findAll(new Specification<LugarResidencia>() {
                 @Override
-                public Predicate toPredicate(Root<LugarResidencia> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                public Predicate toPredicate(Root<LugarResidencia> root, CriteriaQuery<?> cq,
+                        CriteriaBuilder cb) {
                     return CriteriaBuilderLugarResidencia
                             .get()
+                            .withDto(request)
                             .withCB(cb)
                             .withCq(cq)
+                            .withRoot(root)
                             .build();
                 }
             }), new Function<LugarResidencia, Persona>() {

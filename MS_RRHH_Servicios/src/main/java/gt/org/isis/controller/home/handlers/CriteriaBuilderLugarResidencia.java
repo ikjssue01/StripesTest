@@ -38,7 +38,7 @@ public class CriteriaBuilderLugarResidencia {
         return this;
     }
 
-    public CriteriaBuilderLugarResidencia withCB(Root<LugarResidencia> root) {
+    public CriteriaBuilderLugarResidencia withRoot(Root<LugarResidencia> root) {
         this.rootLugar = root;
         return this;
     }
