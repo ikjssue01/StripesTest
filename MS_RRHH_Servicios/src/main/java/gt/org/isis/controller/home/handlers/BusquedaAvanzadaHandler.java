@@ -7,18 +7,17 @@ package gt.org.isis.controller.home.handlers;
 
 import gt.org.isis.api.AbstractValidationsRequestHandler;
 import gt.org.isis.controller.dto.BusquedaAvanzadaDto;
-import gt.org.isis.controller.dto.BusquedaNormalDto;
+import gt.org.isis.controller.dto.PageableResultDto;
 import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.repository.LugarResidenciaRepository;
 import gt.org.isis.repository.PersonasRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author edcracken
  */
-public class BusquedaAvanzadaHandler extends AbstractValidationsRequestHandler<BusquedaNormalDto, List<PersonaDto>> {
+public class BusquedaAvanzadaHandler extends AbstractValidationsRequestHandler<BusquedaAvanzadaDto, PageableResultDto<PersonaDto>> {
 
     @Autowired
     PersonasRepository repo;
@@ -27,8 +26,8 @@ public class BusquedaAvanzadaHandler extends AbstractValidationsRequestHandler<B
     LugarResidenciaRepository lugarRepo;
 
     @Override
-    public List<PersonaDto> execute(final BusquedaAvanzadaDto request) {
-
+    public PageableResultDto<PersonaDto> execute(final BusquedaAvanzadaDto request) {
+        
         return null;
     }
 

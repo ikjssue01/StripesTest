@@ -5,56 +5,22 @@
  */
 package gt.org.isis.controller.dto;
 
+import java.util.List;
+
 /**
  *
  * @author edcracken
  */
 public class BusquedaAvanzadaDto {
 
-    private Integer unidadEjecutora;
-    private Integer puestoNominal;
-    private Integer renglon;
-    private Integer clasificacionServicio;
-    private Integer anioIngreso;
+    private List<FiltroAvanzadoDto> filtros;
 
-    public Integer getUnidadEjecutora() {
-        return unidadEjecutora;
+    public List<FiltroAvanzadoDto> getFiltros() {
+        return filtros;
     }
 
-    public void setUnidadEjecutora(Integer unidadEjecutora) {
-        this.unidadEjecutora = unidadEjecutora;
-    }
-
-    public Integer getPuestoNominal() {
-        return puestoNominal;
-    }
-
-    public void setPuestoNominal(Integer puestoNominal) {
-        this.puestoNominal = puestoNominal;
-    }
-
-    public Integer getRenglon() {
-        return renglon;
-    }
-
-    public void setRenglon(Integer renglon) {
-        this.renglon = renglon;
-    }
-
-    public Integer getClasificacionServicio() {
-        return clasificacionServicio;
-    }
-
-    public void setClasificacionServicio(Integer clasificacionServicio) {
-        this.clasificacionServicio = clasificacionServicio;
-    }
-
-    public Integer getAnioIngreso() {
-        return anioIngreso;
-    }
-
-    public void setAnioIngreso(Integer anioIngreso) {
-        this.anioIngreso = anioIngreso;
+    public void setFiltros(List<FiltroAvanzadoDto> filtros) {
+        this.filtros = filtros;
     }
 
 }

@@ -5,17 +5,19 @@
  */
 package gt.org.isis.controller.home;
 
-import gt.org.isis.controller.dto.AccesoDto;
+import gt.org.isis.controller.dto.BusquedaAvanzadaDto;
+import gt.org.isis.controller.dto.PageableResultDto;
+import gt.org.isis.controller.dto.PersonaDto;
+import gt.org.isis.controller.home.handlers.BusquedaAvanzadaHandler;
 import javax.validation.Valid;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -25,12 +27,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("home")
 public class BusquedaAvanzadaController {
 
+    @Autowired
+    BusquedaAvanzadaHandler handler;
+
     @Transactional
     @RequestMapping(value = "/busquedaAvanzada",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)
-    public HttpEntity crear(@RequestBody @Valid AccesoDto acceso) {
-        return new ResponseEntity(HttpStatus.IM_USED);
+    public @ResponseBody
+    PageableResultDto<PersonaDto> crear(@RequestBody @Valid BusquedaAvanzadaDto filtro) {
+        return handler.handle(filtro);
     }
 }
