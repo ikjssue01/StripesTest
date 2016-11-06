@@ -5,19 +5,13 @@
  */
 package gt.org.isis.api;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
+import org.springframework.data.jpa.domain.Specification;
 
 /**
  *
  * @author edcracken
  */
-public interface IQuerySpecification<T> {
+public interface IQuerySpecification<T> extends Specification<T> {
 
-    public Predicate toPredicate(Root<T> root,
-            CriteriaQuery<?> query,
-            CriteriaBuilder cb, EntityType<T> type);
+    
 }
