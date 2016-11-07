@@ -13,10 +13,15 @@ import gt.org.isis.controller.dto.FiltroAvanzadoDto;
 import gt.org.isis.controller.dto.PageableResultDto;
 import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.model.Persona;
-import gt.org.isis.model.RegistroLaboral;
+import gt.org.isis.model.Puesto_;
+import gt.org.isis.model.Puestos;
 import gt.org.isis.model.enums.CampoBusquedaAvanzada;
+import gt.org.isis.model.enums.TipoPuestosCatalogo;
+import gt.org.isis.model.utils.EntitiesHelper;
 import gt.org.isis.repository.LugarResidenciaRepository;
 import gt.org.isis.repository.PersonasRepository;
+import gt.org.isis.repository.PuestoRepository;
+import gt.org.isis.repository.PuestosRepository;
 import gt.org.isis.repository.RegistroLaboralRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +40,12 @@ public class BusquedaAvanzadaHandler extends AbstractValidationsRequestHandler<B
     RegistroLaboralRepository rLaboralRepo;
 
     @Autowired
+    PuestoRepository puestoRepo;
+
+    @Autowired
+    PuestosRepository puestosRepo;
+
+    @Autowired
     LugarResidenciaRepository lugarRepo;
 
     @Override
@@ -42,17 +53,37 @@ public class BusquedaAvanzadaHandler extends AbstractValidationsRequestHandler<B
         List<Persona> personas = new ArrayList();
         for (final FiltroAvanzadoDto f : request.getFiltros()) {
             if (f.getCampo().equals(CampoBusquedaAvanzada.CLASIFICACION_SERVICIO)) {
-
+                personas.addAll(EntitiesHelper.getPersonas(puestoRepo.findAll(new PuestoPorFiltroAvanzadoQSpec(f,
+                        Puesto_.fkClasificacionServicio))));
+            }
+            if (f.getCampo().equals(CampoBusquedaAvanzada.PUESTO_FUNCIONAL)) {
+                personas.addAll(EntitiesHelper.getPersonas(puestoRepo.findAll(new PuestoPorFiltroAvanzadoQSpec(f,
+                        Puesto_.fkPuestoFuncional))));
+            }
+            if (f.getCampo().equals(CampoBusquedaAvanzada.PUESTO_NOMINAL)) {
+                personas.addAll(EntitiesHelper.getPersonas(puestoRepo.findAll(new PuestoPorFiltroAvanzadoQSpec(f,
+                        Puesto_.fkPuestoNominal))));
             }
             if (f.getCampo().equals(CampoBusquedaAvanzada.ANIO_INGRESO)) {
-                personas.addAll(Collections2.transform(rLaboralRepo.findAll(new RegistroLaboralQSpec(f)),
-                        new Function<RegistroLaboral, Persona>() {
-                    @Override
-                    public Persona apply(RegistroLaboral f) {
-                        return f.getFkPersona();
-                    }
-                }));
+                personas.addAll(EntitiesHelper
+                        .getPersonas(rLaboralRepo
+                                .findAll(new RegistroLaboralQSpec(f))));
             }
+            if (f.getCampo().equals(CampoBusquedaAvanzada.REGLON)) {
+                personas.addAll(EntitiesHelper.getPersonas(puestosRepo
+                        .findAll(new PuestoQSpec(
+                                (List<Integer>) Collections2
+                                        .transform(puestosRepo.findAll(
+                                                new PuestosPorPadreQSpec(Integer.valueOf(f.getValor1()),
+                                                        TipoPuestosCatalogo.PUESTO_NOMINAL)),
+                                                new Function<Puestos, Integer>() {
+                                            @Override
+                                            public Integer apply(Puestos f) {
+                                                return f.getId();
+                                            }
+                                        })))));
+            }
+
         }
         return null;
     }

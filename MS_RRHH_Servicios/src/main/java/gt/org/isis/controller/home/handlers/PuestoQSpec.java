@@ -1,0 +1,42 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package gt.org.isis.controller.home.handlers;
+
+import gt.org.isis.model.Puesto;
+import gt.org.isis.model.Puesto_;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import org.springframework.data.jpa.domain.Specification;
+
+/**
+ *
+ * @author edcracken
+ */
+public class PuestoQSpec implements Specification<Puesto> {
+
+    private final List<Integer> puestosNominales;
+
+    public PuestoQSpec(List<Integer> puestosNominales) {
+        this.puestosNominales = puestosNominales;
+    }    
+    
+
+    @Override
+    public Predicate toPredicate(Root<Puesto> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+        List<Predicate> ls = new ArrayList<Predicate>();
+
+        if (puestosNominales != null) {
+            ls.add(root.get(Puesto_.fkPuestoNominal).in(puestosNominales));
+        }
+
+        return cb.or(ls.toArray(new Predicate[ls.size()]));
+    }
+
+}
