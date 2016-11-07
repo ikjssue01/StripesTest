@@ -34,7 +34,7 @@ import javax.persistence.TemporalType;
 @Table(name = "registro_laboral", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "RegistroLaboral.findAll", query = "SELECT r FROM RegistroLaboral r")})
-public class RegistroLaboral implements Serializable, CustomEntity {
+public class RegistroLaboral implements Serializable, CustomEntity, PersonaChildEntity {
 
     private static final long serialVersionUID = 1L;
     @Id

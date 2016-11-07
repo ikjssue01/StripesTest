@@ -5,7 +5,13 @@
  */
 package gt.org.isis.model.utils;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
 import gt.org.isis.model.CustomEntity;
+import gt.org.isis.model.Persona;
+import gt.org.isis.model.PersonaChildEntity;
+import java.util.ArrayList;
+import java.util.List;
 import org.joda.time.DateTime;
 
 /**
@@ -20,6 +26,16 @@ public class EntitiesHelper {
 
     public static void setDateUpdateRef(CustomEntity ce) {
         ce.setFechaUltimoCambio(new DateTime().toDate());
+    }
+
+    public static List<Persona> getPersonas(List<PersonaChildEntity> pc) {
+        return new ArrayList<Persona>(Collections2.transform(pc,
+                new Function<PersonaChildEntity, Persona>() {
+            @Override
+            public Persona apply(PersonaChildEntity f) {
+                return f.getFkPersona();
+            }
+        }));
     }
 
 }

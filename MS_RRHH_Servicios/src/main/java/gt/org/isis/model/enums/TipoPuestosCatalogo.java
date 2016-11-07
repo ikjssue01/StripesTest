@@ -12,18 +12,14 @@ import org.codehaus.jackson.annotate.JsonValue;
  *
  * @author edcracken
  */
-public enum CampoBusquedaAvanzada {
+public enum TipoPuestosCatalogo {
 
-    UNIDAD_EJECUTORA("unidad_ejecutora"),
-    PUESTO_NOMINAL("puesto_nominal"),
-    PUESTO_FUNCIONAL("puesto_funcional"),
-    REGLON("renglon"),
-    CLASIFICACION_SERVICIO("clasificacion_servicio"),
-    ANIO_INGRESO("anio_ingreso");
+    RENGLON("renglon"),
+    PUESTO_NOMINAL("puesto_nominal");
 
     private String value;
 
-    private CampoBusquedaAvanzada(String value) {
+    private TipoPuestosCatalogo(String value) {
         this.value = value;
     }
 
@@ -37,8 +33,8 @@ public enum CampoBusquedaAvanzada {
     }
 
     @JsonCreator
-    public static CampoBusquedaAvanzada forValue(String value) {
-        return CampoBusquedaAvanzada.valueOf(value);
+    public static TipoPuestosCatalogo forValue(String value) {
+        return TipoPuestosCatalogo.valueOf(value);
     }
 
 }
