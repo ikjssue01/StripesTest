@@ -26,11 +26,13 @@ import gt.org.isis.repository.RegistroLaboralRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author edcracken
  */
+@Service
 public class BusquedaAvanzadaHandler extends AbstractValidationsRequestHandler<BusquedaAvanzadaDto, PageableResultDto<PersonaDto>> {
 
     @Autowired
