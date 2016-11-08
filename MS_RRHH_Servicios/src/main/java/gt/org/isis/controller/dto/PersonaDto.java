@@ -48,6 +48,7 @@ public class PersonaDto {
     private Boolean sabeEscribir;
     @NotNull
     private Date fechaNacimiento;
+    private Integer edad;
     @NotNull
     private Integer fkMunicipioNacimiento;
     @NotNull
@@ -96,6 +97,14 @@ public class PersonaDto {
 
     public PersonaDto(String cui) {
         this.cui = cui;
+    }
+
+    public Integer getEdad() {
+        return edad;
+    }
+
+    public void setEdad(Integer edad) {
+        this.edad = edad;
     }
 
     public RegistroLaboralDto getRegistroLaboral() {

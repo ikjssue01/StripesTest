@@ -5,7 +5,10 @@
  */
 package gt.org.isis.controller.personas.handlers;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
 import gt.org.isis.api.AbstractValidationsRequestHandler;
+import gt.org.isis.controller.dto.EstudioSaludDto;
 import gt.org.isis.controller.dto.ReqNuevaPersonaDto;
 import gt.org.isis.converters.DpiDtoConverter;
 import gt.org.isis.converters.EstudiosSaludConverter;
@@ -15,6 +18,7 @@ import gt.org.isis.converters.PersonaDtoConverter;
 import gt.org.isis.converters.RegistroAcademicoConverter;
 import gt.org.isis.converters.RegistroLaboralConverter;
 import gt.org.isis.model.Dpi;
+import gt.org.isis.model.EstudioSalud;
 import gt.org.isis.model.LugarResidencia;
 import gt.org.isis.model.Persona;
 import gt.org.isis.model.RegistroAcademico;
@@ -44,14 +48,14 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<ReqNu
 
     @Override
     public Boolean execute(ReqNuevaPersonaDto r) {
-        Persona p = converter.toEntity(r);
+        final Persona p = converter.toEntity(r);
         p.setEstado(Estado.ACTIVO);
         p.setCui(r.getCui());
         p.setCreadoPor("admin");
         p.setEdad(Years.yearsBetween(LocalDate.fromDateFields(p.getFechaNacimiento()),
                 LocalDate.fromDateFields(Calendar.getInstance().getTime())).getYears());
         EntitiesHelper.setDateCreateRef(p);
-        repo.save(p);
+
         p.setIdiomaCollection(new IdiomaDtoConverter().toEntity(r.getIdiomas()));
 
         RegistroAcademico ra;
@@ -71,8 +75,16 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<ReqNu
         EntitiesHelper.setDateCreateRef(rl);
 
         p.setEstudioSaludCollection(
-                new EstudiosSaludConverter()
-                        .toEntity(r.getEstudiosSalud()));
+                Collections2.transform(r.getEstudiosSalud(),
+                        new Function<EstudioSaludDto, EstudioSalud>() {
+                    @Override
+                    public EstudioSalud apply(EstudioSaludDto f) {
+                        EstudioSalud es = new EstudiosSaludConverter()
+                                .toEntity(f);
+                        es.setFkPersona(p);
+                        return es;
+                    }
+                }));
 
         Dpi dpi;
         p.setDpiCollection(Arrays.asList(dpi = new DpiDtoConverter().toEntity(r.getDpi())));

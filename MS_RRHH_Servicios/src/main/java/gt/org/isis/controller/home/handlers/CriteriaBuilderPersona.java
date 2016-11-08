@@ -5,6 +5,7 @@
  */
 package gt.org.isis.controller.home.handlers;
 
+import gt.org.isis.api.misc.exceptions.ExceptionsManager;
 import gt.org.isis.controller.dto.BusquedaNormalDto;
 import gt.org.isis.model.Persona;
 import gt.org.isis.model.Persona_;
@@ -80,13 +81,14 @@ public class CriteriaBuilderPersona {
             criteria.add(cb.equal(rootPersona.get(Persona_.sexo),
                     normal.getSexo()));
         }
-        if (normal.getFechaNacInicio() != null) {
-            criteria.add(cb.greaterThanOrEqualTo(rootPersona.get(Persona_.fechaNacimiento),
-                    normal.getFechaNacInicio()));
-        }
-        if (normal.getFechaNacFin() != null) {
-            criteria.add(cb.lessThanOrEqualTo(rootPersona.get(Persona_.fechaNacimiento),
-                    normal.getFechaNacFin()));
+        if (normal.getFechaNacInicio() != null && normal.getFechaNacFin() != null) {
+            criteria.add(cb.and(cb.greaterThanOrEqualTo(rootPersona.get(Persona_.fechaNacimiento),
+                    normal.getFechaNacInicio()),
+                    cb.lessThanOrEqualTo(rootPersona.get(Persona_.fechaNacimiento),
+                            normal.getFechaNacFin())));
+        } else if (normal.getFechaNacInicio() != null || normal.getFechaNacFin() != null) {
+            throw ExceptionsManager.newValidationException("parametro_invalido",
+                    new String[]{"rango_fechas_nacimiento,El rango de fechas debe tener inicio y fin!"});
         }
         if (normal.getEdad() != null && normal.getEdad() >= 0) {
             criteria.add(cb.equal(rootPersona.get(Persona_.edad),

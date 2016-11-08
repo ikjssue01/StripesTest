@@ -52,10 +52,8 @@ public class BusquedaNormalHandler extends AbstractValidationsRequestHandler<Bus
                         .withDto(request)
                         .build();
             }
-        }, request.getPageable())
-                .getContent();
+        });
         if (request.getDireccion() != null || request.getMunicipio() != null) {
-
             (s1 = (s1 == null ? new ArrayList<Persona>() : s1))
                     .addAll(Collections2.transform(lugarRepo.findAll(new Specification<LugarResidencia>() {
                         @Override
@@ -69,8 +67,7 @@ public class BusquedaNormalHandler extends AbstractValidationsRequestHandler<Bus
                                     .withRoot(root)
                                     .build();
                         }
-                    }, request.getPageable())
-                            .getContent(), new Function<LugarResidencia, Persona>() {
+                    }), new Function<LugarResidencia, Persona>() {
                         @Override
                         public Persona apply(LugarResidencia f) {
                             return f.getFkPersona();
