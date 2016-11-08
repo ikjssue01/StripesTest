@@ -8,17 +8,16 @@ package gt.org.isis.controller.personas.handlers;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import gt.org.isis.api.AbstractValidationsRequestHandler;
-import gt.org.isis.controller.dto.EstudioSaludDto;
+import gt.org.isis.controller.dto.IdiomaDto;
 import gt.org.isis.controller.dto.ReqNuevaPersonaDto;
 import gt.org.isis.converters.DpiDtoConverter;
-import gt.org.isis.converters.EstudiosSaludConverter;
 import gt.org.isis.converters.IdiomaDtoConverter;
 import gt.org.isis.converters.LugarResidenciaDtoConverter;
 import gt.org.isis.converters.PersonaDtoConverter;
 import gt.org.isis.converters.RegistroAcademicoConverter;
 import gt.org.isis.converters.RegistroLaboralConverter;
 import gt.org.isis.model.Dpi;
-import gt.org.isis.model.EstudioSalud;
+import gt.org.isis.model.Idioma;
 import gt.org.isis.model.LugarResidencia;
 import gt.org.isis.model.Persona;
 import gt.org.isis.model.RegistroAcademico;
@@ -27,8 +26,10 @@ import gt.org.isis.model.enums.Estado;
 import gt.org.isis.model.enums.EstadoVariable;
 import gt.org.isis.model.utils.EntitiesHelper;
 import gt.org.isis.repository.PersonasRepository;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,18 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<ReqNu
         p.setEdad(Years.yearsBetween(LocalDate.fromDateFields(p.getFechaNacimiento()),
                 LocalDate.fromDateFields(Calendar.getInstance().getTime())).getYears());
         EntitiesHelper.setDateCreateRef(p);
-
-        p.setIdiomaCollection(new IdiomaDtoConverter().toEntity(r.getIdiomas()));
+        p.setIdiomaCollection(new ArrayList<Idioma>());
+        p.getIdiomaCollection().addAll(Collections2.transform(r.getIdiomas(),
+                new Function<IdiomaDto, Idioma>() {
+            @Override
+            public Idioma apply(IdiomaDto f) {
+                Idioma i = new IdiomaDtoConverter().toEntity(f);
+                i.setFkPersona(p);
+                i.setCreadoPor(p.getCreadoPor());
+                EntitiesHelper.setDateCreateRef(i);
+                return i;
+            }
+        }));
 
         RegistroAcademico ra;
         p.setRegistroAcademicoCollection(
@@ -64,6 +75,7 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<ReqNu
                         ra = new RegistroAcademicoConverter().toEntity(r.getRegistroAcademico())));
         ra.setFkPersona(p);
         ra.setEstado(EstadoVariable.ACTUAL);
+        ra.setCreadoPor(p.getCreadoPor());
         EntitiesHelper.setDateCreateRef(ra);
 
         RegistroLaboral rl;
@@ -72,24 +84,26 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<ReqNu
         );
         rl.setEstado(EstadoVariable.ACTUAL);
         rl.setFkPersona(p);
+        rl.setCreadoPor(p.getCreadoPor());
         EntitiesHelper.setDateCreateRef(rl);
 
-        p.setEstudioSaludCollection(
-                Collections2.transform(r.getEstudiosSalud(),
-                        new Function<EstudioSaludDto, EstudioSalud>() {
-                    @Override
-                    public EstudioSalud apply(EstudioSaludDto f) {
-                        EstudioSalud es = new EstudiosSaludConverter()
-                                .toEntity(f);
-                        es.setFkPersona(p);
-                        return es;
-                    }
-                }));
-
+//        p.setEstudioSaludCollection(
+//                Collections2.transform(r.getEstudiosSalud(),
+//                        new Function<EstudioSaludDto, EstudioSalud>() {
+//                    @Override
+//                    public EstudioSalud apply(EstudioSaludDto f) {
+//                        EstudioSalud es = new EstudiosSaludConverter()
+//                                .toEntity(f);
+//                        es.setFkPersona(p);
+//                        es.setCreadoPor(p.getCreadoPor());
+//                        return es;
+//                    }
+//                }));
         Dpi dpi;
         p.setDpiCollection(Arrays.asList(dpi = new DpiDtoConverter().toEntity(r.getDpi())));
         dpi.setFkPersona(p);
         dpi.setEstado(EstadoVariable.ACTUAL);
+        dpi.setCreadoPor(p.getCreadoPor());
         EntitiesHelper.setDateCreateRef(dpi);
 
         LugarResidencia lr;
@@ -98,6 +112,7 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<ReqNu
         ));
         lr.setFkPersona(p);
         lr.setEstado(EstadoVariable.ACTUAL);
+        lr.setCreadoPor(p.getCreadoPor());
         EntitiesHelper.setDateCreateRef(lr);
 
         repo.save(p);

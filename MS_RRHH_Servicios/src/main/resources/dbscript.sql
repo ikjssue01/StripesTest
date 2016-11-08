@@ -216,7 +216,7 @@ CREATE TABLE estudio_salud
 (
   id serial NOT NULL,
   anio_estudio integer,
-  fk_persona character varying(50),
+  fk_persona character varying(50) NOT NULL,
   fecha_creacion timestamp with time zone NOT NULL,
   creado_por character varying(50),
   fecha_ultimo_cambio timestamp with time zone,
@@ -237,7 +237,7 @@ WITH (
 CREATE TABLE historico_persona
 (
  id serial NOT NULL,
-  fk_persona character varying(50),
+  fk_persona character varying(50) NOT NULL,
   primer_nombre character varying(100) NOT NULL,
   segundo_nombre character varying(100),
   otros_nombres text,
@@ -286,9 +286,8 @@ WITH (
 CREATE TABLE idioma
 (
    id serial NOT NULL,
-  estado character varying(50),
   fk_idioma integer NOT NULL, -- Catalogo tipo IDIOMAS
-  fk_persona character varying(50),
+  fk_persona character varying(50) NOT NULL,
   fecha_creacion timestamp with time zone NOT NULL,
   creado_por character varying(50),
   fecha_ultimo_cambio timestamp with time zone,
@@ -312,7 +311,7 @@ CREATE TABLE lugar_residencia
 (
  id serial NOT NULL,
   fk_municipio integer, -- Catalogo tipo MUNICIPIOS
-  fk_persona character varying(50),
+  fk_persona character varying(50) NOT NULL,
   estado character varying(50),
   direccion text,
   fecha_creacion timestamp with time zone NOT NULL,
@@ -383,7 +382,7 @@ CREATE TABLE registro_laboral
   id serial NOT NULL,
   anio_ingreso integer,
   fk_expectativa integer, -- Catalogo tipo EXPECTATIVAS
-  fk_persona character varying(50),
+  fk_persona character varying(50) NOT NULL,
   comisionado boolean,
   fk_comunidad_comisionado integer, -- Catalogo tipo AREA_GEOGRAFICA
   estado character varying(50),
