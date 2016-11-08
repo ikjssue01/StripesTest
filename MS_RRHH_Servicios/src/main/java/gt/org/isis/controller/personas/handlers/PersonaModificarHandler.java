@@ -5,7 +5,6 @@
  */
 package gt.org.isis.controller.personas.handlers;
 
-import gt.org.isis.api.AbstractRequestHandler;
 import gt.org.isis.api.AbstractValidationsRequestHandler;
 import gt.org.isis.controller.dto.EstudioSaludDto;
 import gt.org.isis.controller.dto.IdiomaDto;
@@ -116,6 +115,8 @@ public class PersonaModificarHandler extends AbstractValidationsRequestHandler<R
         RegistroAcademico ra = new RegistroAcademicoConverter()
                 .toEntity(r.getRegistroAcademico());
         ra.setEstado(EstadoVariable.ACTUAL);
+        ra.setFkPersona(p);
+        ra.setCreadoPor(p.getCreadoPor());
         EntitiesHelper.setDateCreateRef(ra);
         rAcaRepository.save(ra);
     }
@@ -125,6 +126,8 @@ public class PersonaModificarHandler extends AbstractValidationsRequestHandler<R
         RegistroLaboral ra = new RegistroLaboralConverter()
                 .toEntity(r.getRegistroLaboral());
         ra.setEstado(EstadoVariable.ACTUAL);
+        ra.setFkPersona(p);
+        ra.setCreadoPor(p.getCreadoPor());
         EntitiesHelper.setDateCreateRef(ra);
         rLabRepository.save(ra);
     }
@@ -134,6 +137,8 @@ public class PersonaModificarHandler extends AbstractValidationsRequestHandler<R
         Dpi ra = new DpiDtoConverter()
                 .toEntity(r.getDpi());
         ra.setEstado(EstadoVariable.ACTUAL);
+        ra.setFkPersona(p);
+        ra.setCreadoPor(p.getCreadoPor());
         EntitiesHelper.setDateCreateRef(ra);
         dpiRepository.save(ra);
     }
@@ -143,6 +148,8 @@ public class PersonaModificarHandler extends AbstractValidationsRequestHandler<R
         LugarResidencia ra = new LugarResidenciaDtoConverter()
                 .toEntity(r.getLugarResidencia());
         ra.setEstado(EstadoVariable.ACTUAL);
+        ra.setFkPersona(p);
+        ra.setCreadoPor(p.getCreadoPor());
         EntitiesHelper.setDateCreateRef(ra);
         lrRepository.save(ra);
     }
