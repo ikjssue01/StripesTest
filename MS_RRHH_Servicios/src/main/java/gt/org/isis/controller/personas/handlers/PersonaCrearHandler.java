@@ -8,15 +8,18 @@ package gt.org.isis.controller.personas.handlers;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import gt.org.isis.api.AbstractValidationsRequestHandler;
+import gt.org.isis.controller.dto.EstudioSaludDto;
 import gt.org.isis.controller.dto.IdiomaDto;
 import gt.org.isis.controller.dto.ReqNuevaPersonaDto;
 import gt.org.isis.converters.DpiDtoConverter;
+import gt.org.isis.converters.EstudiosSaludConverter;
 import gt.org.isis.converters.IdiomaDtoConverter;
 import gt.org.isis.converters.LugarResidenciaDtoConverter;
 import gt.org.isis.converters.PersonaDtoConverter;
 import gt.org.isis.converters.RegistroAcademicoConverter;
 import gt.org.isis.converters.RegistroLaboralConverter;
 import gt.org.isis.model.Dpi;
+import gt.org.isis.model.EstudioSalud;
 import gt.org.isis.model.Idioma;
 import gt.org.isis.model.LugarResidencia;
 import gt.org.isis.model.Persona;
@@ -29,7 +32,6 @@ import gt.org.isis.repository.PersonasRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.List;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,18 +89,19 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<ReqNu
         rl.setCreadoPor(p.getCreadoPor());
         EntitiesHelper.setDateCreateRef(rl);
 
-//        p.setEstudioSaludCollection(
-//                Collections2.transform(r.getEstudiosSalud(),
-//                        new Function<EstudioSaludDto, EstudioSalud>() {
-//                    @Override
-//                    public EstudioSalud apply(EstudioSaludDto f) {
-//                        EstudioSalud es = new EstudiosSaludConverter()
-//                                .toEntity(f);
-//                        es.setFkPersona(p);
-//                        es.setCreadoPor(p.getCreadoPor());
-//                        return es;
-//                    }
-//                }));
+        p.setEstudioSaludCollection(new ArrayList());
+        p.getEstudioSaludCollection().addAll(
+                Collections2.transform(r.getEstudiosSalud(),
+                        new Function<EstudioSaludDto, EstudioSalud>() {
+                    @Override
+                    public EstudioSalud apply(EstudioSaludDto f) {
+                        EstudioSalud es = new EstudiosSaludConverter()
+                                .toEntity(f);
+                        es.setFkPersona(p);
+                        es.setCreadoPor(p.getCreadoPor());
+                        return es;
+                    }
+                }));
         Dpi dpi;
         p.setDpiCollection(Arrays.asList(dpi = new DpiDtoConverter().toEntity(r.getDpi())));
         dpi.setFkPersona(p);
