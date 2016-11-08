@@ -87,6 +87,7 @@ public class PersonaModificarHandler extends AbstractValidationsRequestHandler<R
 
         for (EstudioSaludDto t : r.getEstudiosSalud()) {
             EstudioSalud i = new EstudiosSaludConverter().toEntity(t);
+            i.setFkPersona(p);
             EntitiesHelper.setDateCreateRef(i);
             estudiosRepo.save(i);
         }

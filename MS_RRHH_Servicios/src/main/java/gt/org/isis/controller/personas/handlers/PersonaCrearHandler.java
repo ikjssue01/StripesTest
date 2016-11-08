@@ -24,6 +24,9 @@ import gt.org.isis.model.enums.EstadoVariable;
 import gt.org.isis.model.utils.EntitiesHelper;
 import gt.org.isis.repository.PersonasRepository;
 import java.util.Arrays;
+import java.util.Calendar;
+import org.joda.time.LocalDate;
+import org.joda.time.Years;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +48,8 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<ReqNu
         p.setEstado(Estado.ACTIVO);
         p.setCui(r.getCui());
         p.setCreadoPor("admin");
+        p.setEdad(Years.yearsBetween(LocalDate.fromDateFields(p.getFechaNacimiento()),
+                LocalDate.fromDateFields(Calendar.getInstance().getTime())).getYears());
         EntitiesHelper.setDateCreateRef(p);
         repo.save(p);
         p.setIdiomaCollection(new IdiomaDtoConverter().toEntity(r.getIdiomas()));

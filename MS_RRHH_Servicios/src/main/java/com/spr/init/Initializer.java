@@ -20,8 +20,10 @@ public class Initializer implements WebApplicationInitializer {
     public void onStartup(ServletContext container)
             throws ServletException {
         String profile = System.getProperty(GLASSFISH_PROFILE_PARAM);
-        container.setInitParameter(SPRING_PROFILE_PARAM, profile != null
-                ? profile : "prod");
+        profile = profile != null
+                ? profile : "dev";
+        System.out.println(">>> active profile: " + profile);
+        container.setInitParameter(SPRING_PROFILE_PARAM, profile);
 
         AnnotationConfigWebApplicationContext ctx
                 = new AnnotationConfigWebApplicationContext();
