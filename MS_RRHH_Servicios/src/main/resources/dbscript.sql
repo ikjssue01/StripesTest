@@ -173,7 +173,7 @@ CREATE TABLE persona
   creado_por character varying(50) NOT NULL,
   fecha_ultimo_cambio timestamp with time zone,
   ultimo_cambio_por character varying(50),
-  edad integer,
+  edad integer NOT NULL,
   CONSTRAINT persona_pkey PRIMARY KEY (cui)
 )
 WITH (
@@ -270,6 +270,7 @@ CREATE TABLE historico_persona
   huella_dedo_izq character varying(50),
   fecha_creacion timestamp with time zone NOT NULL,
   creado_por character varying(50) NOT NULL,
+  edad integer NOT NULL,
   CONSTRAINT historico_persona_pkey PRIMARY KEY (id),
   CONSTRAINT historico_persona_fk_persona_fkey FOREIGN KEY (fk_persona)
       REFERENCES persona (cui) MATCH SIMPLE
