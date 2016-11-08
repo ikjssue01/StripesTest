@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gt.org.isis.api;
+package gt.org.isis.api.jpa;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.domain.Specification;
 
 /**
  *
- * @author eliud
+ * @author edcracken
  */
-@Configuration
-public class FlywayConfig {
+public interface IQuerySpecification<T> extends Specification<T> {
 
+    
 }

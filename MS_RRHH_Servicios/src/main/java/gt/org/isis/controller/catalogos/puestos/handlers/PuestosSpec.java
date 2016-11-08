@@ -5,7 +5,7 @@
  */
 package gt.org.isis.controller.catalogos.puestos.handlers;
 
-import gt.org.isis.api.SpecificationBuilder;
+import gt.org.isis.api.jpa.SpecificationBuilder;
 import gt.org.isis.controller.dto.CatalogosRequestDto;
 import gt.org.isis.model.Puestos;
 import gt.org.isis.model.Puestos_;

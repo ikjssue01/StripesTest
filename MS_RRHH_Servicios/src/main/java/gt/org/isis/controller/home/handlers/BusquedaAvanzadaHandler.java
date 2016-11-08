@@ -8,7 +8,7 @@ package gt.org.isis.controller.home.handlers;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import gt.org.isis.api.AbstractValidationsRequestHandler;
-import gt.org.isis.api.ManySpecificationHandler;
+import gt.org.isis.api.jpa.ManySpecificationHandler;
 import gt.org.isis.controller.dto.BusquedaAvanzadaDto;
 import gt.org.isis.controller.dto.FiltroAvanzadoDto;
 import gt.org.isis.controller.dto.PageableResultDto;
