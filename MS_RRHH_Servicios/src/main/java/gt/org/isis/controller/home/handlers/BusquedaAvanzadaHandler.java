@@ -11,8 +11,8 @@ import gt.org.isis.api.AbstractValidationsRequestHandler;
 import gt.org.isis.api.jpa.ManySpecificationHandler;
 import gt.org.isis.controller.dto.BusquedaAvanzadaDto;
 import gt.org.isis.controller.dto.FiltroAvanzadoDto;
-import gt.org.isis.controller.dto.PageableResultDto;
 import gt.org.isis.controller.dto.PersonaDto;
+import gt.org.isis.converters.PersonaDtoConverter;
 import gt.org.isis.model.Persona;
 import gt.org.isis.model.PersonaChildEntity;
 import gt.org.isis.model.Puesto;
@@ -38,7 +38,8 @@ import org.springframework.stereotype.Service;
  * @author edcracken
  */
 @Service
-public class BusquedaAvanzadaHandler extends AbstractValidationsRequestHandler<BusquedaAvanzadaDto, PageableResultDto<PersonaDto>> {
+public class BusquedaAvanzadaHandler
+        extends AbstractValidationsRequestHandler<BusquedaAvanzadaDto, List<PersonaDto>> {
 
     @Autowired
     PersonasRepository personasRepo;
@@ -56,7 +57,7 @@ public class BusquedaAvanzadaHandler extends AbstractValidationsRequestHandler<B
     LugarResidenciaRepository lugarRepo;
 
     @Override
-    public PageableResultDto<PersonaDto> execute(final BusquedaAvanzadaDto request) {
+    public List<PersonaDto> execute(final BusquedaAvanzadaDto request) {
         List<Persona> personas = new ArrayList();
         List<Specification<Puesto>> puestoSpecs = new ArrayList();
         for (final FiltroAvanzadoDto filtro : request.getFiltros()) {
@@ -106,7 +107,7 @@ public class BusquedaAvanzadaHandler extends AbstractValidationsRequestHandler<B
             }
 
         }
-        return null;
+        return new PersonaDtoConverter().toDTO(personas);
     }
 
 }

@@ -6,9 +6,9 @@
 package gt.org.isis.controller.home;
 
 import gt.org.isis.controller.dto.BusquedaAvanzadaDto;
-import gt.org.isis.controller.dto.PageableResultDto;
 import gt.org.isis.controller.dto.PersonaDto;
 import gt.org.isis.controller.home.handlers.BusquedaAvanzadaHandler;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -36,7 +36,7 @@ public class BusquedaAvanzadaController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             method = RequestMethod.POST)
     public @ResponseBody
-    PageableResultDto<PersonaDto> crear(@RequestBody @Valid BusquedaAvanzadaDto filtro) {
+    List<PersonaDto> crear(@RequestBody @Valid BusquedaAvanzadaDto filtro) {
         return handler.handle(filtro);
     }
 }
