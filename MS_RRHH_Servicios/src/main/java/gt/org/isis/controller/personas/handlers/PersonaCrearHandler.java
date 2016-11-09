@@ -83,10 +83,10 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<ReqNu
         ra.setCreadoPor(p.getCreadoPor());
         EntitiesHelper.setDateCreateRef(ra);
 
-        RegistroLaboral rl;
+        final RegistroLaboral rl = new RegistroLaboralConverter()
+                .toEntity(r.getRegistroLaboral());
         p.setRegistroLaboralCollection(
-                Arrays.asList(rl = new RegistroLaboralConverter()
-                        .toEntity(r.getRegistroLaboral()))
+                Arrays.asList(rl)
         );
         rl.setEstado(EstadoVariable.ACTUAL);
         rl.setFkPersona(p);
@@ -96,6 +96,7 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<ReqNu
             @Override
             public Puesto apply(RegistroLaboralPuestoDto f) {
                 Puesto ps = new RegistroLaboralPuestosConverter().toEntity(f);
+                ps.setFkRegistroLaboral(rl);
                 EntitiesHelper.setDateCreateRef(ps);
                 ps.setCreadoPor("admin");
                 return ps;
