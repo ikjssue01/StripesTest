@@ -19,14 +19,50 @@ public class RegistroAcademicoDto {
     @NotNull
     private Integer ultimoGrado;
     private String nombreUltimoGrado;
+    private Integer nivelUltimoGrado;
+    private String nivelUltimoGradoNombre;
     @NotNull
     private Boolean estudiaActualmente;
     @NotNull
     private Integer gradoActual;
     private String nombreGradoActual;
+    private Integer nivelGradoActual;
+    private String nivelGradoActualNombre;
     private Date fechaCreacion;
     private String creadoPor;
     private List<RegistroAcademicoDto> historial;
+
+    public String getNivelUltimoGradoNombre() {
+        return nivelUltimoGradoNombre;
+    }
+
+    public void setNivelUltimoGradoNombre(String nivelUltimoGradoNombre) {
+        this.nivelUltimoGradoNombre = nivelUltimoGradoNombre;
+    }
+
+    public String getNivelGradoActualNombre() {
+        return nivelGradoActualNombre;
+    }
+
+    public void setNivelGradoActualNombre(String nivelGradoActualNombre) {
+        this.nivelGradoActualNombre = nivelGradoActualNombre;
+    }
+
+    public Integer getNivelUltimoGrado() {
+        return nivelUltimoGrado;
+    }
+
+    public void setNivelUltimoGrado(Integer nivelUltimoGrado) {
+        this.nivelUltimoGrado = nivelUltimoGrado;
+    }
+
+    public Integer getNivelGradoActual() {
+        return nivelGradoActual;
+    }
+
+    public void setNivelGradoActual(Integer nivelGradoActual) {
+        this.nivelGradoActual = nivelGradoActual;
+    }
 
     public String getNombreUltimoGrado() {
         return nombreUltimoGrado;

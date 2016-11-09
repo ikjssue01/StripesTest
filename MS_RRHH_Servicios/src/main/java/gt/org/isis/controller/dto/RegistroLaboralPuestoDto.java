@@ -14,10 +14,55 @@ import gt.org.isis.model.enums.TipoPuesto;
 public class RegistroLaboralPuestoDto {
 
     private Integer fkPuestoFuncional;
+    private String nombrePuestoFuncional;
     private TipoPuesto tipo;
     private Integer fkPuestoNominal;
+    private String nombrePuestoNominal;
+    private Integer fkPuestoNominalRenglon;
+    private String nombrePuestoNominalRenglon;
     private Integer fkComunidad;
     private Integer fkClasificacionServicio;
+    private String nombreClasificacionServicio;
+
+    public Integer getFkPuestoNominalRenglon() {
+        return fkPuestoNominalRenglon;
+    }
+
+    public void setFkPuestoNominalRenglon(Integer fkPuestoNominalRenglon) {
+        this.fkPuestoNominalRenglon = fkPuestoNominalRenglon;
+    }
+
+    public String getNombrePuestoNominalRenglon() {
+        return nombrePuestoNominalRenglon;
+    }
+
+    public void setNombrePuestoNominalRenglon(String nombrePuestoNominalRenglon) {
+        this.nombrePuestoNominalRenglon = nombrePuestoNominalRenglon;
+    }
+
+    public String getNombrePuestoFuncional() {
+        return nombrePuestoFuncional;
+    }
+
+    public void setNombrePuestoFuncional(String nombrePuestoFuncional) {
+        this.nombrePuestoFuncional = nombrePuestoFuncional;
+    }
+
+    public String getNombrePuestoNominal() {
+        return nombrePuestoNominal;
+    }
+
+    public void setNombrePuestoNominal(String nombrePuestoNominal) {
+        this.nombrePuestoNominal = nombrePuestoNominal;
+    }
+
+    public String getNombreClasificacionServicio() {
+        return nombreClasificacionServicio;
+    }
+
+    public void setNombreClasificacionServicio(String nombreClasificacionServicio) {
+        this.nombreClasificacionServicio = nombreClasificacionServicio;
+    }
 
     public Integer getFkPuestoFuncional() {
         return fkPuestoFuncional;
