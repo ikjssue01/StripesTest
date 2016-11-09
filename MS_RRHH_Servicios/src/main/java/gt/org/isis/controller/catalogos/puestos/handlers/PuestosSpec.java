@@ -34,13 +34,7 @@ public class PuestosSpec implements SpecificationBuilder<CatalogosRequestDto, Pu
                 if (param.getCodigoPadre() != null) {
                     predicates.add(cb.equal(root.get(Puestos_.codigoPadre), param.getCodigoPadre()));
                 }
-                if (param.getTipo() != null) {
-                    predicates.add(cb.equal(root.get(Puestos_.tipo), param.getTipo()));
-                }
-                if (param.getValor() != null) {
-                    predicates.add(cb.like(root.get(Puestos_.valor),
-                            param.getValor()));
-                }
+
                 return cb.and(predicates.toArray(new Predicate[predicates.size()]));
             }
         };
