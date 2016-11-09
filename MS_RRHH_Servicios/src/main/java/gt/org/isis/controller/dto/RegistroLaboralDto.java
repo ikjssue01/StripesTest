@@ -19,10 +19,21 @@ public class RegistroLaboralDto {
     private Integer anioIngreso;
     @NotNull
     private Boolean comisionado;
+    @NotNull
+    private Integer fkExpectativa;
     private Integer fkComunidadComisionado;
     private String nombreComunidadComisionado;
+    @NotNull
     private List<RegistroLaboralPuestoDto> puestos;
     private List<RegistroLaboralDto> historial;
+
+    public Integer getFkExpectativa() {
+        return fkExpectativa;
+    }
+
+    public void setFkExpectativa(Integer fkExpectativa) {
+        this.fkExpectativa = fkExpectativa;
+    }
 
     public List<RegistroLaboralPuestoDto> getPuestos() {
         return puestos;

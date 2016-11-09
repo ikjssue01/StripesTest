@@ -40,7 +40,7 @@ public class Puesto implements Serializable, CustomEntity {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer id;
-    @Column(name = "puesto_funcional")
+    @Column(name = "fk_puesto_funcional")
     private Integer fkPuestoFuncional;
     @Column(length = 50)
     @Enumerated(EnumType.STRING)
