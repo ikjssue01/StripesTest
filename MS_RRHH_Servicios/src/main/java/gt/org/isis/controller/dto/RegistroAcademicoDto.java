@@ -18,21 +18,30 @@ public class RegistroAcademicoDto {
     private Integer id;
     @NotNull
     private Integer ultimoGrado;
+    private String nombreUltimoGrado;
     @NotNull
     private Boolean estudiaActualmente;
     @NotNull
     private Integer gradoActual;
-    private String nobmreGradoActual;
+    private String nombreGradoActual;
     private Date fechaCreacion;
     private String creadoPor;
     private List<RegistroAcademicoDto> historial;
 
-    public String getNobmreGradoActual() {
-        return nobmreGradoActual;
+    public String getNombreUltimoGrado() {
+        return nombreUltimoGrado;
     }
 
-    public void setNobmreGradoActual(String nobmreGradoActual) {
-        this.nobmreGradoActual = nobmreGradoActual;
+    public void setNombreUltimoGrado(String nombreUltimoGrado) {
+        this.nombreUltimoGrado = nombreUltimoGrado;
+    }
+
+    public String getNombreGradoActual() {
+        return nombreGradoActual;
+    }
+
+    public void setNombreGradoActual(String nombreGradoActual) {
+        this.nombreGradoActual = nombreGradoActual;
     }
 
     public Integer getId() {
