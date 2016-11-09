@@ -11,18 +11,45 @@ package gt.org.isis.controller.dto;
  */
 public class GetPersonaDto extends PersonaDto {
 
+    private String fkMunicioNacNombre;
     private Integer fkPaisNac;
     private String fkPaisNacNombre;
     private Integer fkDepartamentoNac;
     private String fkDepartamentoNacNombre;
+    private String fkMunicioVecindadNombre;
     private Integer fkPaisVecindad;
     private String fkPaisVecindadNombre;
     private Integer fkDepartamentoVecindad;
     private String fkDepartamentoVecindadNombre;
+    private String fkMunicioCedulaNombre;
     private Integer fkPaisCedula;
     private String fkPaisCedulaNombre;
     private Integer fkDepartamentoCedula;
     private String fkDepartamentoCedulaNombre;
+
+    public String getFkMunicioNacNombre() {
+        return fkMunicioNacNombre;
+    }
+
+    public void setFkMunicioNacNombre(String fkMunicioNacNombre) {
+        this.fkMunicioNacNombre = fkMunicioNacNombre;
+    }
+
+    public String getFkMunicioVecindadNombre() {
+        return fkMunicioVecindadNombre;
+    }
+
+    public void setFkMunicioVecindadNombre(String fkMunicioVecindadNombre) {
+        this.fkMunicioVecindadNombre = fkMunicioVecindadNombre;
+    }
+
+    public String getFkMunicioCedulaNombre() {
+        return fkMunicioCedulaNombre;
+    }
+
+    public void setFkMunicioCedulaNombre(String fkMunicioCedulaNombre) {
+        this.fkMunicioCedulaNombre = fkMunicioCedulaNombre;
+    }
 
     public Integer getFkPaisNac() {
         return fkPaisNac;

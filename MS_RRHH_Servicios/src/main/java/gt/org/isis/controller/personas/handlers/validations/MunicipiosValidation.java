@@ -42,7 +42,7 @@ public class MunicipiosValidation extends GenericValidationRequest<PersonaDto> {
                     .newValidationException(cause,
                             new String[]{String.format(errNullMunicipio, campo)});
         }
-        if (ag.getCodigoPadre() == null || !ag.getTipo().equalsIgnoreCase(C.CAT_TIPO_MUNICIPIOS)) {
+        if (ag.getCodigoPadre() == null || !ag.getTipo().equalsIgnoreCase(C.CAT_AG_TIPO_MUNICIPIOS)) {
             throw ExceptionsManager.newValidationException(cause,
                     new String[]{String.format(errWrongMunicipio, campo)});
         }
