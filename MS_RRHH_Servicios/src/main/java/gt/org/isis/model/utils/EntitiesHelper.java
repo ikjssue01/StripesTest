@@ -11,8 +11,12 @@ import gt.org.isis.model.CustomEntity;
 import gt.org.isis.model.Persona;
 import gt.org.isis.model.PersonaChildEntity;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.Years;
 
 /**
  *
@@ -36,6 +40,11 @@ public class EntitiesHelper {
                 return f.getFkPersona();
             }
         }));
+    }
+
+    public static Integer getAge(Date birthDate) {
+        return Years.yearsBetween(LocalDate.fromDateFields(birthDate),
+                LocalDate.fromDateFields(Calendar.getInstance().getTime())).getYears();
     }
 
 }

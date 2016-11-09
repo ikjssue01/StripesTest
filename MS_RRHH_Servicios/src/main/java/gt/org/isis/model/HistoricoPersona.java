@@ -117,6 +117,8 @@ public class HistoricoPersona implements Serializable, CustomEntity {
     @JoinColumn(name = "fk_persona", referencedColumnName = "cui")
     @ManyToOne
     private Persona fkPersona;
+    @Column(name = "edad", nullable = false)
+    private Integer edad;
 
     public HistoricoPersona() {
     }
@@ -134,6 +136,14 @@ public class HistoricoPersona implements Serializable, CustomEntity {
         this.fechaNacimiento = fechaNacimiento;
         this.fechaCreacion = fechaCreacion;
         this.creadoPor = creadoPor;
+    }
+
+    public Integer getEdad() {
+        return edad;
+    }
+
+    public void setEdad(Integer edad) {
+        this.edad = edad;
     }
 
     public EstadoCivil getEstadoCivil() {
