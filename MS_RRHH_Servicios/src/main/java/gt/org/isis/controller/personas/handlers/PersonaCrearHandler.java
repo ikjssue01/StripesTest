@@ -10,6 +10,7 @@ import com.google.common.collect.Collections2;
 import gt.org.isis.api.AbstractValidationsRequestHandler;
 import gt.org.isis.controller.dto.EstudioSaludDto;
 import gt.org.isis.controller.dto.IdiomaDto;
+import gt.org.isis.controller.dto.RegistroLaboralPuestoDto;
 import gt.org.isis.controller.dto.ReqNuevaPersonaDto;
 import gt.org.isis.converters.DpiDtoConverter;
 import gt.org.isis.converters.EstudiosSaludConverter;
@@ -18,11 +19,13 @@ import gt.org.isis.converters.LugarResidenciaDtoConverter;
 import gt.org.isis.converters.PersonaDtoConverter;
 import gt.org.isis.converters.RegistroAcademicoConverter;
 import gt.org.isis.converters.RegistroLaboralConverter;
+import gt.org.isis.converters.RegistroLaboralPuestosConverter;
 import gt.org.isis.model.Dpi;
 import gt.org.isis.model.EstudioSalud;
 import gt.org.isis.model.Idioma;
 import gt.org.isis.model.LugarResidencia;
 import gt.org.isis.model.Persona;
+import gt.org.isis.model.Puesto;
 import gt.org.isis.model.RegistroAcademico;
 import gt.org.isis.model.RegistroLaboral;
 import gt.org.isis.model.enums.Estado;
@@ -88,7 +91,16 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<ReqNu
         rl.setEstado(EstadoVariable.ACTUAL);
         rl.setFkPersona(p);
         rl.setCreadoPor(p.getCreadoPor());
-
+        rl.setPuestoCollection(new ArrayList<Puesto>(Collections2.transform(r.getRegistroLaboral().getPuestos(),
+                new Function<RegistroLaboralPuestoDto, Puesto>() {
+            @Override
+            public Puesto apply(RegistroLaboralPuestoDto f) {
+                Puesto ps = new RegistroLaboralPuestosConverter().toEntity(f);
+                EntitiesHelper.setDateCreateRef(ps);
+                ps.setCreadoPor("admin");
+                return ps;
+            }
+        })));
         EntitiesHelper.setDateCreateRef(rl);
 
         p.setEstudioSaludCollection(new ArrayList());
