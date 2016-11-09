@@ -21,7 +21,7 @@ public class Initializer implements WebApplicationInitializer {
             throws ServletException {
         String profile = System.getProperty(GLASSFISH_PROFILE_PARAM);
         profile = profile != null
-                ? profile : "dev";
+                ? profile : "prod";
         System.out.println(">>> active profile: " + profile);
         container.setInitParameter(SPRING_PROFILE_PARAM, profile);
 

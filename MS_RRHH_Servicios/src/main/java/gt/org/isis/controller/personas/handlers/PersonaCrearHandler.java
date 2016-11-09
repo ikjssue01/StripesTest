@@ -82,11 +82,13 @@ public class PersonaCrearHandler extends AbstractValidationsRequestHandler<ReqNu
 
         RegistroLaboral rl;
         p.setRegistroLaboralCollection(
-                Arrays.asList(rl = new RegistroLaboralConverter().toEntity(r.getRegistroLaboral()))
+                Arrays.asList(rl = new RegistroLaboralConverter()
+                        .toEntity(r.getRegistroLaboral()))
         );
         rl.setEstado(EstadoVariable.ACTUAL);
         rl.setFkPersona(p);
         rl.setCreadoPor(p.getCreadoPor());
+
         EntitiesHelper.setDateCreateRef(rl);
 
         p.setEstudioSaludCollection(new ArrayList());

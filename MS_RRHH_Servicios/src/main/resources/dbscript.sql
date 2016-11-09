@@ -1,5 +1,3 @@
-
-
 -- Table: role
 
 -- DROP TABLE role;
@@ -125,7 +123,7 @@ CREATE TABLE catalogos
   creado_por character varying(50),
   fecha_ultimo_cambio timestamp with time zone,
   ultimo_cambio_por character varying(50),
-  CONSTRAINT catalogos_pkey PRIMARY KEY (id
+  CONSTRAINT catalogos_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE
@@ -400,7 +398,6 @@ WITH (
   OIDS=FALSE
 );
 COMMENT ON COLUMN registro_laboral.fk_expectativa IS 'Catalogo tipo EXPECTATIVAS';
-COMMENT ON COLUMN registro_laboral.fk_calificacion_servicio IS 'Catalogo tipo CALIFICACION_SERVICIO';
 COMMENT ON COLUMN registro_laboral.fk_comunidad_comisionado IS 'Catalogo tipo AREA_GEOGRAFICA';
 
 -- Table: puesto
